@@ -1,0 +1,397 @@
+﻿@{
+    ViewBag.Title = "Lớp học phần";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<BacDaoTaoModel> lsBacDaoTao = ViewData["DSBacDaoTao"] as IEnumerable<BacDaoTaoModel>;
+    IEnumerable<KhoaHocModel> lsKhoaHoc = ViewData["DSKhoaHoc"] as IEnumerable<KhoaHocModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / LỚP HỌC PHẦN
+            </div>
+            <p class="category">Quản lý thông tin lớp học phần bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Khóa</label>
+                    <select class="form-control sel-khoa-hoc">
+                        @foreach (var item in lsKhoaHoc)
+                        {
+                            <option value="@item.MSKHOAHOC">@item.TENKHOAHOC</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Học kỳ hiện tại</label>
+                    <select class="form-control sel-hoc-ky">
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Bậc đào tạo</label>
+                    <select class="form-control sel-bac-dao-tao">
+                        @foreach (var item in lsBacDaoTao)
+                        {
+                            <option value="@item.MSBACDAOTAO">@item.TENBACDAOTAO</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Môn học</label>
+                    <select class="form-control sel-mon-hoc">
+                    </select>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table tbl-lop-hoc-phan">
+                        <thead>
+                            <tr>
+                                <th class="w-5 text-center">STT</th>
+                                <th class="w-15">MÃ LHP</th>
+                                <th>TÊN LHP</th>
+                                <th class="w-15">SĨ SỐ</th>
+                                <th class="w-15">LOẠI LHP</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="float">
+    <span class="ti-plus icon-float"></span>
+</a>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm lớp học phần</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Mã lớp</label>
+                        <input class="form-control them-ma-lop-hoc-phan" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên lớp</label>
+                        <input class="form-control them-ten-lop-hoc-phan" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Sĩ số</label>
+                        <input type="number" class="form-control them-si-so" />
+                    </div>
+                    <div class="col-md-9">
+                        <label>Loại lớp</label>
+                        <br />
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" style="margin-right: 20px;">
+                                <input class="form-check-input" type="radio" value="0" name="loai-lop-hoc-phan" checked="checked">
+                                Lý thuyết
+                            </label>
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" value="1" name="loai-lop-hoc-phan">
+                                Thực hành
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật lớp học phần</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Mã lớp</label>
+                        <input class="form-control cs-ma-lop-hoc-phan" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên lớp</label>
+                        <input class="form-control cs-ten-lop-hoc-phan" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Sĩ số</label>
+                        <input type="number" class="form-control cs-si-so" />
+                    </div>
+                    <div class="col-md-9">
+                        <label>Loại lớp</label>
+                        <br />
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" style="margin-right: 20px;">
+                                <input class="form-check-input" type="radio" value="0" name="cs-loai-lop-hoc-phan" checked="checked">
+                                Lý thuyết
+                            </label>
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" value="1" name="cs-loai-lop-hoc-phan">
+                                Thực hành
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var _ma = "";
+
+        function LayMonHoc(maBac, control) {
+            $.ajax({
+                url: "/MonHoc/MonHocTheoBacDaoTaoJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "maBacDaoTao": maBac
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<option value=" + dl[i].MSHOCPHAN + ">" + dl[i].TENHOCPHAN + "</option>";
+                    }
+                    $('.sel-mon-hoc').empty();
+                    $('.sel-mon-hoc').append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function LayHocKyHienTaiTheoKhoaHoc(maKhoa, control) {
+                $.ajax({
+                    url: "/HocKyNamHoc/LayDanhSachHocKyHienTaiTheoKhoaJson",
+                    type: "POST",
+                    async: false,
+                    data: {
+                        "maKhoa": maKhoa
+                    },
+                    success: function (data) {
+                        var dl = $.parseJSON(data);
+                        var ins = "";
+                        for (i = 0; i < dl.length; i++) {
+                            ins += "<option value=" + dl[i].MSHOCKY + ">" + dl[i].TENHOCKY + ", " + dl[i].TENNAMHOC  + "</option>";
+                        }
+                        $(control).empty();
+                        $(control).append(ins);
+                    },
+                    error: function (er) { console.log(er); }
+                });
+            }
+
+        function LayLopHocPhan(maHocKy, maHocPhan, control) {
+            $.ajax({
+                url: "/LopHocPhan/LopHocPhanJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "hocKy": maHocKy,
+                    "maHocPhan": maHocPhan
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<tr>";
+                        ins += "<td class='text-center'>" + (i + 1) + "</td>";
+                        ins += "<td id='" + dl[i].MSLOPHOCPHAN + "-mlhp'>" + dl[i].MALOPHOCPHAN + "</td>";
+                        ins += "<td id='" + dl[i].MSLOPHOCPHAN + "-tlhp'>" + dl[i].TENLOPHOCPHAN + "</td>";
+                        ins += "<td id='" + dl[i].MSLOPHOCPHAN + "-ss'>" + dl[i].SISO + "</td>";
+                        if (dl[i].LOAILOPHOCPHAN == "1")
+                            ins += "<td><span class='label label-warning'>Thực hành</span></td>";
+                        else
+                            ins += "<td><span class='label label-success'>Lý thuyết</span></td>";
+                        ins += "<td class='text-center'>";
+                        ins += "<button class='btn btn-success edit open-modal-cap-nhat' value='" + dl[i].MSLOPHOCPHAN + "' llhp='" + dl[i].LOAILOPHOCPHAN +"'>";
+                        ins += "<span class='ti-pencil'></span></button > ";
+                        ins += "<button class='btn btn-danger edit open-modal-xoa' value='" + dl[i].MSLOPHOCPHAN + "' llhp='" + dl[i].LOAILOPHOCPHAN + "'>";
+                        ins += "<span class='ti-close'></span></button > ";
+                        ins += "</td>";
+                        ins += "</tr>";
+                    }
+                    $('.tbl-lop-hoc-phan > tbody').empty();
+                    $('.tbl-lop-hoc-phan > tbody').append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function Them() {
+            $.ajax({
+                url: "/LopHocPhan/ThemJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "hocKy": $('.sel-hoc-ky').val(),
+                    "maHocPhan": $('.sel-mon-hoc').val(),
+                    "maLopHocphan": $('.them-ma-lop-hoc-phan').val(),
+                    "tenLopHocPhan": $('.them-ten-lop-hoc-phan').val(),
+                    "siSo": $('.them-si-so').val(),
+                    "loaiLopHocPhan": $('input[name=loai-lop-hoc-phan]:checked').val()
+                },
+                success: function (data) {
+                    if (data > 0) {
+                        LayLopHocPhan($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-lop-hoc-phan');
+                    }
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function CapNhat() {
+            $.ajax({
+                url: "/LopHocPhan/CapNhatJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "msLopHocPhan": _ma,
+                    "hocKy": $('.sel-hoc-ky').val(),
+                    "maHocPhan": $('.sel-mon-hoc').val(),
+                    "maLopHocphan": $('.cs-ma-lop-hoc-phan').val(),
+                    "tenLopHocPhan": $('.cs-ten-lop-hoc-phan').val(),
+                    "siSo": $('.cs-si-so').val(),
+                    "loaiLopHocPhan": $('input[name=cs-loai-lop-hoc-phan]:checked').val()
+                },
+                success: function (data) {
+                    if (data > 0) {
+                        LayLopHocPhan($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-lop-hoc-phan');
+                    }
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function Xoa() {
+            $.ajax({
+                url: "/LopHocPhan/XoaJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "msLopHocPhan": _ma
+                },
+                success: function (data) {
+                    if (data > 0) {
+                        LayLopHocPhan($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-lop-hoc-phan');
+                    }
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        $('.sel-khoa-hoc').change(function () {
+            LayHocKyHienTaiTheoKhoaHoc($(this).val(), ".sel-hoc-ky");
+        });
+
+        $('.sel-bac-dao-tao').change(function () {
+            LayMonHoc($(this).val());
+        });
+
+        $('.sel-mon-hoc').change(function () {
+            if ($('.sel-hoc-ky').length && $('.sel-mon-hoc').length )
+                LayLopHocPhan($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-lop-hoc-phan');
+            else {
+                $(".tbl-lop-hoc-phan tbody").remove();
+            }
+        });
+
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            Them();
+        });
+
+        $(document).on('click', '.open-modal-cap-nhat', function () {
+            _ma = $(this).val();
+            $('.cs-ma-lop-hoc-phan').val($('#' + _ma + '-mlhp').text());
+            $('.cs-ten-lop-hoc-phan').val($('#' + _ma + '-tlhp').text());
+            $('.cs-si-so').val($('#' + _ma + '-ss').text());
+            var $radios = $('input:radio[name=cs-loai-lop-hoc-phan]');
+            $radios.filter('[value=' + $(this).attr('llhp') + ']').prop('checked', true);
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            CapNhat();
+        });
+
+        $(document).on('click', '.open-modal-xoa', function () {
+            _ma = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            Xoa();
+        });
+
+        // Gọi sự kiện khi load trang
+        $('.sel-khoa-hoc').trigger('change');
+        $('.sel-bac-dao-tao').trigger('change');
+            
+    });
+</script>

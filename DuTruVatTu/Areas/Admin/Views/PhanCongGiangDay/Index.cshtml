@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "Phân công giảng dạy";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<BacDaoTaoModel> lsBacDaoTao = ViewData["DSBacDaoTao"] as IEnumerable<BacDaoTaoModel>;
+    IEnumerable<KhoaHocModel> lsKhoaHoc = ViewData["DSKhoaHoc"] as IEnumerable<KhoaHocModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                PHÂN CÔNG GIẢNG DẠY / PHÂN CÔNG
+            </div>
+            <p class="category">Quản lý phân công giảng dạy bao gồm tra cứu, thêm và cập nhật phân công giảng dạy.</p>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/PhanCongGiangDay/CapNhat" method="post">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="from-group">
+                                            <label>Khóa</label>
+                                            <select class="form-control sel-khoa">
+                                                @foreach (var item in lsKhoaHoc)
+                                                {
+                                                    <option value="@item.MSKHOAHOC">@item.TENKHOAHOC</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="from-group">
+                                            <label>Học kỳ - năm học</label>
+                                            <select class="form-control sel-hoc-ky"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="from-group">
+                                            <label>Bậc đào tạo</label>
+                                            <select class="form-control sel-bac-dao-tao">
+                                                @foreach (var item in lsBacDaoTao)
+                                                {
+                                                    <option value="@item.MSBACDAOTAO">@item.TENBACDAOTAO</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="from-group">
+                                            <label>Môn</label>
+                                            <select class="form-control sel-mon-hoc"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table tbl-phan-cong">
+                                <thead>
+                                    <tr>
+                                        <th class="w-5 text-center">STT</th>
+                                        <th class="w-15">MÃ LỚP HỌC PHẦN</th>
+                                        <th>TÊN LỚP HỌC PHẦN</th>
+                                        <th>LOẠI LỚP HỌC PHẦN</th>
+                                        <th>GIÁO VIÊN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit" class="float" style="border: 0px;">
+                            <span class="ti-save icon-float" style="margin-top: 0px;"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var _DSGiangVienSelect = "";
+
+        function LayMonHoc(maBac, control) {
+            $.ajax({
+                url: "/MonHoc/MonHocTheoBacDaoTaoJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "maBacDaoTao": maBac
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<option value=" + dl[i].MSHOCPHAN + ">" + dl[i].TENHOCPHAN + "</option>";
+                    }
+                    $(control).empty();
+                    $(control).append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function LayHocKyHienTaiTheoKhoaHoc(maKhoa, control) {
+            $.ajax({
+                url: "/HocKyNamHoc/LayDanhSachHocKyHienTaiTheoKhoaJson",
+                type: "POST",
+                async: false,
+                data: {
+                    "maKhoa": maKhoa
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<option value=" + dl[i].MSHOCKY + ">" + dl[i].TENHOCKY + ", " + dl[i].TENNAMHOC  + "</option>";
+                    }
+                    $(control).empty();
+                    $(control).append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function LayDanhSachGiangVien() {
+            $.ajax({
+                url: "/GiangVien/DanhSachGiangVienJSON",
+                type: "POST",
+                async: false,
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    _DSGiangVienSelect = "<select class='form-control' name='MSGIANGVIEN'>";
+                    for (i = 0; i < dl.length; i++) {
+                        _DSGiangVienSelect += "<option value='" + dl[i].MSGIANGVIEN + "'>";
+                        _DSGiangVienSelect += dl[i].TENGIANGVIEN + "</option>";
+                    }
+                    _DSGiangVienSelect += "</select>";
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        function LayDanhSachPhanCong(maHocKy, maHocPhan, control) {
+            $.ajax({
+                url: "/PhanCongGiangDay/DanhSachPhanCongGiangDay",
+                type: "POST",
+                async: false,
+                data: {
+                    "maHocKy": maHocKy,
+                    "maHocPhan": maHocPhan
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<tr>";
+                        ins += "<td class='w-5 text-center'>" + (i + 1);
+                        ins += "<input type='hidden' name='MSPHANCONGGIANGDAY' value='" + dl[i].MSPHANCONGGIANGDAY + "' />";
+                        ins += "<input type='hidden' name='MSLOPHOCPHAN' value='" + dl[i].MSLOPHOCPHAN + "' />";
+                        ins += "</td>";
+                        ins += "<td>" + dl[i].MALOPHOCPHAN + "</td>";
+                        ins += "<td>" + dl[i].TENLOPHOCPHAN + "</td>";
+                        if (dl[i].LOAILOPHOCPHAN == "1")
+                            ins += "<td><span class='label label-warning'>Thực hành</span></td>";
+                        else
+                            ins += "<td><span class='label label-success'>Lý thuyết</span></td>";
+                        ins += "<td>";
+                        var temp = "value='" + dl[i].MSGIANGVIEN + "'";
+                        if (_DSGiangVienSelect.indexOf(temp) != -1)
+                            ins += _DSGiangVienSelect.replace(temp, "value='" + dl[i].MSGIANGVIEN + "' selected");
+                        else
+                            ins += _DSGiangVienSelect;
+                        ins += "</td>";
+                        ins += "</tr>";
+                    }
+                    $(control + " tbody").append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        $('.sel-khoa').change(function () {
+            LayHocKyHienTaiTheoKhoaHoc($(this).val(), '.sel-hoc-ky');
+            $('.sel-mon-hoc').trigger('change');
+        });
+
+        $('.sel-bac-dao-tao').change(function () {
+            LayMonHoc($(this).val(), '.sel-mon-hoc');
+            $('.sel-mon-hoc').trigger('change');
+        });
+
+        $('.sel-mon-hoc').change(function () {
+            $(".tbl-phan-cong tbody").empty();
+            if ($('.sel-hoc-ky').val() && $('.sel-mon-hoc').val())
+                LayDanhSachPhanCong($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-phan-cong');
+        });
+
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        LayDanhSachGiangVien();
+        $('.sel-khoa').trigger('change');
+        $('.sel-bac-dao-tao').trigger('change');
+    });
+</script>

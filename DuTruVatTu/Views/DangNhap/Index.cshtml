@@ -1,0 +1,124 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="public/images/icon.png">
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <div style="padding-bottom: 20px; color:#E7E7E7;">
+                <img class='logo' src="~/Public/Images/logo_vlute.png">
+            </div>
+            <form class="login-form" action="@Url.Action("KiemTraDangNhap", "DangNhap")" method="post">
+                <input name="tenDangNhap" type="text" placeholder="Tên đăng nhập" value="tainvm" />
+                <input name="matKhau" type="password" placeholder="Mật khẩu" value="12345"/>
+                <button type="submit">ĐĂNG NHẬP</button>
+                <span class="loi-dang-nhap">@ViewData["LoiDangNhap"]</span>
+                <p class="message">Tôi không thể đăng nhập ?&nbsp;&nbsp;<a href="a.php">Trợ giúp</a></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type='text/javascript' src='public/js/jquery.min.js'></script>
+
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        background: #f4f3ef;
+    }
+
+    .logo {
+        padding-top: 5px;
+    }
+
+    .ten-website {
+        font-size: 30px;
+        font-family: 'Roboto';
+    }
+
+    .form {
+        border-radius: 15px;
+        position: relative;
+        z-index: 1;
+        background: #FFFFFF;
+        max-width: 400px;
+        margin: 70px auto 50px;
+        padding: 20px 45px 45px 45px;
+        text-align: center;
+        -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
+        box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.3);
+    }
+
+    .form input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+        .form button {
+            font-family: "Roboto", sans-serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #4CAF50;
+            width: 100%;
+            border: 0;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            transition: all 0.3 ease;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+    .form .message-serr {
+        text-align: left;
+        color: #E26E67;
+        margin-top: -2px;
+        margin-bottom: 7px;
+        font-size: 15px;
+    }
+
+    .form .message {
+        margin: 15px 0 0;
+        color: #b3b3b3;
+        font-size: 12px;
+    }
+
+    .form .message a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .container:before, .container:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+</style>

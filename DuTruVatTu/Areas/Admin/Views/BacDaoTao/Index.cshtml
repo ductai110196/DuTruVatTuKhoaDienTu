@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = "Bậc đào tạo";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / BẬC ĐÀO TẠO
+            </div>
+            <p class="category">Quản lý thông tin bậc đào tạo bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="w-5 text-center">STT</th>
+                        <th class="w-80">TÊN BẬC ĐÀO TẠO</th>
+                        <th>THAO TÁC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int j = 1; j <= 10; j++)
+                    {
+                        <tr>
+                            <td class="w-5 text-center">1</td>
+                            <td class="w-80">Cao đẳng</td>
+                            <td class="w-7 text-center">
+                                <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
+                                <button class="btn btn-danger edit"><span class="ti-close"></span></button>                           
+                            </td>
+                        </tr>
+                    }
+                    <tr class="warning no-result">
+                        <td colspan="3"><i class="fa fa-warning"></i> No result</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<a class="float">
+    <span class="ti-plus icon-float"></span>
+</a>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm bậc đào tạo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Tên bật đào tạo</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật bậc đào tạo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="form-control-label">Tên bật đào tạo</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.float').click(function () {
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.table').tableSearch({
+            searchText: 'SCsac',
+            searchPlaceHolder: 'Input Value'
+        });
+
+    });
+</script>

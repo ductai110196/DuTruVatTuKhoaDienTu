@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Môn học";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / MÔN HỌC
+            </div>
+            <p class="category">Quản lý thông tin môn học bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Bậc đào tạo</label>
+                        <select class="form-control">
+                            <option>ávsd</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="w-5 text-center">STT</th>
+                            <th>TÊN MÔN HỌC</th>
+                            <th class="w-10 text-center">LÝ THUYẾT</th>
+                            <th class="w-15 text-center">THỰC HÀNH</th>
+                            <th>THAO TÁC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int j = 1; j <= 10; j++)
+                        {
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>Cao đẳng</td>
+                                <td class="text-center">1</td>
+                                <td class="text-center">2</td>
+                                <td class="w-7 text-center">
+                                    <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
+                                    <button class="btn btn-danger edit"><span class="ti-close"></span></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="float">
+    <span class="ti-plus icon-float"></span>
+</a>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm môn học</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tên môn học</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Lý thuyết</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Thực hành</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật môn học</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Tên môn học</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Lý thuyết</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Thực hành</label>
+                            <input type="number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#modal-cap-nhat').modal('show');
+    });
+</script>

@@ -1,0 +1,293 @@
+﻿@{
+    ViewBag.Title = "Giảng viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using DuTruVatTu.Models;
+@{ 
+    IEnumerable<GiangVienModel> lsGiangVien = ViewData["DSGiangVien"] as IEnumerable<GiangVienModel>;
+    IEnumerable<ChucVuModel> lsChucVu = ViewData["DSChucVu"] as IEnumerable<ChucVuModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / GIẢNG VIÊN
+            </div>
+            <p class="category">Quản lý thông tin giảng viên bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="w-5 text-center">STT</th>
+                                <th class="w-15">MÃ GV</th>
+                                <th>HỌ TÊN</th>
+                                <th class="w-15">NGÀY SINH</th>
+                                <th class="w-15">GIỚI TÍNH</th>
+                                <th class="w-15">CHỨC VỤ</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int stt = 0; }
+                            @foreach (var item in lsGiangVien)
+                            {
+                                <tr>
+                                    <td class="text-center">@(stt++)</td>
+                                    <td id="mgv-@item.MSGIANGVIEN" data="@item.MAGIANGVIEN.Replace(".", "-")">@item.MAGIANGVIEN</td>
+                                    <td id="tgv-@item.MSGIANGVIEN">@item.TENGIANGVIEN</td>
+                                    <td id="ns-@item.MSGIANGVIEN">@item.NGAYSINH.ToString("dd/MM/yyyy")</td>
+                                    <td id="gt-@item.MSGIANGVIEN">@item.GIOITINH</td>
+                                    <td id="cv-@item.MSGIANGVIEN">@item.TENCHUCVU</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MSGIANGVIEN"><span class="ti-pencil"></span></button>
+                                        <button class="btn btn-danger edit open-modal-xoa" value="@item.MSGIANGVIEN"><span class="ti-close"></span></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="float">
+    <span class="ti-plus icon-float"></span>
+</a>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm giảng viên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Mã giảng viên</label>
+                        <input class="form-control them-ma-giang-vien" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên giảng viên</label>
+                        <input class="form-control them-ten-giang-vien" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ngày sinh</label>
+                        <input type="date" class="form-control them-ngay-sinh" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Giới tính</label>
+                        <br />
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" style="margin-right: 20px;">
+                                <input class="form-check-input" type="radio" value="Nam" name="them-gioi-tinh" checked>
+                                Nam
+                            </label>
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" value="Nữ" name="them-gioi-tinh">
+                                Nữ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Chức vụ</label>
+                        <select class="form-control them-chuc-vu">
+                            @foreach (var item in lsChucVu)
+                            {
+                                <option value="@item.MSCHUCVU">@item.TENCHUCVU</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật lớp học phần</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Mã giảng viên</label>
+                        <input class="form-control cs-ma-giang-vien" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên giảng viên</label>
+                        <input class="form-control cs-ten-giang-vien" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ngày sinh</label>
+                        <input type="date" class="form-control cs-ngay-sinh" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Giới tính</label>
+                        <br />
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label" style="margin-right: 20px;">
+                                <input class="form-check-input" type="radio" value="Nam" name="cs-gioi-tinh" checked>
+                                Nam
+                            </label>
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" value="Nữ" name="cs-gioi-tinh">
+                                Nữ
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Chức vụ</label>
+                        <select class="form-control cs-chuc-vu">
+                            @foreach (var item in lsChucVu)
+                            {
+                                <option value="@item.MSCHUCVU">@item.TENCHUCVU</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger btn-xoa">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var _MSGiangVien;
+    $(document).ready(function () {
+
+        $('.open-modal-xoa').click(function () {
+            _MSGiangVien = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/GiangVien/Xoa",
+                type: "POST",
+                async: false,
+                data: {
+                    "msGiangVien": _MSGiangVien
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-cap-nhat').click(function () {
+            _MSGiangVien = $(this).val();
+            var maGiangVien = $('#mgv-' + _MSGiangVien).attr("data");
+            while (maGiangVien.indexOf("-") != -1)
+                maGiangVien = maGiangVien.replace("-", ".");
+            $('.cs-ma-giang-vien').val(maGiangVien);
+            $('.cs-ten-giang-vien').val($('#tgv-' + _MSGiangVien).text());
+            var thoiGian = ($('#ns-' + _MSGiangVien).text());
+            var arr = thoiGian.split("/");
+            $('.cs-ngay-sinh').val(arr[2] + "-" + arr[1] + "-" + arr[1]);
+            var rdoGioiTinh = $('input:radio[name=cs-gioi-tinh]');
+            rdoGioiTinh.filter('[value=' + $('#gt-' + _MSGiangVien).text() + ']').prop('checked', true);
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/GiangVien/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "msGiangVien": _MSGiangVien,
+                    "maGiangVien": $('.cs-ma-giang-vien').val(),
+                    "tenGiangVien": $('.cs-ten-giang-vien').val(),
+                    "ngaySinh": $('.cs-ngay-sinh').val(),
+                    "gioiTinh": $('input[name=cs-gioi-tinh]:checked').val(),
+                    "maChucVu": $('.cs-chuc-vu').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.icon-float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/GiangVien/Them",
+                type: "POST",
+                async: false,
+                data: {
+                    "maGiangVien": $('.them-ma-giang-vien').val(),
+                    "tenGiangVien": $('.them-ten-giang-vien').val(),
+                    "ngaySinh": $('.them-ngay-sinh').val(),
+                    "gioiTinh": $('input[name=them-gioi-tinh]:checked').val(),
+                    "maChucVu": $('.them-chuc-vu').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+    });
+</script>

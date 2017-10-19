@@ -1,0 +1,318 @@
+﻿@{
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<TaiKhoanDangNhapModel> lsTaiKhoan = ViewData["DSTaiKhoan"] as IEnumerable<TaiKhoanDangNhapModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / NGƯỜI DÙNG
+            </div>
+            <p class="category">Quản lý thông tin người dùng, phân quyền hệ thống.</p>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table tbl-lop-hoc-phan">
+                        <thead>
+                            <tr>
+                                <th class="w-5 text-center">STT</th>
+                                <th class="w-20">TÊN ĐĂNG NHẬP</th>
+                                <th class="w-20">EMAIL</th>
+                                <th>QUYỀN HẠN</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int i = 1;}
+                            @foreach (var item in lsTaiKhoan)
+                            {
+                                <tr>
+                                    <td class="text-center">@(i++)</td>
+                                    <td id="tdn-@item.MATAIKHOAN">@item.TENDANGNHAP</td>
+                                    <td id="email-@item.MATAIKHOAN">@item.EMAIL</td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MATAIKHOAN"><span class="ti-pencil"></span></button>       
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin tài khoản</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Tên đăng nhập</label>
+                        <input class="form-control cs-ten-dang-nhap" />
+                    </div>
+                    <div class="col-md-8">
+                        <label>Email</label>
+                        <input class="form-control cs-email" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Quyền hạn</label>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label chon-tat-ca-thong-tin" data-name="thong-tin">
+                                <input class="form-check-input" type="checkbox">
+                                Chọn tất cả
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox">
+                                Chọn tất cả
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox">
+                                Chọn tất cả
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox">
+                                Chọn tất cả
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin: -15px 0px;">
+                        <hr />
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="thong-tin" id="bac-dao-tao">
+                                Bậc đào tạo
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="thong-tin" id="chuc-vu">
+                                Chức vụ
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="thong-tin" id="giang-vien">
+                                Giảng viên
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="thong-tin" id="hoc-ky-nam-hoc">
+                                Học kỳ - năm học
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="thong-tin" id="khoa-hoc">
+                                Khóa học
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="thong-tin" id="phong">
+                                Phòng
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="nhom-linh-vuc">
+                                Nhóm lĩnh vực
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="nhom-vat-tu">
+                                Nhóm vật tư
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="vat-tu">
+                                Vật tư
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="du-tru-vat-tu">
+                                Dự trù vật tư
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="thong-ke-du-tru">
+                                Thống kê dự trù vật tư
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="vat-tu-phong">
+                                Vật tư - Phòng
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="thong-ke-vat-tu-phong">
+                                Thống kê vật tư trong phòng
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="mon-hoc">
+                                Môn học
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="lop-hoc-phan">
+                                Lớp học phần
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="phan-cong-giang-day">
+                               Phân công giảng dạy
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="dang-nhap-he-thong">
+                                Đăng nhập hệ thống
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="quan-ly-tai-khoan">
+                                Quản lý tài khoản
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var _maTaiKhoan;
+    $(document).ready(function () {
+
+        $('.open-modal-cap-nhat').click(function () {
+            _maTaiKhoan = $(this).val();
+            $('.cs-ten-dang-nhap').val($('#tdn-' + _maTaiKhoan).text());
+            $('.cs-email').val($('#email-' + _maTaiKhoan).text());
+            $.ajax({
+                url: "/QuanLyTaiKhoan/QuyenHanChiTiet",
+                type: "POST",
+                async: false,
+                data: {
+                    "maTaiKhoan": _maTaiKhoan,
+                },
+                success: function (data) {
+                    var temp = $.parseJSON(data);
+                    var qh = $.parseJSON(temp.PHANQUYEN);
+                    $('#bac-dao-tao').prop('checked', qh.BACDAOTAO);
+                    $('#chuc-vu').prop('checked', qh.CHUCVU);
+                    $('#du-tru-vat-tu').prop('checked', qh.DUTRUVATTU);
+                    $('#giang-vien').prop('checked', qh.GIANGVIEN);
+                    $('#hoc-ky-nam-hoc').prop('checked', qh.HOCKYNAMHOC);
+                    $('#khoa-hoc').prop('checked', qh.KHOAHOC);
+                    $('#lop-hoc-phan').prop('checked', qh.LOPHOCPHAN);
+                    $('#mon-hoc').prop('checked', qh.MONHOC);
+                    $('#nhom-linh-vuc').prop('checked', qh.NHOMLINHVUC);
+                    $('#nhom-vat-tu').prop('checked', qh.NHOMVATTU);
+                    $('#phan-cong-giang-day').prop('checked', qh.PHANCONGGIANGDAY);
+                    $('#phong').prop('checked', qh.PHONG);
+                    $('#quan-ly-tai-khoan').prop('checked', qh.QUANLYTAIKHOAN);
+                    $('#dang-nhap-he-thong').prop('checked', qh.DANGNHAP);
+                    $('#vat-tu').prop('checked', qh.VATTU);
+                    $('#vat-tu-phong').prop('checked', qh.VATTUPHONG);
+                    $('#thong-ke-du-tru').prop('checked', qh.THONGKEDUTRUVATTU);
+                    $('#thong-ke-vat-tu-phong').prop('checked', qh.THONGKEVATTUPHONG);
+                },
+                error: function (er) { console.log(er); }
+            });
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            var array = {
+                "BACDAOTAO": $('#bac-dao-tao').prop('checked'),
+                "CHUCVU": $('#chuc-vu').prop('checked'),
+                "DUTRUVATTU": $('#du-tru-vat-tu').prop('checked'),
+                "GIANGVIEN": $('#giang-vien').prop('checked'),
+                "HOCKYNAMHOC": $('#hoc-ky-nam-hoc').prop('checked'),
+                "KHOAHOC": $('#khoa-hoc').prop('checked'),
+                "LOPHOCPHAN": $('#lop-hoc-phan').prop('checked'),
+                "MONHOC": $('#mon-hoc').prop('checked'),
+                "NHOMLINHVUC": $('#nhom-linh-vuc').prop('checked'),
+                "NHOMVATTU": $('#nhom-vat-tu').prop('checked'),
+                "PHANCONGGIANGDAY": $('#phan-cong-giang-day').prop('checked'),
+                "PHONG": $('#phong').prop('checked'),
+                "QUANLYTAIKHOAN": $('#quan-ly-tai-khoan').prop('checked'),
+                "DANGNHAP": $('#dang-nhap-he-thong').prop('checked'),
+                "VATTU": $('#vat-tu').prop('checked'),
+                "VATTUPHONG": $('#vat-tu-phong').prop('checked'),
+                "THONGKEVATTUPHONG": $('#thong-ke-vat-tu-phong').prop('checked'),
+                "THONGKEDUTRUVATTU": $('#thong-ke-du-tru').prop('checked')
+            };
+            $.ajax({
+                url: "/QuanLyTaiKhoan/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "maTaiKhoan": _maTaiKhoan,
+                    "tenDangNhap": $('.cs-ten-dang-nhap').val(),
+                    "email": $('.cs-email').val(),
+                    "quyenHan": JSON.stringify(array)
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+    });
+</script>
