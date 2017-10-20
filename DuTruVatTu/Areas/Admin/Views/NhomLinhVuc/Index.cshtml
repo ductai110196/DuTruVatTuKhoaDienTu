@@ -1,8 +1,196 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Nhóm lĩnh vực";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<NhomLinhVucModel> lsNhomLinhVuc = ViewData["DSNhomLinhVuc"] as IEnumerable<NhomLinhVucModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / NHÓM LĨNH VỰC
+            </div>
+            <p class="category">Quản lý thông tin nhóm lĩnh vực bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="w-5 text-center">STT</th>
+                            <th class="w-80">NHÓM LĨNH VỰC</th>
+                            <th class="w-7 text-center">THAO TÁC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int stt = 1;}
+                        @foreach(var item in lsNhomLinhVuc)
+                        {
+                            <tr>
+                                <td class="text-center">@(stt++)</td>
+                                <td id="tlv-@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</td>
+                                <td class="text-center">
+                                    <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MSNHOMLINHVUC">
+                                        <span class="ti-pencil"></span>
+                                    </button>
+                                    <button class="btn btn-danger edit open-modal-xoa" value="@item.MSNHOMLINHVUC">
+                                        <span class="ti-close"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Index</h2>
+<a class="float">
+    <span class="ti-plus icon-float"></span>
+</a>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm nhóm lĩnh vực</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên nhóm vật tư</label>
+                        <input class="form-control them-ten-linh-vuc" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật nhóm vật tư</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên nhóm vật tư</label>
+                        <input class="form-control cs-ten-linh-vuc" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger btn-xoa">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var _MSNhomLinhVuc;
+    $(document).ready(function () {
+
+        $('.icon-float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.open-modal-cap-nhat').click(function () {
+            _MSNhomLinhVuc = $(this).val();
+            $('.cs-ten-linh-vuc').val($('#tlv-' + _MSNhomLinhVuc).text());
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.open-modal-xoa').click(function () {
+            _MSNhomLinhVuc = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/NhomLinhVuc/Them",
+                type: "POST",
+                async: false,
+                data: {
+                    "tenNhom": $('.them-ten-linh-vuc').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/NhomLinhVuc/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNhom": _MSNhomLinhVuc,
+                    "tenNhom": $('.cs-ten-linh-vuc').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/NhomLinhVuc/Xoa",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNhom": _MSNhomLinhVuc,
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+    });
+</script>
 

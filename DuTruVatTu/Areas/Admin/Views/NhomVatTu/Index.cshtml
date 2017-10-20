@@ -2,7 +2,10 @@
     ViewBag.Title = "Nhóm vật tư";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<NhomLinhVucModel> lsNhomLinhVuc = ViewData["DSNhomLinhVuc"] as IEnumerable<NhomLinhVucModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -17,11 +20,11 @@
                    <div class="col-md-3">
                        <label>Lĩnh vực</label>
                        <select class="form-control">
-                           <option>Nhóm lĩnh vực</option>
+                           @foreach (var item in lsNhomLinhVuc)
+                           {
+                            <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
+                           }
                        </select>
-                   </div>
-                   <div class="col-md-3">
-                       <button class="btn btn-success" style="margin-top: 27px;">XEM</button>
                    </div>
                </div>
            </div>
@@ -35,17 +38,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (int j = 1; j <= 10; j++)
-                         {
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>Điện lạnh</td>
-                                <td class="text-center">
-                                    <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
-                                    <button class="btn btn-danger edit"><span class="ti-close"></span></button>
-                                </td>
-                            </tr>
-                         }
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Điện lạnh</td>
+                            <td class="text-center">
+                                <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
+                                <button class="btn btn-danger edit"><span class="ti-close"></span></button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
