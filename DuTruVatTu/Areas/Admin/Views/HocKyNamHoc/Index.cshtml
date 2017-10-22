@@ -2,7 +2,11 @@
     ViewBag.Title = "Học kỳ - năm học";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<NamHocModel> lsNamHoc = ViewData["DSNamHoc"] as IEnumerable<NamHocModel>;
+    IEnumerable<KhoaHocModel> lsKhoaHoc = ViewData["DSKhoa"] as IEnumerable<KhoaHocModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -12,26 +16,59 @@
             <p class="category">Quản lý thông tin học kỳ năm học bao gồm tra cứu, thêm và cập nhật thông tin học kỳ năm học.</p>
         </div>
         <div class="card-content">
-            <div class="col-md-12">
-                <div class="nav-tabs-navigation">
-                    <div class="nav-tabs-wrapper">
-                        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class=""><a href="#home" data-toggle="tab" aria-expanded="false">Home</a></li>
-                            <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
-                            <li class="active"><a href="#messages" data-toggle="tab" aria-expanded="true">Messages</a></li>
-                        </ul>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Bậc đào tạo</label>
+                        <select class="form-control sel-nam-hoc">
+                            @foreach (var item in lsNamHoc)
+                            {
+                                <option value="@item.MSNAMHOC">@item.TENNAMHOC</option>
+                            }
+                        </select>
                     </div>
                 </div>
-                <div id="my-tab-content" class="tab-content text-center">
-                    <div class="tab-pane" id="home">
-                        <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Khóa học</label>
+                        <select class="form-control sel-khoa-hoc">
+                            @foreach (var item in lsKhoaHoc)
+                            {
+                                <option value="@item.MSKHOAHOC">@item.TENKHOAHOC</option>
+                            }
+                        </select>
                     </div>
-                    <div class="tab-pane" id="profile">
-                        <p>Here is your profile.</p>
-                    </div>
-                    <div class="tab-pane active" id="messages">
-                        <p>Here are your messages.</p>
-                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table tbl">
+                        <thead>
+                            <tr>
+                                <th class="w-5 text-center">STT</th>
+                                <th>TÊN HỌC KỲ</th>
+                                <th class="w-20 text-center">THỜI GIAN</th>
+                                <th class="w-20 text-center">TRẠNG THÁI HỌC KỲ</th>
+                                <th class="w-20 text-center">THỜI GIAN DỰ TRÙ</th>
+                                <th class="w-20 text-center">TRẠNG THÁI DỰ TRÙ</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>vdsbvd</td>
+                                <td class="text-center">1/1/1996 - 2/1/1996</td>
+                                <td class="text-center"><span class='label label-success'>Lý thuyết</span></td>
+                                <td class="text-center">1/1/1996 - 2/1/1996</td>
+                                <td class="text-center"><span class='label label-success'>Lý thuyết</span></td>
+                                <td class="text-center">
+                                    <button class="btn btn-success edit btn-cn"><span class="ti-pencil"></span></button>
+                                    <button class="btn btn-danger edit btn-xoa"><span class="ti-close"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -41,3 +78,53 @@
 <a class="float">
     <span class="ti-save icon-float"></span>
 </a>
+
+<script>
+    $(document).ready(function () {
+        function DanhSachHocKy(msNamHoc, msKhoahoc, control) {
+            $.ajax({
+                url: "/HocKyNamHoc/HocKyTheoKhoaHocJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNamHoc": msNamHoc,
+                    "msKhoaHoc": msKhoahoc
+                },
+                success: function (data) {
+                    alert(data);
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<tr>";
+                        ins += "<td class='text-center'>" + (i + 1) + "</td>";
+                        ins += "<td>" + dl[i].TENHOCKY + "</td>";
+                        ins += "<td class='text-center'>" + dl[i].NGAYBATDAU + " - " + dl[i].NGAYKETTHUC + "</td>";
+                        if (dl[i].TRANGTHAIHOCKY == "Đang mở")
+                            ins += "<td class='text-center'><span class='label label-success'>Đang mở</span></td>";
+                        else
+                            ins += "<td class='text-center'><span class='label label-danger'>Đã kết thúc</span></td>";
+                        ins += "<td class='text-center'>" + dl[i].THOIGIANBATDAUDUTRU + " - " + dl[i].THOIGIANKETTHUCDUTRU + "</td>";
+                        if (dl[i].TRANGTHAIDUTRU == "Đang mở")
+                            ins += "<td class='text-center'><span class='label label-success'>Đang mở</span></td>";
+                        else
+                            ins += "<td class='text-center'><span class='label label-danger'>Đã kết thúc</span></td>";
+                        ins += "<td class='text-center'>";
+                        ins += "<button class='btn btn-success edit btn-cn'><span class='ti-pencil'></span></button>";
+                        ins += "<button class='btn btn-danger edit btn-xoa'><span class='ti-close'></span></button>";
+                        ins += "</td>";
+                        ins += "</tr>";
+                    }
+                    $(control + " tbody").empty();
+                    $(control + " tbody").append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        $('.sel-nam-hoc, .sel-khoa-hoc').change(function () {
+            DanhSachHocKy(
+                $('.sel-nam-hoc').val(), $('.sel-khoa-hoc').val(), '.tbl'
+            )
+        });
+    });
+</script>

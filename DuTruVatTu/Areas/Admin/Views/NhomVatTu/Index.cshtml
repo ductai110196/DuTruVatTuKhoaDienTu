@@ -15,39 +15,39 @@
             <p class="category">Quản lý thông tin nhóm vật tư bao gồm tra cứu, thêm và cập nhật.</p>
         </div>
         <div class="card-content">
-           <div class="col-md-12">
-               <div class="row">
-                   <div class="col-md-3">
-                       <label>Lĩnh vực</label>
-                       <select class="form-control">
-                           @foreach (var item in lsNhomLinhVuc)
-                           {
-                            <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
-                           }
-                       </select>
-                   </div>
+           <div class="row">
+               <div class="col-md-3">
+                   <label>Lĩnh vực</label>
+                   <select class="form-control">
+                       @foreach (var item in lsNhomLinhVuc)
+                       {
+                           <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
+                       }
+                   </select>
                </div>
            </div>
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="w-5 text-center">STT</th>
-                            <th class="w-80">NHÓM VẬT TƯ</th>
-                            <th class="w-7 text-center">THAO TÁC</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Điện lạnh</td>
-                            <td class="text-center">
-                                <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
-                                <button class="btn btn-danger edit"><span class="ti-close"></span></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="w-5 text-center">STT</th>
+                                <th class="w-80">NHÓM VẬT TƯ</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>Điện lạnh</td>
+                                <td class="text-center">
+                                    <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
+                                    <button class="btn btn-danger edit"><span class="ti-close"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -147,6 +147,12 @@
 
 <script>
     $(document).ready(function () {
-        $('#modal-cap-nhat').modal('show');
+        function LayDanhSachNhomVatTu(maLinhVuc) {
+
+        }
+
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
     });
 </script>

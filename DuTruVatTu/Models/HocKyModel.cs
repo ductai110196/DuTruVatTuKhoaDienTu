@@ -20,6 +20,8 @@ namespace DuTruVatTu.Models
         public DateTime THOIGIANKETTHUCDUTRU { get; set; }
         public int MSNAMHOC { get; set; }
         public string TENNAMHOC { get; set; }
+        public string TRANGTHAIHOCKY { get; set; }
+        public string TRANGTHAIDUTRU { get; set; }
 
         public HocKyModel()
         {
@@ -81,19 +83,19 @@ namespace DuTruVatTu.Models
             return list;
         }
 
-        public List<HocKyModel> HocKyTheoNamHoc()
+        public List<HocKyModel> HocKyTheoKhoaHoc()
         {
             List<HocKyModel> list = new List<HocKyModel>();
             Object[] par = {
                 new SqlParameter("@mSHOCKY", DBNull.Value),
-                new SqlParameter("@mSNAMHOC", DBNull.Value),
-                new SqlParameter("@mSKHOAHOC", DBNull.Value),
+                new SqlParameter("@mSNAMHOC", MSNAMHOC),
+                new SqlParameter("@mSKHOAHOC", MSKHOAHOC),
                 new SqlParameter("@tENHOCKY", DBNull.Value),
                 new SqlParameter("@nGAYBATDAU", DBNull.Value),
                 new SqlParameter("@nGAYKETTHUC", DBNull.Value),
                 new SqlParameter("@tHOIGIANBATDAUDUTRU", DBNull.Value),
                 new SqlParameter("@tHOIGIANKETTHUCDUTRU", DBNull.Value),
-                new SqlParameter("@kEY", DBKey.SELECT_NAMHOC)
+                new SqlParameter("@kEY", DBKey.SELECT)
             };
             DataTable dt = DBConnect.SqlStoredProcedure("sp_HocKy", par);
             foreach (DataRow item in dt.Rows)
@@ -108,6 +110,8 @@ namespace DuTruVatTu.Models
                 hk.THOIGIANKETTHUCDUTRU = DateTime.ParseExact(item["THOIGIANKETTHUCDUTRU"].ToString(), "dd/MM/yyyy", null);
                 hk.MSNAMHOC = int.Parse(item["MSNAMHOC"].ToString());
                 hk.TENNAMHOC = item["TENNAMHOC"].ToString();
+                hk.TRANGTHAIHOCKY = item["TRANGTHAIHOCKY"].ToString();
+                hk.TRANGTHAIDUTRU = item["TRANGTHAIDUTRU"].ToString();
                 list.Add(hk);
             }
             return list;

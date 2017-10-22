@@ -24,7 +24,7 @@ namespace DuTruVatTu.Models
         {
         }
 
-        public List<NamHocModel> LayDanhSachNamHoc()
+        public List<NamHocModel> DanhSach()
         {
             List<NamHocModel> list = new List<NamHocModel>();
             Object[] par = {
