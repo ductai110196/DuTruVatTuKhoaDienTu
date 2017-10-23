@@ -38,5 +38,44 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                 new HocKyModel(int.Parse(maKhoa)).HocKyHienTai()
                 );
         }
+
+        [HttpPost]
+        public int ThemHocKy(string mSNamHoc, string mSKhoaHoc, string tenHocKy, string ngayBatDau, string ngayKetThuc, 
+            string ngayDuTru, string ngaytKetThucDuTru)
+        {
+            HocKyModel hk = new HocKyModel();
+            hk.MSNAMHOC = int.Parse(mSNamHoc);
+            hk.MSKHOAHOC = int.Parse(mSKhoaHoc);
+            hk.TENHOCKY = tenHocKy;
+            hk.NGAYBATDAU = DateTime.ParseExact(ngayBatDau, "yyyy-MM-dd", null);
+            hk.NGAYKETTHUC = DateTime.ParseExact(ngayKetThuc, "yyyy-MM-dd", null);
+            hk.THOIGIANBATDAUDUTRU = DateTime.ParseExact(ngayDuTru, "yyyy-MM-dd", null);
+            hk.THOIGIANKETTHUCDUTRU = DateTime.ParseExact(ngaytKetThucDuTru, "yyyy-MM-dd", null);
+            return hk.Them();
+        }
+
+        [HttpPost]
+        public int CapNhatHocKy(string mSNamHoc, string mSKhoaHoc, string msHocKy, string tenHocKy, string ngayBatDau, string ngayKetThuc,
+            string ngayDuTru, string ngaytKetThucDuTru)
+        {
+            HocKyModel hk = new HocKyModel();
+            hk.MSNAMHOC = int.Parse(mSNamHoc);
+            hk.MSKHOAHOC = int.Parse(mSKhoaHoc);
+            hk.MSHOCKY = int.Parse(msHocKy);
+            hk.TENHOCKY = tenHocKy;
+            hk.NGAYBATDAU = DateTime.ParseExact(ngayBatDau, "yyyy-MM-dd", null);
+            hk.NGAYKETTHUC = DateTime.ParseExact(ngayKetThuc, "yyyy-MM-dd", null);
+            hk.THOIGIANBATDAUDUTRU = DateTime.ParseExact(ngayDuTru, "yyyy-MM-dd", null);
+            hk.THOIGIANKETTHUCDUTRU = DateTime.ParseExact(ngaytKetThucDuTru, "yyyy-MM-dd", null);
+            return hk.CapNhat();
+        }
+
+        [HttpPost]
+        public int XoaHocKy(string msHocKy)
+        {
+            HocKyModel hk = new HocKyModel();
+            hk.MSHOCKY = int.Parse(msHocKy);
+            return hk.Xoa();
+        }
     }
 }
