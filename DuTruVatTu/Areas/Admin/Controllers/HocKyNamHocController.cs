@@ -77,5 +77,31 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             hk.MSHOCKY = int.Parse(msHocKy);
             return hk.Xoa();
         }
+
+        [HttpPost]
+        public int ThemNamHoc(string tenNamHoc)
+        {
+            NamHocModel nh = new NamHocModel();
+            nh.TENNAMHOC = tenNamHoc;
+            return nh.Them();
+        }
+
+        [HttpPost]
+        public int CapNhatNamHoc(string msNamHoc, string tenNamHoc)
+        {
+            NamHocModel nh = new NamHocModel();
+            nh.MSNAMHOC = int.Parse(msNamHoc);
+            nh.TENNAMHOC = tenNamHoc;
+            return nh.CapNhatNamHoc();
+        }
+
+        [HttpPost]
+        public int XoaNamHoc(string msNamHoc)
+        {
+            NamHocModel nh = new NamHocModel();
+            nh.MSNAMHOC = int.Parse(msNamHoc);
+            nh.TENNAMHOC = msNamHoc;
+            return nh.XoaNamHoc();
+        }
     }
 }

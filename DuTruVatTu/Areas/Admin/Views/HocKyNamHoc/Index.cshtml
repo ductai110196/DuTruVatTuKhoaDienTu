@@ -17,54 +17,109 @@
         </div>
         <div class="card-content">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Bậc đào tạo</label>
-                        <select class="form-control sel-nam-hoc">
-                            @foreach (var item in lsNamHoc)
-                            {
-                                <option value="@item.MSNAMHOC">@item.TENNAMHOC</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Khóa học</label>
-                        <select class="form-control sel-khoa-hoc">
-                            @foreach (var item in lsKhoaHoc)
-                            {
-                                <option value="@item.MSKHOAHOC">@item.TENKHOAHOC</option>
-                            }
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-12">
-                    <table class="table tbl">
-                        <thead>
-                            <tr>
-                                <th class="w-5 text-center">STT</th>
-                                <th>TÊN HỌC KỲ</th>
-                                <th class="w-20 text-center">THỜI GIAN</th>
-                                <th class="w-20 text-center">TRẠNG THÁI HỌC KỲ</th>
-                                <th class="w-20 text-center">THỜI GIAN DỰ TRÙ</th>
-                                <th class="w-20 text-center">TRẠNG THÁI DỰ TRÙ</th>
-                                <th class="w-7 text-center">THAO TÁC</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#hocky" role="tab" data-toggle="tab">Học kỳ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#namhoc" role="tab" data-toggle="tab">Năm học</a>
+                        </li>
+                    </ul>
+                    <hr />
+                </div>
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active show" id="hocky">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Bậc đào tạo</label>
+                                        <select class="form-control sel-nam-hoc">
+                                            @foreach (var item in lsNamHoc)
+                                            {
+                                                <option value="@item.MSNAMHOC">@item.TENNAMHOC</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Khóa học</label>
+                                        <select class="form-control sel-khoa-hoc">
+                                            @foreach (var item in lsKhoaHoc)
+                                            {
+                                                <option value="@item.MSKHOAHOC">@item.TENKHOAHOC</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table tbl">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-5 text-center">STT</th>
+                                                <th>TÊN HỌC KỲ</th>
+                                                <th class="w-20 text-center">THỜI GIAN</th>
+                                                <th class="w-20 text-center">TRẠNG THÁI HỌC KỲ</th>
+                                                <th class="w-20 text-center">THỜI GIAN DỰ TRÙ</th>
+                                                <th class="w-20 text-center">TRẠNG THÁI DỰ TRÙ</th>
+                                                <th class="w-7 text-center">THAO TÁC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <a class="float open-modal-them-hoc-ky">
+                                        <span class="ti-plus icon-float"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="namhoc">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-5 text-center">STT</th>
+                                                <th>TÊN NĂM HỌC</th>
+                                                <th class="w-7 text-center">THAO TÁC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int stt = 1; }
+                                            @foreach (var item in lsNamHoc)
+                                            {
+                                                <tr>
+                                                    <td class="w-5 text-center">@(stt++)</td>
+                                                    <td id="tnh-@item.MSNAMHOC">@item.TENNAMHOC</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-success edit open-modal-cap-nhat-nam-hoc" value="@item.MSNAMHOC"><span class="ti-pencil"></span></button>
+                                                        <button class="btn btn-danger edit open-modal-xoa-nam-hoc" value="@item.MSNAMHOC"><span class="ti-close"></span></button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <a class="float open-modal-them-nam-hoc">
+                                        <span class="ti-plus icon-float"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<a class="float">
-    <span class="ti-plus icon-float"></span>
-</a>
+
 <div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -153,7 +208,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -175,10 +229,80 @@
         </div>
     </div>
 </div>
-
+@* Modal năm học *@
+<div class="modal fade" id="modal-them-nam-hoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm năm học</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên năm học</label>
+                        <input class="form-control them-ten-nam-hoc" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them-nam-hoc">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-cap-nhat-nam-hoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật năm học</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên năm học</label>
+                        <input class="form-control cs-ten-nam-hoc" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat-nam-hoc">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-xoa-nam-hoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa-nam-hoc">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         var _MSHOCKY;
+        var _MSNAMHOC;
         function converNamThangNgay(str) {
             var temp = str.split('/');
             return temp[2].trim() + "-" + temp[1].trim() + "-" + temp[0].trim();
@@ -228,7 +352,7 @@
             );
         });
 
-        $('.float').click(function () {
+        $('.open-modal-them-hoc-ky').click(function () {
             $('#modal-them').modal('show');
         });
 
@@ -316,6 +440,71 @@
                         $('#modal-xoa').modal('hide');
                     }
 
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        // Năm học
+        $('.open-modal-them-nam-hoc').click(function () {
+            $('#modal-them-nam-hoc').modal('show');
+        });
+
+        $('.btn-them-nam-hoc').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/ThemNamHoc",
+                type: "POST",
+                async: false,
+                data: {
+                    "tenNamHoc": $('.them-ten-nam-hoc').val(),
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-cap-nhat-nam-hoc').click(function () {
+            _MSNAMHOC = $(this).val();
+            $('.cs-ten-nam-hoc').val($('#tnh-' + _MSNAMHOC).text());
+            $('#modal-cap-nhat-nam-hoc').modal('show');
+        });
+
+        $('.btn-cap-nhat-nam-hoc').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/CapNhatNamHoc",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNamHoc": _MSNAMHOC,
+                    "tenNamHoc": $('.cs-ten-nam-hoc').val(),
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-xoa-nam-hoc').click(function () {
+            _MSNAMHOC = $(this).val();
+            $('#modal-xoa-nam-hoc').modal('show');
+        });
+
+        $('.btn-xoa-nam-hoc').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/XoaNamHoc",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNamHoc": _MSNAMHOC,
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
                 },
                 error: function (er) { console.log(er); }
             });

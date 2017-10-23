@@ -67,7 +67,7 @@ namespace DuTruVatTu.Models
             Object[] par = {
                 new SqlParameter("@mSNAMHOC", DBNull.Value),
                 new SqlParameter("@tENNAMHOC", TENNAMHOC),
-                new SqlParameter("@kEY", DBKey.SELECT)
+                new SqlParameter("@kEY", DBKey.INSERT)
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_NamHoc", par).Rows[0][0].ToString());
         }
