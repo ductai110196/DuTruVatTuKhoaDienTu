@@ -68,7 +68,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm phòng</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm vật tư</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -77,13 +77,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label>Tên vật tư</label>
-                        <input class="form-control them-tp" />
+                        <input class="form-control them-ten-vat-tu" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label>Đơn vị tính</label>
-                        <select class="form-control">
+                        <select class="form-control sel-them-don-vi-tinh">
                             <option value="Cái">Cái</option>
                             <option value="Bộ">Cái</option>
                         </select>
@@ -123,17 +123,30 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <label>Cán bộ quản lý</label>
-                        <select class="form-control cn-gv">
-                            @*@foreach (var item in lsGiangVien)
-                            {
-                                <option value="@item.MSGIANGVIEN">@item.TENGIANGVIEN</option>
-                            }*@
+                        <label>Tên vật tư</label>
+                        <input class="form-control cn-ten-vat-tu" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Đơn vị tính</label>
+                        <select class="form-control sel-cn-don-vi-tinh">
+                            <option value="Cái">Cái</option>
+                            <option value="Bộ">Cái</option>
                         </select>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
-                        <label>Tên phòng</label>
-                        <input class="form-control cn-tp" />
+                        <label>Hình ảnh</label><br /><br />
+                        <div id="page">
+                            <div class="wrap-custom-file">
+                                <input type="file" name="image2" id="image2" accept=".gif, .jpg, .png" />
+                                <label for="image2" id="cn-anh">
+                                    <span>Chọn ảnh linh kiện</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,6 +182,8 @@
 
 <script>
     $(document).ready(function () {
+        var _MSVATTU;
+
         $('input[type="file"]').each(function () {
             var $file = $(this),
                 $label = $file.next('label'),
@@ -188,6 +203,7 @@
                 }
             }); 
         });
+
         function LayDanhSachNhomVatTuTheoLinhVuc(maLinhVuc, tenSel) {
             $.ajax({
                 type: "post",
@@ -208,43 +224,59 @@
         }
 
         function LayDanhSachVatTuTheoNhomVatTu(maNhomVatTu, tenSel) {
-            $.ajax({
-                type: "post",
-                url: "/VatTu/DSVatTuJSON",
-                data: {
-                    "msNhomVatTu": maNhomVatTu
-                },
-                success: function (data) {
-                    var dl = $.parseJSON(data);
-                    var item = "";
-                    for (i = 0; i < dl.length; i++) {
-                        item += "<tr>";
-                        item += "<td class='w-5 text-center'>" + (i + 1) + "</td>";
-                        item += "<td id=" + dl[i].MSVATTU + "><img src='../Public/Images/" + dl[i].HINHANH + "' style='width: 40px;height: 40px;'/></td>";
-                        item += "<td id=" + dl[i].MSVATTU + ">" + dl[i].TENVATTU + "</td>";
-                        item += "<td id=" + dl[i].MSVATTU + ">" + dl[i].DONVITINH + "</td>";
-                        item += "<td class='text-center'> <button class='btn btn-success edit btn-cn' value='" + dl[i].MSVATTU
-                            + "'><span class='ti-pencil'></span></button> <button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSVATTU
-                            + "'><span class='ti-close'></span></button></td>";
-                        item += "</tr>";
+            if (maNhomVatTu >0) {
+                $.ajax({
+                    type: "post",
+                    url: "/VatTu/DSVatTuJSON",
+                    data: {
+                        "msNhomVatTu": maNhomVatTu
+                    },
+                    success: function (data) {
+                        var dl = $.parseJSON(data);
+                        var item = "";
+                        for (i = 0; i < dl.length; i++) {
+                            item += "<tr>";
+                            item += "<td class='w-5 text-center'>" + (i + 1) + "</td>";
+                            item += "<td id=avt-" + dl[i].MSVATTU + "><img src='.." + dl[i].HINHANH + "' style='width: 40px;height: 40px;'/></td>";
+                            item += "<td id=tvt-" + dl[i].MSVATTU + ">" + dl[i].TENVATTU + "</td>";
+                            item += "<td id=dvt-" + dl[i].MSVATTU + ">" + dl[i].DONVITINH + "</td>";
+                            item += "<td class='text-center'> <button class='btn btn-success edit btn-cn' value='" + dl[i].MSVATTU
+                                + "'><span class='ti-pencil'></span></button> <button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSVATTU
+                                + "'><span class='ti-close'></span></button></td>";
+                            item += "</tr>";
+                        }
+                        $(tenSel).empty();
+                        $(tenSel).append(item);
                     }
-                    $(tenSel).empty();
-                    $(tenSel).append(item);
-                }
-            });
+                });
+            }            
         }
 
-        $('.sel-nhom-linh-vuc').change(function () {
+        $('.sel-nhom-linh-vuc, .sel-nhom-vat-tu').change(function () {
             LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc').val(), ".sel-nhom-vat-tu");
-        });
-
-        $('.sel-nhom-vat-tu').change(function () {
             LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
         });
 
         $('#btnthem').click(function () {
             $('#modal-them').modal('show');
         });
+
+        function UploadImage(data) {
+            var temp;
+            $.ajax({
+                type: "POST",
+                url: '/VatTu/Upload',
+                data: data,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    temp = result;
+                },
+                error: function (error) { console.log(eror); }
+            });
+            return temp;
+        }
 
         $('.btn-them').click(function () {
             var formData = new FormData();
@@ -253,20 +285,32 @@
                 var file = document.getElementById("image1").files[i];
                 formData.append("image1", file);
             }
+            var urlImage = UploadImage(formData);
+            alert(urlImage);
             $.ajax({
-                type: "POST",
-                url: '/VatTu/Upload',
-                data: formData,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    alert(response);
+                type: "post",
+                url: "/VatTu/Them",
+                data: {
+                    "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
+                    "tenVatTu": $('.them-ten-vat-tu').val(),
+                    "donViTinh": $('.sel-them-don-vi-tinh').val(),
+                    "urlHinhAnh": urlImage,
                 },
-                error: function (error) {
-                    alert(error);
+                success: function (data) {
+                    LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc').val(), ".sel-nhom-vat-tu");
                 }
             });
         });
+
+        $(document).on('click', '.btn-cn', function () {
+            _MSVATTU = $(this).val();
+            $('.cn-ten-vat-tu').val($('#tvt-' + _MSVATTU).text());
+            $('.sel-cn-don-vi-tinh').val($('#dvt-' + _MSVATTU).text());
+            alert($('#avt-' + _MSVATTU + " img").attr('src'));
+            $('#cn-anh').css('background-image', 'url(' + $('#avt-' + _MSVATTU + " img").attr('src') + ')');
+            $('#cn-anh').addClass('file-ok');
+            $('#modal-cap-nhat').modal('show');
+        });
+
     });
 </script>
