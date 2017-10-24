@@ -1,9 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Môn học";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<BacDaoTaoModel> lsBacDaoTao = ViewData["DSBacDaoTao"] as IEnumerable<BacDaoTaoModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -13,43 +15,37 @@
             <p class="category">Quản lý thông tin môn học bao gồm tra cứu, thêm và cập nhật.</p>
         </div>
         <div class="card-content">
-            <div class="col-md-12">
+            <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Bậc đào tạo</label>
-                        <select class="form-control">
-                            <option>ávsd</option>
+                        <select class="form-control sel-bac-dao-tao">
+                            @foreach (var item in lsBacDaoTao)
+                            {
+                                <option value="@item.MSBACDAOTAO">@item.TENBACDAOTAO</option>
+                            }
                         </select>
                     </div>
                 </div>
+
             </div>
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="w-5 text-center">STT</th>
-                            <th>TÊN MÔN HỌC</th>
-                            <th class="w-10 text-center">LÝ THUYẾT</th>
-                            <th class="w-15 text-center">THỰC HÀNH</th>
-                            <th>THAO TÁC</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int j = 1; j <= 10; j++)
-                        {
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table tbl">
+                        <thead>
                             <tr>
-                                <td class="text-center">1</td>
-                                <td>Cao đẳng</td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">2</td>
-                                <td class="w-7 text-center">
-                                    <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
-                                    <button class="btn btn-danger edit"><span class="ti-close"></span></button>
-                                </td>
+                                <th class="w-5 text-center">STT</th>
+                                <th>MÃ MÔN HỌC</th>
+                                <th>TÊN MÔN HỌC</th>
+                                <th class="w-10 text-center">LÝ THUYẾT</th>
+                                <th class="w-15 text-center">THỰC HÀNH</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -70,31 +66,39 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>Tên môn học</label>
-                            <input type="number" class="form-control" />
+                            <label>Mã môn học</label>
+                            <input type="text" class="form-control them-ma-mon-hoc" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label>Lý thuyết</label>
-                            <input type="number" class="form-control" />
+                            <label>Tên môn học</label>
+                            <input type="text" class="form-control them-ten-mon-hoc" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Lý thuyết</label>
+                            <input type="number" class="form-control them-ly-thuyet" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Thực hành</label>
-                            <input type="number" class="form-control" />
+                            <input type="number" class="form-control them-thuc-hanh" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
             </div>
         </div>
     </div>
@@ -111,31 +115,39 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>Tên môn học</label>
-                            <input type="number" class="form-control" />
+                            <label>Mã môn học</label>
+                            <input type="text" class="form-control cs-ma-mon-hoc" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label>Lý thuyết</label>
-                            <input type="number" class="form-control" />
+                            <label>Tên môn học</label>
+                            <input type="text" class="form-control cs-ten-mon-hoc" />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Lý thuyết</label>
+                            <input type="number" class="form-control cs-ly-thuyet" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Thực hành</label>
-                            <input type="number" class="form-control" />
+                            <input type="number" class="form-control cs-thuc-hanh" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Cập nhật</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
             </div>
         </div>
     </div>
@@ -157,7 +169,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
             </div>
         </div>
     </div>
@@ -165,6 +177,118 @@
 
 <script>
     $(document).ready(function () {
-        $('#modal-cap-nhat').modal('show');
+        var _MSHOCPHAN;
+        function LayDanhSachMon(maBac, control) {
+            $.ajax({
+                url: "/MonHoc/MonHocTheoBacDaoTaoJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "maBacDaoTao": maBac
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<tr>";
+                        ins += "<td class='text-center'>" + (i + 1) + "</td>";
+                        ins += "<td id='mhp-" + dl[i].MSHOCPHAN + "'>" + dl[i].MAHOCPHAN + "</td>";
+                        ins += "<td id='thp-" + dl[i].MSHOCPHAN + "'>" + dl[i].TENHOCPHAN + "</td>";
+                        ins += "<td id='lt-" + dl[i].MSHOCPHAN + "'  class='text-center'>" + dl[i].LYTHUYET + "</td>";
+                        ins += "<td id='th-" + dl[i].MSHOCPHAN + "' class='text-center'>" + dl[i].THUCHANH + "</td>";
+                        ins += "<td class='w-7 text-center'>"
+                        ins += " <button class='btn btn-success edit open-modal-cap-nhat' value='" + dl[i].MSHOCPHAN + "'><span class='ti-pencil'></span></button>";
+                        ins += "<button class='btn btn-danger edit open-modal-xoa' value='" + dl[i].MSHOCPHAN + "'><span class='ti-close'></span></button>";
+                        ins += "</td>";
+                        ins += "</tr>";
+                    }
+                    $(control + " tbody").empty();
+                    $(control + " tbody").append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        $('.sel-bac-dao-tao').change(function () {
+            LayDanhSachMon($(this).val(), ".tbl");
+        });
+
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/MonHoc/Them",
+                type: "POST",
+                async: false,
+                data: {
+                    "maBacDaoTao": $('.sel-bac-dao-tao').val(),
+                    "maHocPhan": $('.them-ma-mon-hoc').val(),
+                    "tenMonHoc": $('.them-ten-mon-hoc').val(),
+                    "lyThuyet": $('.them-ly-thuyet').val(),
+                    "thucHanh": $('.them-thuc-hanh').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        LayDanhSachMon($(this).val(), ".tbl");
+                    alert(data);
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $(document).on('click', '.open-modal-cap-nhat', function () {
+            _MSHOCPHAN = $(this).val();
+            $('.cs-ma-mon-hoc').val($('#mhp-' + _MSHOCPHAN).text());
+            $('.cs-ten-mon-hoc').val($('#thp-' + _MSHOCPHAN).text());
+            $('.cs-ly-thuyet').val($('#lt-' + _MSHOCPHAN).text());
+            $('.cs-thuc-hanh').val($('#th-' + _MSHOCPHAN).text());
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/MonHoc/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "maBacDaoTao": $('.sel-bac-dao-tao').val(),
+                    "mSMonHoc": _MSHOCPHAN,
+                    "maMonHoc": $('.cs-ma-mon-hoc').val(),
+                    "tenMonHoc": $('.cs-ten-mon-hoc').val(),
+                    "lyThuyet": $('.cs-ly-thuyet').val(),
+                    "thucHanh": $('.cs-thuc-hanh').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        LayDanhSachMon($('.sel-bac-dao-tao').val(), ".tbl");
+                    $('#modal-cap-nhat').modal('hide');
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $(document).on('click', '.open-modal-xoa', function () {
+            _MSHOCPHAN = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/MonHoc/Xoa",
+                type: "POST",
+                async: false,
+                data: {
+                    "mSMonHoc": _MSHOCPHAN,
+                },
+                success: function (data) {
+                    if (data > 0)
+                        LayDanhSachMon($('.sel-bac-dao-tao').val(), ".tbl");
+                    $('#modal-xoa').modal('hide');
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
     });
 </script>

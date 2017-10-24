@@ -68,7 +68,7 @@ namespace DuTruVatTu.Models
         public int Them()
         {
             Object[] par = {
-                new SqlParameter("@mSNHOMLINHVUC", MSNHOMLINHVUC),
+                new SqlParameter("@mSNHOMLINHVUC", DBNull.Value),
                 new SqlParameter("@tENNHOMLINHVUC", TENNHOMLINHVUC),
                 new SqlParameter("@kEY", DBKey.INSERT),
             };
@@ -85,7 +85,7 @@ namespace DuTruVatTu.Models
             return int.Parse(DBConnect.SqlStoredProcedure("sp_NhomLinhVuc", par).Rows[0][0].ToString());
         }
 
-        public int XoaNhomLinhVuc()
+        public int Xoa()
         {
             Object[] par = {
                 new SqlParameter("@mSNHOMLINHVUC", MSNHOMLINHVUC),

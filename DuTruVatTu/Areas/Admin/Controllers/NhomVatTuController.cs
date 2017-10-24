@@ -14,6 +14,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         // GET: Admin/NhomVatTu
         public ActionResult Index()
         {
+            ViewData["DSNhomLinhVuc"] = new NhomLinhVucModel().DanhSach();
             return View();
         }
 

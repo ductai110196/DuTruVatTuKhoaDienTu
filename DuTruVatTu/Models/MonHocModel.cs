@@ -31,13 +31,13 @@ namespace DuTruVatTu.Models
             TENBACDAOTAO = tENBACDAOTAO;
         }
 
-        public List<MonHocModel> LayDanhSachMonHoc(string mSBACDAOTAO)
+        public List<MonHocModel> DanhSach()
         {
             List<MonHocModel> list = new List<MonHocModel>();
             Object[] par = {
                 new SqlParameter("@mSHOCPHAN", DBNull.Value),
                 new SqlParameter("@mAHOCPHAN", DBNull.Value),
-                new SqlParameter("@mSBACDAOTAO", mSBACDAOTAO),
+                new SqlParameter("@mSBACDAOTAO", MSBACDAOTAO),
                 new SqlParameter("@tENHOCPHAN", DBNull.Value),
                 new SqlParameter("@lYTHUYET", DBNull.Value),
                 new SqlParameter("@tHUCHANH", DBNull.Value),
@@ -62,7 +62,7 @@ namespace DuTruVatTu.Models
         public int Them()
         {
             Object[] par = {
-                new SqlParameter("@mSHOCPHAN", MSHOCPHAN),
+                new SqlParameter("@mSHOCPHAN", DBNull.Value),
                 new SqlParameter("@mAHOCPHAN", MAHOCPHAN),
                 new SqlParameter("@mSBACDAOTAO", MSBACDAOTAO),
                 new SqlParameter("@tENHOCPHAN", TENHOCPHAN),

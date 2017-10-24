@@ -1,10 +1,6 @@
 ﻿using DuTruVatTu.Command;
 using DuTruVatTu.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DuTruVatTu.Areas.Admin.Controllers
@@ -14,16 +10,52 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         // GET: Admin/MonHoc
         public ActionResult Index()
         {
+            ViewData["DSBacDaoTao"] = new BacDaoTaoModel().DanhSach();
             return View();
         }
 
-        // Lấy DS môn học theo bậc đào tạo
         [HttpPost]
-        public string MonHocTheoBacDaoTaoJSON(string maBacDaoTao)
+        public string MonHocTheoBacDaoTaoJson(string maBacDaoTao)
         {
+            MonHocModel mh = new MonHocModel();
+            mh.MSBACDAOTAO = int.Parse(maBacDaoTao);
             return JsonConvert.SerializeObject(
-                new MonHocModel().LayDanhSachMonHoc(maBacDaoTao)
+                mh.DanhSach()
                 );
+        }
+
+        [HttpPost]
+        public int Them(string maBacDaoTao, string maHocPhan, string tenMonHoc, string lyThuyet, string thucHanh)
+        {
+            MonHocModel mh = new MonHocModel();
+            mh.MSBACDAOTAO = int.Parse(maBacDaoTao);
+            mh.MAHOCPHAN = maHocPhan;
+            mh.TENHOCPHAN = tenMonHoc;
+            mh.LYTHUYET = int.Parse(lyThuyet);
+            mh.THUCHANH = int.Parse(thucHanh);
+            return mh.Them();
+        }
+
+        [HttpPost]
+        public int CapNhat(string maBacDaoTao, string mSMonHoc,
+            string maMonHoc, string tenMonHoc, string lyThuyet, string thucHanh)
+        {
+            MonHocModel mh = new MonHocModel();
+            mh.MSHOCPHAN = int.Parse(mSMonHoc);
+            mh.MSBACDAOTAO = int.Parse(maBacDaoTao);
+            mh.MAHOCPHAN = maMonHoc;
+            mh.TENHOCPHAN = tenMonHoc;
+            mh.LYTHUYET = int.Parse(lyThuyet);
+            mh.THUCHANH = int.Parse(thucHanh);
+            return mh.CapNhat();
+        }
+
+        [HttpPost]
+        public int Xoa(string mSMonHoc)
+        {
+            MonHocModel mh = new MonHocModel();
+            mh.MSHOCPHAN = int.Parse(mSMonHoc);
+            return mh.Xoa();
         }
     }
 }

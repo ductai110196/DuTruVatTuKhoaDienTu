@@ -1,8 +1,5 @@
 ﻿using DuTruVatTu.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using DuTruVatTu.Models;
 using System.Web.Mvc;
 
 namespace DuTruVatTu.Areas.Admin.Controllers
@@ -12,7 +9,33 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         // GET: Admin/NhomLinhVuc
         public ActionResult Index()
         {
+            ViewData["DSNhomLinhVuc"] = new NhomLinhVucModel().DanhSach();
             return View();
+        }
+
+        [HttpPost]
+        public int Them(string tenNhom)
+        {
+            NhomLinhVucModel nlv = new NhomLinhVucModel();
+            nlv.TENNHOMLINHVUC = tenNhom;
+            return nlv.Them();
+        }
+
+        [HttpPost]
+        public int CapNhat(string msNhom, string tenNhom)
+        {
+            NhomLinhVucModel nlv = new NhomLinhVucModel();
+            nlv.MSNHOMLINHVUC = int.Parse(msNhom);
+            nlv.TENNHOMLINHVUC = tenNhom;
+            return nlv.CapNhat();
+        }
+
+        [HttpPost]
+        public int Xoa(string msNhom)
+        {
+            NhomLinhVucModel nlv = new NhomLinhVucModel();
+            nlv.MSNHOMLINHVUC = int.Parse(msNhom);
+            return nlv.Xoa();
         }
     }
 }

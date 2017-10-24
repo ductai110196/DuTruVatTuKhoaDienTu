@@ -2,7 +2,11 @@
     ViewBag.Title = "Học kỳ - năm học";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<NamHocModel> lsNamHoc = ViewData["DSNamHoc"] as IEnumerable<NamHocModel>;
+    IEnumerable<KhoaHocModel> lsKhoaHoc = ViewData["DSKhoa"] as IEnumerable<KhoaHocModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -12,25 +16,103 @@
             <p class="category">Quản lý thông tin học kỳ năm học bao gồm tra cứu, thêm và cập nhật thông tin học kỳ năm học.</p>
         </div>
         <div class="card-content">
-            <div class="col-md-12">
-                <div class="nav-tabs-navigation">
-                    <div class="nav-tabs-wrapper">
-                        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class=""><a href="#home" data-toggle="tab" aria-expanded="false">Home</a></li>
-                            <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Profile</a></li>
-                            <li class="active"><a href="#messages" data-toggle="tab" aria-expanded="true">Messages</a></li>
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#hocky" role="tab" data-toggle="tab">Học kỳ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#namhoc" role="tab" data-toggle="tab">Năm học</a>
+                        </li>
+                    </ul>
+                    <hr />
                 </div>
-                <div id="my-tab-content" class="tab-content text-center">
-                    <div class="tab-pane" id="home">
-                        <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
-                    </div>
-                    <div class="tab-pane" id="profile">
-                        <p>Here is your profile.</p>
-                    </div>
-                    <div class="tab-pane active" id="messages">
-                        <p>Here are your messages.</p>
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active show" id="hocky">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Bậc đào tạo</label>
+                                        <select class="form-control sel-nam-hoc">
+                                            @foreach (var item in lsNamHoc)
+                                            {
+                                                <option value="@item.MSNAMHOC">@item.TENNAMHOC</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Khóa học</label>
+                                        <select class="form-control sel-khoa-hoc">
+                                            @foreach (var item in lsKhoaHoc)
+                                            {
+                                                <option value="@item.MSKHOAHOC">@item.TENKHOAHOC</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table tbl">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-5 text-center">STT</th>
+                                                <th>TÊN HỌC KỲ</th>
+                                                <th class="w-20 text-center">THỜI GIAN</th>
+                                                <th class="w-20 text-center">TRẠNG THÁI HỌC KỲ</th>
+                                                <th class="w-20 text-center">THỜI GIAN DỰ TRÙ</th>
+                                                <th class="w-20 text-center">TRẠNG THÁI DỰ TRÙ</th>
+                                                <th class="w-7 text-center">THAO TÁC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <a class="float open-modal-them-hoc-ky">
+                                        <span class="ti-plus icon-float"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="namhoc">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="w-5 text-center">STT</th>
+                                                <th>TÊN NĂM HỌC</th>
+                                                <th class="w-7 text-center">THAO TÁC</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int stt = 1; }
+                                            @foreach (var item in lsNamHoc)
+                                            {
+                                                <tr>
+                                                    <td class="w-5 text-center">@(stt++)</td>
+                                                    <td id="tnh-@item.MSNAMHOC">@item.TENNAMHOC</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-success edit open-modal-cap-nhat-nam-hoc" value="@item.MSNAMHOC"><span class="ti-pencil"></span></button>
+                                                        <button class="btn btn-danger edit open-modal-xoa-nam-hoc" value="@item.MSNAMHOC"><span class="ti-close"></span></button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12">
+                                    <a class="float open-modal-them-nam-hoc">
+                                        <span class="ti-plus icon-float"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,6 +120,394 @@
     </div>
 </div>
 
-<a class="float">
-    <span class="ti-save icon-float"></span>
-</a>
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm học kỳ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên học kỳ</label>
+                        <input class="form-control them-ten-hoc-ky" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ngày bắt đầu</label>
+                        <input class="form-control them-ngay-bat-dau" type="date"/>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Ngày kết thúc</label>
+                        <input class="form-control them-ngay-ket-thuc" type="date" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ngày bắt đầu dự trù</label>
+                        <input class="form-control them-ngay-bat-dau-du-tru" type="date" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Ngày kết thúc dự trù</label>
+                        <input class="form-control them-ngay-ket-thuc-du-tru" type="date" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật học kỳ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên học kỳ</label>
+                        <input class="form-control cs-ten-hoc-ky" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ngày bắt đầu</label>
+                        <input class="form-control cs-ngay-bat-dau" type="date" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Ngày kết thúc</label>
+                        <input class="form-control cs-ngay-ket-thuc" type="date" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Ngày bắt đầu dự trù</label>
+                        <input class="form-control cs-ngay-bat-dau-du-tru" type="date" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Ngày kết thúc dự trù</label>
+                        <input class="form-control cs-ngay-ket-thuc-du-tru" type="date" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* Modal năm học *@
+<div class="modal fade" id="modal-them-nam-hoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm năm học</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên năm học</label>
+                        <input class="form-control them-ten-nam-hoc" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them-nam-hoc">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-cap-nhat-nam-hoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật năm học</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Tên năm học</label>
+                        <input class="form-control cs-ten-nam-hoc" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat-nam-hoc">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-xoa-nam-hoc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa-nam-hoc">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var _MSHOCKY;
+        var _MSNAMHOC;
+        function converNamThangNgay(str) {
+            var temp = str.split('/');
+            return temp[2].trim() + "-" + temp[1].trim() + "-" + temp[0].trim();
+        }
+        function DanhSachHocKy(msNamHoc, msKhoahoc, control) {
+            $.ajax({
+                url: "/HocKyNamHoc/HocKyTheoKhoaHocJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNamHoc": msNamHoc,
+                    "msKhoaHoc": msKhoahoc
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<tr>";
+                        ins += "<td class='text-center'>" + (i + 1) + "</td>";
+                        ins += "<td id='thk-" + dl[i].MSHOCKY +"'>" + dl[i].TENHOCKY + "</td>";
+                        ins += "<td id='tghk-" + dl[i].MSHOCKY +"' class='text-center'>" + dl[i].NGAYBATDAU + " - " + dl[i].NGAYKETTHUC + "</td>";
+                        if (dl[i].TRANGTHAIHOCKY == "Đang mở")
+                            ins += "<td class='text-center'><span class='label label-success'>Đang mở</span></td>";
+                        else
+                            ins += "<td class='text-center'><span class='label label-danger'>Đã kết thúc</span></td>";
+                        ins += "<td id='tgdt-" + dl[i].MSHOCKY +"' class='text-center'>" + dl[i].THOIGIANBATDAUDUTRU + " - " + dl[i].THOIGIANKETTHUCDUTRU + "</td>";
+                        if (dl[i].TRANGTHAIDUTRU == "Đang mở")
+                            ins += "<td class='text-center'><span class='label label-success'>Đang mở</span></td>";
+                        else
+                            ins += "<td class='text-center'><span class='label label-danger'>Đã kết thúc</span></td>";
+                        ins += "<td class='text-center'>";
+                        ins += "<button class='btn btn-success edit open-modal-cap-nhat' value='" + dl[i].MSHOCKY +"'><span class='ti-pencil'></span></button>";
+                        ins += "<button class='btn btn-danger edit open-modal-xoa' value='" + dl[i].MSHOCKY +"'><span class='ti-close'></span></button>";
+                        ins += "</td>";
+                        ins += "</tr>";
+                    }
+                    $(control + " tbody").empty();
+                    $(control + " tbody").append(ins);
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+
+        $('.sel-nam-hoc, .sel-khoa-hoc').change(function () {
+            DanhSachHocKy(
+                $('.sel-nam-hoc').val(), $('.sel-khoa-hoc').val(), '.tbl'
+            );
+        });
+
+        $('.open-modal-them-hoc-ky').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/ThemHocKy",
+                type: "POST",
+                async: false,
+                data: {
+                    "mSNamHoc": $('.sel-nam-hoc').val(),
+                    "mSKhoaHoc": $('.sel-khoa-hoc').val(),
+                    "tenHocKy": $('.them-ten-hoc-ky').val(),
+                    "ngayBatDau": $('.them-ngay-bat-dau').val(),
+                    "ngayKetThuc": $('.them-ngay-ket-thuc').val(),
+                    "ngayDuTru": $('.them-ngay-bat-dau-du-tru').val(),
+                    "ngaytKetThucDuTru": $('.them-ngay-ket-thuc-du-tru').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        DanhSachHocKy(
+                            $('.sel-nam-hoc').val(), $('.sel-khoa-hoc').val(), '.tbl'
+                        );
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $(document).on('click', '.open-modal-cap-nhat', function () {
+            _MSHOCKY = $(this).val();
+            $('.cs-ten-hoc-ky').val($('#thk-' + _MSHOCKY).text());
+            var thoiGianHocKy = $('#tghk-' + _MSHOCKY).text().split('-');
+            $('.cs-ngay-bat-dau').val(converNamThangNgay(thoiGianHocKy[0]));
+            $('.cs-ngay-ket-thuc').val(converNamThangNgay(thoiGianHocKy[1]));
+            var thoiGianDuTru = $('#tgdt-' + _MSHOCKY).text().split('-');
+            $('.cs-ngay-bat-dau-du-tru').val(converNamThangNgay(thoiGianDuTru[0]));
+            $('.cs-ngay-ket-thuc-du-tru').val(converNamThangNgay(thoiGianDuTru[1]));
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/CapNhatHocKy",
+                type: "POST",
+                async: false,
+                data: {
+                    "mSNamHoc": $('.sel-nam-hoc').val(),
+                    "mSKhoaHoc": $('.sel-khoa-hoc').val(),
+                    "msHocKy": _MSHOCKY,
+                    "tenHocKy": $('.cs-ten-hoc-ky').val(),
+                    "ngayBatDau": $('.cs-ngay-bat-dau').val(),
+                    "ngayKetThuc": $('.cs-ngay-ket-thuc').val(),
+                    "ngayDuTru": $('.cs-ngay-bat-dau-du-tru').val(),
+                    "ngaytKetThucDuTru": $('.cs-ngay-ket-thuc-du-tru').val()
+                },
+                success: function (data) {
+                    if (data > 0) {
+                        DanhSachHocKy(
+                            $('.sel-nam-hoc').val(), $('.sel-khoa-hoc').val(), '.tbl'
+                        );
+                        $('#modal-cap-nhat').modal('hide');
+                    }
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $(document).on('click', '.open-modal-xoa', function () {
+            _MSHOCKY = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/XoaHocKy",
+                type: "POST",
+                async: false,
+                data: {
+                    "msHocKy": _MSHOCKY
+                },
+                success: function (data) {
+                    if (data > 0) {
+                        DanhSachHocKy(
+                            $('.sel-nam-hoc').val(), $('.sel-khoa-hoc').val(), '.tbl'
+                        );
+                        $('#modal-xoa').modal('hide');
+                    }
+
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        // Năm học
+        $('.open-modal-them-nam-hoc').click(function () {
+            $('#modal-them-nam-hoc').modal('show');
+        });
+
+        $('.btn-them-nam-hoc').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/ThemNamHoc",
+                type: "POST",
+                async: false,
+                data: {
+                    "tenNamHoc": $('.them-ten-nam-hoc').val(),
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-cap-nhat-nam-hoc').click(function () {
+            _MSNAMHOC = $(this).val();
+            $('.cs-ten-nam-hoc').val($('#tnh-' + _MSNAMHOC).text());
+            $('#modal-cap-nhat-nam-hoc').modal('show');
+        });
+
+        $('.btn-cap-nhat-nam-hoc').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/CapNhatNamHoc",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNamHoc": _MSNAMHOC,
+                    "tenNamHoc": $('.cs-ten-nam-hoc').val(),
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-xoa-nam-hoc').click(function () {
+            _MSNAMHOC = $(this).val();
+            $('#modal-xoa-nam-hoc').modal('show');
+        });
+
+        $('.btn-xoa-nam-hoc').click(function () {
+            $.ajax({
+                url: "/HocKyNamHoc/XoaNamHoc",
+                type: "POST",
+                async: false,
+                data: {
+                    "msNamHoc": _MSNAMHOC,
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+    });
+</script>
