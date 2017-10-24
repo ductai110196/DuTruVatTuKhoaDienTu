@@ -33,7 +33,7 @@ namespace DuTruVatTu.Models
             List<NhomVatTuModel> list = new List<NhomVatTuModel>();
             Object[] par = {
                 new SqlParameter("@mSNHOMVATTU", DBNull.Value),
-                new SqlParameter("@mSNHOMLINHVUC", DBNull.Value),
+                new SqlParameter("@mSNHOMLINHVUC", MSNHOMLINHVUC),
                 new SqlParameter("@tENNHOMVATTU", DBNull.Value),
                 new SqlParameter("@kEY", DBKey.SELECT)
             };
@@ -44,7 +44,7 @@ namespace DuTruVatTu.Models
                 nlv.MSNHOMVATTU = int.Parse(item["MSNHOMVATTU"].ToString());
                 nlv.TENNHOMVATTU = item["TENNHOMVATTU"].ToString();
                 nlv.MSNHOMLINHVUC = int.Parse(item["MSNHOMLINHVUC"].ToString()); ;
-                nlv.TENNHOMLINHVUC = nlv.TENNHOMVATTU = item["TENNHOMLINHVUC"].ToString();
+                nlv.TENNHOMLINHVUC = item["TENNHOMLINHVUC"].ToString();
                 list.Add(nlv);
             }
             return list;

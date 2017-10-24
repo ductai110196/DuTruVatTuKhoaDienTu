@@ -151,7 +151,7 @@
         function Check(tenphong) {
             st = 0;
             $.ajax({
-                url: "KiemTra",
+                url: "/Phong/KiemTra",
                 type: "post",
                 async: false,
                 dataType: 'json',
@@ -176,7 +176,7 @@
                 toastr.warning('Tên phòng đã tồn tại, vui lòng đổi tên khác');
             } else {
                 $.ajax({
-                    url: "Them",
+                    url: "/Phong/Them",
                     type: "post",
                     async: false,
                     dataType: 'json',
@@ -204,7 +204,7 @@
                 toastr.warning('Tên phòng không được bỏ trống');
             } else {
                 $.ajax({
-                    url: "CapNhat",
+                    url: "/Phong/CapNhat",
                     type: "post",
                     async: false,
                     dataType: 'json',
@@ -229,7 +229,7 @@
 
         $('#btn-xoa-chuc-vu').click(function () {
             $.ajax({
-                url: "Xoa",
+                url: "/Phong/Xoa",
                 type: "post",
                 async: false,
                 dataType: 'json',

@@ -1,9 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Vật tư";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{ 
+    IEnumerable<NhomLinhVucModel> lsNhomLinhVuc = ViewData["DSNhomLinhVuc"] as IEnumerable<NhomLinhVucModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -13,62 +15,50 @@
             <p class="category">Quản lý thông tin vật tư bao gồm tra cứu, thêm và cập nhật.</p>
         </div>
         <div class="card-content">
-            <div class="col-md-12">
-                <div class="from-group">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="from-group">
-                                <label>Lĩnh vực</label>
-                                <select class="form-control">
-                                    <option value="value">text</option>
-                                </select>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="from-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="from-group">
+                                    <label>Lĩnh vực</label>
+                                    <select class="form-control sel-nhom-linh-vuc">
+                                        @foreach (var item in lsNhomLinhVuc)
+                                        {
+                                            <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="from-group">
-                                <label>Nhóm vật tư</label>
-                                <select class="form-control">
-                                    <option value="value">text</option>
-                                </select>
+                            <div class="col-md-3">
+                                <div class="from-group">
+                                    <label>Nhóm vật tư</label>
+                                    <select class="form-control sel-nhom-vat-tu"></select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>                
-            </div>            
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="w-5 text-center">STT</th>
-                            <th class="w-7">NHÓM VẬT TƯ</th>
-                            <th class="w-7">TÊN VẬT TƯ</th>
-                            <th class="w-7">ĐƠN VỊ TÍNH</th>
-                            <th class="w-7">HÌNH ẢNH</th>
-                            <th class="w-7 text-center">THAO TÁC</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @*@{ int i = 1; }
-                        @foreach (var item in lsPhong)
-                        {
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td class="text-center">@(i++)</td>
-                                <td id="tp-@item.MSPHONG">@item.TENPHONG</td>
-                                <td id="gv-@item.MSPHONG" data="@item.MSGIANGVIEN">@item.TENGIANGVIEN</td>
-                                <td class="text-center">
-                                    <button class="btn btn-success edit btn-cn" value="@item.MSPHONG"><span class="ti-pencil"></span></button>
-                                    <button class="btn btn-danger edit btn-xoa" value="@item.MSPHONG"><span class="ti-close"></span></button>
-                                </td>
+                                <th class="w-5 text-center">STT</th>
+                                <th class="w-7">HÌNH ẢNH</th>
+                                <th class="w-7">TÊN VẬT TƯ</th>
+                                <th class="w-7">ĐƠN VỊ TÍNH</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
                             </tr>
-                        }*@
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<input type="hidden" class="" value="" />
 
 <a class="float">
     <span class="ti-plus icon-float" id="btnthem"></span>
@@ -86,17 +76,30 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <label>Cán bộ quản lý</label>
-                        <select class="form-control them-gv">
-                            @*@foreach (var item in lsGiangVien)
-                            {
-                                <option value="@item.MSGIANGVIEN">@item.TENGIANGVIEN</option>
-                            }*@
+                        <label>Tên vật tư</label>
+                        <input class="form-control them-tp" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Đơn vị tính</label>
+                        <select class="form-control">
+                            <option value="Cái">Cái</option>
+                            <option value="Bộ">Cái</option>
                         </select>
                     </div>
+                </div>
+                <div class="row"> 
                     <div class="col-md-12">
-                        <label>Tên phòng</label>
-                        <input class="form-control them-tp" />
+                        <label>Hình ảnh</label><br /><br />
+                        <div id="page">
+                            <div class="wrap-custom-file">
+                                <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
+                                <label for="image1">
+                                    <span>Chọn ảnh linh kiện</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,3 +166,107 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('input[type="file"]').each(function () {
+            var $file = $(this),
+                $label = $file.next('label'),
+                $labelText = $label.find('span'),
+                labelDefault = $labelText.text();
+            $file.on('change', function (event) {
+                var fileName = $file.val().split('\\').pop(),
+                    tmppath = URL.createObjectURL(event.target.files[0]);
+                if (fileName) {
+                    $label
+                        .addClass('file-ok')
+                        .css('background-image', 'url(' + tmppath + ')');
+                    $labelText.text(fileName);
+                } else {
+                    $label.removeClass('file-ok');
+                    $labelText.text(labelDefault);
+                }
+            }); 
+        });
+        function LayDanhSachNhomVatTuTheoLinhVuc(maLinhVuc, tenSel) {
+            $.ajax({
+                type: "post",
+                url: "/NhomVatTu/DSNhomVatTuJSON",
+                data: {
+                    "msNhomLinhVuc": maLinhVuc
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var item = "";
+                    for (i = 0; i < dl.length; i++) {
+                        item += "<option value=" + dl[i].MSNHOMVATTU + ">" + dl[i].TENNHOMVATTU + "</option>";
+                    }
+                    $(tenSel).empty();
+                    $(tenSel).append(item);
+                }
+            });
+        }
+
+        function LayDanhSachVatTuTheoNhomVatTu(maNhomVatTu, tenSel) {
+            $.ajax({
+                type: "post",
+                url: "/VatTu/DSVatTuJSON",
+                data: {
+                    "msNhomVatTu": maNhomVatTu
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var item = "";
+                    for (i = 0; i < dl.length; i++) {
+                        item += "<tr>";
+                        item += "<td class='w-5 text-center'>" + (i + 1) + "</td>";
+                        item += "<td id=" + dl[i].MSVATTU + "><img src='../Public/Images/" + dl[i].HINHANH + "' style='width: 40px;height: 40px;'/></td>";
+                        item += "<td id=" + dl[i].MSVATTU + ">" + dl[i].TENVATTU + "</td>";
+                        item += "<td id=" + dl[i].MSVATTU + ">" + dl[i].DONVITINH + "</td>";
+                        item += "<td class='text-center'> <button class='btn btn-success edit btn-cn' value='" + dl[i].MSVATTU
+                            + "'><span class='ti-pencil'></span></button> <button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSVATTU
+                            + "'><span class='ti-close'></span></button></td>";
+                        item += "</tr>";
+                    }
+                    $(tenSel).empty();
+                    $(tenSel).append(item);
+                }
+            });
+        }
+
+        $('.sel-nhom-linh-vuc').change(function () {
+            LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc').val(), ".sel-nhom-vat-tu");
+        });
+
+        $('.sel-nhom-vat-tu').change(function () {
+            LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+        });
+
+        $('#btnthem').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            var formData = new FormData();
+            var totalFiles = document.getElementById("image1").files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("image1").files[i];
+                formData.append("image1", file);
+            }
+            $.ajax({
+                type: "POST",
+                url: '/VatTu/Upload',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    alert(response);
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        });
+    });
+</script>

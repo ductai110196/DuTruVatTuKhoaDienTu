@@ -1,4 +1,6 @@
 ﻿using DuTruVatTu.Command;
+using DuTruVatTu.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +16,14 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public string DSNhomVatTuJSON(string msNhomLinhVuc)
+        {
+            NhomVatTuModel nvt = new NhomVatTuModel();
+            nvt.MSNHOMLINHVUC = int.Parse(msNhomLinhVuc);
+            return JsonConvert.SerializeObject(nvt.DanhSach());
+        }
+
     }
 }
