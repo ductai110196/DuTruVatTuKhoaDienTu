@@ -1,4 +1,5 @@
 ﻿using DuTruVatTu.Command;
+using DuTruVatTu.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,33 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         // GET: Admin/ChucVu
         public ActionResult Index()
         {
+            ViewData["DSChucVu"] = new ChucVuModel().DanhSach();
             return View();
+        }
+
+        [HttpPost]
+        public int Them(string tenChucVu)
+        {
+            ChucVuModel cv = new ChucVuModel();
+            cv.TENCHUCVU = tenChucVu;
+            return cv.Them();
+        }
+
+        [HttpPost]
+        public int CapNhat(string msChucVu, string tenChucVu)
+        {
+            ChucVuModel cv = new ChucVuModel();
+            cv.MSCHUCVU = int.Parse(msChucVu);
+            cv.TENCHUCVU = tenChucVu;
+            return cv.CapNhat();
+        }
+
+        [HttpPost]
+        public int Xoa(string msChucVu)
+        {
+            ChucVuModel cv = new ChucVuModel();
+            cv.MSCHUCVU = int.Parse(msChucVu);
+            return cv.Xoa();
         }
     }
 }
