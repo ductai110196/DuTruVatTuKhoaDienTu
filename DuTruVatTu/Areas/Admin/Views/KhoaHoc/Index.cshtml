@@ -1,9 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Khóa học";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<KhoaHocModel> lsKhoaHoc = ViewData["DSKhoaHoc"] as IEnumerable<KhoaHocModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -22,14 +24,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int j = 1; j <= 10; j++)
+                    @{ int stt = 1; }
+                    @foreach(var item in lsKhoaHoc)
                     {
                         <tr>
-                            <td class="w-5 text-center">1</td>
-                            <td class="w-80">K39</td>
+                            <td class="w-5 text-center">@(stt++)</td>
+                            <td id="tkh-@item.MSKHOAHOC" class="w-80">@item.TENKHOAHOC</td>
                             <td class="w-7 text-center">
-                                <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
-                                <button class="btn btn-danger edit"><span class="ti-close"></span></button>
+                                <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MSKHOAHOC"><span class="ti-pencil"></span></button>
+                                <button class="btn btn-danger edit open-modal-xoa" value="@item.MSKHOAHOC"><span class="ti-close"></span></button>
                             </td>
                         </tr>
                     }
@@ -53,21 +56,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="form-control-label">Tên khóa học</label>
-                        <input type="text" class="form-control">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">Tên khóa học</label>
+                            <input type="text" class="form-control them-ten-khoa-hoc">
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -78,21 +82,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="form-control-label">Tên khóa học</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">Tên khóa học</label>
+                            <input type="text" class="form-control cs-ten-khoa-hoc">
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Cập nhật</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -109,7 +114,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
             </div>
         </div>
     </div>
@@ -117,6 +122,69 @@
 
 <script>
     $(document).ready(function () {
-        $('#modal-them').modal('show');
+        var _MSKHOAHOC;
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/KhoaHoc/Them",
+                type: "POST",
+                async: false,
+                data: {
+                    "tenKhoaHoc": $('.them-ten-khoa-hoc').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-cap-nhat').click(function () {
+            _MSKHOAHOC = $(this).val();
+            $('.cs-ten-khoa-hoc').val($('#tkh-' + _MSKHOAHOC).text());
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/KhoaHoc/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "msKhoaHoc": _MSKHOAHOC,
+                    "tenKhoaHoc": $('.cs-ten-khoa-hoc').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-xoa').click(function () {
+            _MSKHOAHOC = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/KhoaHoc/Xoa",
+                type: "POST",
+                async: false,
+                data: {
+                    "msKhoaHoc": _MSKHOAHOC
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
     });
 </script>
