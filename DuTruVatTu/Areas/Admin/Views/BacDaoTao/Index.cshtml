@@ -2,7 +2,10 @@
     ViewBag.Title = "Bậc đào tạo";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<BacDaoTaoModel> lsBacDaoTao = ViewData["DSBacDaoTao"] as IEnumerable<BacDaoTaoModel>;
+}
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -12,7 +15,7 @@
             <p class="category">Quản lý thông tin bậc đào tạo bao gồm tra cứu, thêm và cập nhật.</p>
         </div>
         <div class="card-content">
-            <table class="table">
+            <table class="table tbl">
                 <thead>
                     <tr>
                         <th class="w-5 text-center">STT</th>
@@ -21,20 +24,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int j = 1; j <= 10; j++)
+                    @{ int stt = 1; }
+                    @foreach (var item in lsBacDaoTao)
                     {
                         <tr>
-                            <td class="w-5 text-center">1</td>
-                            <td class="w-80">Cao đẳng</td>
+                            <td class="w-5 text-center">@( stt++ )</td>
+                            <td id="tbdt-@item.MSBACDAOTAO" class="w-80">@item.TENBACDAOTAO</td>
                             <td class="w-7 text-center">
-                                <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
-                                <button class="btn btn-danger edit"><span class="ti-close"></span></button>                           
+                                <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MSBACDAOTAO"><span class="ti-pencil"></span></button>
+                                <button class="btn btn-danger edit open-modal-xoa" value="@item.MSBACDAOTAO"><span class="ti-close"></span></button>                           
                             </td>
                         </tr>
                     }
-                    <tr class="warning no-result">
-                        <td colspan="3"><i class="fa fa-warning"></i> No result</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -55,21 +56,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="form-control-label">Tên bật đào tạo</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Tên bậc đào tạo</label>
+                            <input type="text" class="form-control them-ten-bac-dao-tao">
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Thêm</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -80,21 +82,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="form-control-label">Tên bật đào tạo</label>
-                        <input type="text" class="form-control" id="recipient-name">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Tên bậc đào tạo</label>
+                            <input type="text" class="form-control cs-ten-bac-dao-tao">
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-success">Cập nhật</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
             </div>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -111,7 +114,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
             </div>
         </div>
     </div>
@@ -119,14 +122,69 @@
 
 <script>
     $(document).ready(function () {
+        var _MSBACDAOTAO;
         $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/BacDaoTao/Them",
+                type: "POST",
+                async: false,
+                data: {
+                    "tenBacDaoTao": $('.them-ten-bac-dao-tao').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-cap-nhat').click(function () {
+            _MSBACDAOTAO = $(this).val();
+            $('.cs-ten-bac-dao-tao').val($('#tbdt-' + _MSBACDAOTAO).text());
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/BacDaoTao/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "msBacDaoTao": _MSBACDAOTAO,
+                    "tenBacDaoTao": $('.cs-ten-bac-dao-tao').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-xoa').click(function () {
+            _MSBACDAOTAO = $(this).val();
             $('#modal-xoa').modal('show');
         });
 
-        $('.table').tableSearch({
-            searchText: 'SCsac',
-            searchPlaceHolder: 'Input Value'
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/BacDaoTao/Xoa",
+                type: "POST",
+                async: false,
+                data: {
+                    "msBacDaoTao": _MSBACDAOTAO
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
         });
-
     });
 </script>

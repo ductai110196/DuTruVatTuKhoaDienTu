@@ -60,17 +60,17 @@ namespace DuTruVatTu.Models
             return list;
         }
 
-        public int ThemBacDaoTao()
+        public int Them()
         {
             Object[] par = {
-                new SqlParameter("@mSBACDAOTAO", this.MSBACDAOTAO),
+                new SqlParameter("@mSBACDAOTAO", DBNull.Value),
                 new SqlParameter("@tENBACDAOTAO", this.TENBACDAOTAO),
                 new SqlParameter("@kEY", DBKey.INSERT),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_BacDaoTao", par).Rows[0][0].ToString());
         }
 
-        public int XoaBacDaoTao()
+        public int Xoa()
         {
             Object[] par = {
                 new SqlParameter("@mSBACDAOTAO", this.MSBACDAOTAO),
@@ -80,7 +80,7 @@ namespace DuTruVatTu.Models
             return int.Parse(DBConnect.SqlStoredProcedure("sp_BacDaoTao", par).Rows[0][0].ToString());
         }
 
-        public int CapNhatBacDaoTao()
+        public int CapNhat()
         {
             Object[] par = {
                 new SqlParameter("@mSBACDAOTAO", this.MSBACDAOTAO),

@@ -1,4 +1,189 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    ViewBag.Title = "Chức vụ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<ChucVuModel> lsChucVu = ViewData["DSChucVu"] as IEnumerable<ChucVuModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                THÔNG TIN / BẬC ĐÀO TẠO
+            </div>
+            <p class="category">Quản lý thông tin bậc đào tạo bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <table class="table tbl">
+                <thead>
+                    <tr>
+                        <th class="w-5 text-center">STT</th>
+                        <th class="w-80">TÊN BẬC ĐÀO TẠO</th>
+                        <th>THAO TÁC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int stt = 1; }
+                    @foreach (var item in lsChucVu)
+                    {
+                        <tr>
+                            <td class="w-5 text-center">@( stt++ )</td>
+                            <td id="tcv-@item.MSCHUCVU" class="w-80">@item.TENCHUCVU</td>
+                            <td class="w-7 text-center">
+                                <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MSCHUCVU"><span class="ti-pencil"></span></button>
+                                <button class="btn btn-danger edit open-modal-xoa" value="@item.MSCHUCVU"><span class="ti-close"></span></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<a class="float">
+    <span class="ti-plus icon-float"></span>
+</a>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm chức vụ </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Tên chức vụ</label>
+                            <input type="text" class="form-control them-ten-chuc-vu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-cap-nhat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật chức vụ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Tên chức vụ</label>
+                            <input type="text" class="form-control cs-ten-chuc-vu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-cap-nhat">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var _MSCHUCVU;
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        $('.btn-them').click(function () {
+            $.ajax({
+                url: "/ChucVu/Them",
+                type: "POST",
+                async: false,
+                data: {
+                    "tenChucVu": $('.them-ten-chuc-vu').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-cap-nhat').click(function () {
+            _MSCHUCVU = $(this).val();
+            $('.cs-ten-chuc-vu').val($('#tcv-' + _MSCHUCVU).text());
+            $('#modal-cap-nhat').modal('show');
+        });
+
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                url: "/ChucVu/CapNhat",
+                type: "POST",
+                async: false,
+                data: {
+                    "msChucVu": _MSCHUCVU,
+                    "tenChucVu": $('.cs-ten-chuc-vu').val()
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+
+        $('.open-modal-xoa').click(function () {
+            _MSCHUCVU = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                url: "/ChucVu/Xoa",
+                type: "POST",
+                async: false,
+                data: {
+                    "msChucVu": _MSCHUCVU
+                },
+                success: function (data) {
+                    if (data > 0)
+                        location.reload();
+                },
+                error: function (er) { console.log(er); }
+            });
+        });
+    });
+</script>

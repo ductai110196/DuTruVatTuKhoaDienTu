@@ -43,27 +43,27 @@ namespace DuTruVatTu.Models
             return list;
         }
 
-        public int ThemChucVu()
+        public int Them()
         {
             Object[] par = {
-                new SqlParameter("@mSCHUCVU", this.MSCHUCVU),
+                new SqlParameter("@mSCHUCVU", DBNull.Value),
                 new SqlParameter("@tENCHUCVU", this.TENCHUCVU),
                 new SqlParameter("@kEY", DBKey.INSERT),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_ChucVu", par).Rows[0][0].ToString());
         }
 
-        public int XoaChucVu()
+        public int Xoa()
         {
             Object[] par = {
                 new SqlParameter("@mSCHUCVU", this.MSCHUCVU),
-                new SqlParameter("@tENCHUCVU", null),
+                new SqlParameter("@tENCHUCVU", DBNull.Value),
                 new SqlParameter("@kEY", DBKey.DELETE),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_ChucVu", par).Rows[0][0].ToString());
         }
 
-        public int CapNhatChucVu()
+        public int CapNhat()
         {
             Object[] par = {
                 new SqlParameter("@mSCHUCVU", this.MSCHUCVU),

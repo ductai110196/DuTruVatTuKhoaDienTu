@@ -62,32 +62,32 @@ namespace DuTruVatTu.Models
             return list;
         }
 
-        public int ThemKhoaHoc()
+        public int Them()
         {
             Object[] par = {
-                new SqlParameter("@mSKHOAHOC", MSKHOAHOC),
+                new SqlParameter("@mSKHOAHOC", DBNull.Value),
                 new SqlParameter("@tENKHOAHOC", TENKHOAHOC),
-                new SqlParameter("@kEY", DBKey.SELECT),
+                new SqlParameter("@kEY", DBKey.INSERT),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_KhoaHoc", par).Rows[0][0].ToString());
         }
 
-        public int XoaKhoaHoc()
+        public int Xoa()
         {
             Object[] par = {
                 new SqlParameter("@mSKHOAHOC", MSKHOAHOC),
-                new SqlParameter("@tENKHOAHOC", TENKHOAHOC),
-                new SqlParameter("@kEY", DBKey.SELECT),
+                new SqlParameter("@tENKHOAHOC", DBNull.Value),
+                new SqlParameter("@kEY", DBKey.DELETE),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_KhoaHoc", par).Rows[0][0].ToString());
         }
 
-        public int CapNhatKhoaHoc()
+        public int CapNhat()
         {
             Object[] par = {
                 new SqlParameter("@mSKHOAHOC", MSKHOAHOC),
                 new SqlParameter("@tENKHOAHOC", TENKHOAHOC),
-                new SqlParameter("@kEY", DBKey.SELECT),
+                new SqlParameter("@kEY", DBKey.UPDATE),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_KhoaHoc", par).Rows[0][0].ToString());
         }
