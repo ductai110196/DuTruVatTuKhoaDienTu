@@ -34,12 +34,23 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             if(Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                var fileRadom = Guid.NewGuid() + Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Uploads/"), fileRadom);
                 file.SaveAs(path);
-                return path;
+                return "/Uploads/" + fileRadom;
             }
             return null;
+        }
+
+        [HttpPost]
+        public int Them(string msNhomVatTu, string tenVatTu, string donViTinh, string urlHinhAnh)
+        {
+            VatTuModel vt = new VatTuModel();
+            vt.MSNHOMVATTU = int.Parse(msNhomVatTu);
+            vt.TENVATTU = tenVatTu;
+            vt.DONVITINH = donViTinh;
+            vt.HINHANH = urlHinhAnh;
+            return vt.Them();
         }
     }
 }

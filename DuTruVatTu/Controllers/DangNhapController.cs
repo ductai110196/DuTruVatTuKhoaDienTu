@@ -17,6 +17,7 @@ namespace DuTruVatTu.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult KiemTraDangNhap(string tenDangNhap, string matKhau)
         {
             string a = new Command.Command().MaHoaChuoi(matKhau);
