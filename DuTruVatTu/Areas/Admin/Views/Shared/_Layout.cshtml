@@ -11,7 +11,6 @@
     <link href="~/Public/Css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Public/Css/custom.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Public/Css/toastr.min.css" rel="stylesheet" />
-    <link href="~/Public/Css/nprogress.css" rel="stylesheet" />
     <link href="~/Public/Css/themify-icons.css" rel="stylesheet" />
     <link href="~/Public/Css/style.css" rel="stylesheet" />
 
@@ -20,26 +19,14 @@
     <script src="~/Public/Js/tether.min.js"></script>
     <script src="~/Public/Js/bootstrap.min.js"></script>
     <script src="~/Public/Js/toastr.min.js"></script>
-    <script src="~/Public/Js/nprogress.js"></script>
     <script src="~/Public/Js/html-table-search.js"></script>
     <script src="~/Public/Js/function.js"></script>
     <script>
         $(document).ready(function () {
             $(document).ajaxStart(function () {
-                NProgress.start();
-                $('body').after('<div class="loading"></div>');
+               
             }).ajaxStop(function () {
-                NProgress.done();
-                NProgress.remove();
-                $('.loading').remove();
-            });
-
-            $(".modal").draggable({
-                handle: ".modal-header"
-            });
-
-            $(".float").draggable({
-                handle: ".float"
+               
             });
         });
     </script>
