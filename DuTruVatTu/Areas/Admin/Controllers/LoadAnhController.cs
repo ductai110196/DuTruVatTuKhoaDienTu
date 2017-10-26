@@ -21,7 +21,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         public string LoadAnhAjax()
         {
             var array = Directory.EnumerateFiles(Server.MapPath("~/Uploads/"))
-                          .Select(fn => "~/Uploads/" + Path.GetFileName(fn));
+                          .Select(fn => "/Uploads/" + Path.GetFileName(fn));
             List<HinhAnhModel> listAnh = new List<HinhAnhModel>();
             foreach (var item in array)
             {
