@@ -32,6 +32,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public int CapNhat(string msGiangVien, string maGiangVien, string tenGiangVien, 
             string ngaySinh, string gioiTinh, string maChucVu)
         {

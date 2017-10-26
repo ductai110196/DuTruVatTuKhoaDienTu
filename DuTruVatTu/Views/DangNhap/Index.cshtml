@@ -16,6 +16,7 @@
                 <img class='logo' src="~/Public/Images/logo_vlute.png">
             </div>
             <form class="login-form" action="@Url.Action("KiemTraDangNhap", "DangNhap")" method="post">
+                @Html.AntiForgeryToken()
                 <input name="tenDangNhap" type="text" placeholder="Tên đăng nhập" value="tainvm" />
                 <input name="matKhau" type="password" placeholder="Mật khẩu" value="12345"/>
                 <button type="submit">ĐĂNG NHẬP</button>

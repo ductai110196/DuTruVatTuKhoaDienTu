@@ -107,7 +107,6 @@
     <Content Include="Public\Fonts\themify.svg" />
     <Content Include="Public\Images\bacground.jpg" />
     <Content Include="Public\Images\girl.png" />
-    <Content Include="Public\Images\idea.png" />
     <Content Include="Public\Images\logo_vlute.png" />
     <Content Include="Public\Images\logo_vlute_full.png" />
     <Content Include="Public\Images\qr-code.jpg" />

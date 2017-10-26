@@ -251,6 +251,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": @Html.AntiForgeryToken(),
                     "msGiangVien": _MSGiangVien,
                     "maGiangVien": $('.cs-ma-giang-vien').val(),
                     "tenGiangVien": $('.cs-ten-giang-vien').val(),
