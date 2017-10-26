@@ -207,6 +207,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maBacDaoTao": maBac
                 },
                 success: function (data) {
@@ -228,6 +229,7 @@
                     type: "POST",
                     async: false,
                     data: {
+                        "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                         "maKhoa": maKhoa
                     },
                     success: function (data) {
@@ -249,6 +251,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "hocKy": maHocKy,
                     "maHocPhan": maHocPhan
                 },
@@ -286,6 +289,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "hocKy": $('.sel-hoc-ky').val(),
                     "maHocPhan": $('.sel-mon-hoc').val(),
                     "maLopHocphan": $('.them-ma-lop-hoc-phan').val(),
@@ -308,6 +312,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msLopHocPhan": _ma,
                     "hocKy": $('.sel-hoc-ky').val(),
                     "maHocPhan": $('.sel-mon-hoc').val(),
@@ -331,6 +336,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msLopHocPhan": _ma
                 },
                 success: function (data) {

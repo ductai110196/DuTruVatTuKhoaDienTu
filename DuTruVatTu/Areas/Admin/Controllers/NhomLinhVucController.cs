@@ -13,7 +13,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string tenNhom)
         {
             NhomLinhVucModel nlv = new NhomLinhVucModel();
@@ -21,7 +21,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return nlv.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string msNhom, string tenNhom)
         {
             NhomLinhVucModel nlv = new NhomLinhVucModel();
@@ -30,7 +30,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return nlv.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string msNhom)
         {
             NhomLinhVucModel nlv = new NhomLinhVucModel();

@@ -313,6 +313,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNamHoc": msNamHoc,
                     "msKhoaHoc": msKhoahoc
                 },
@@ -362,6 +363,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "mSNamHoc": $('.sel-nam-hoc').val(),
                     "mSKhoaHoc": $('.sel-khoa-hoc').val(),
                     "tenHocKy": $('.them-ten-hoc-ky').val(),
@@ -398,6 +400,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "mSNamHoc": $('.sel-nam-hoc').val(),
                     "mSKhoaHoc": $('.sel-khoa-hoc').val(),
                     "msHocKy": _MSHOCKY,
@@ -456,6 +459,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "tenNamHoc": $('.them-ten-nam-hoc').val(),
                 },
                 success: function (data) {
@@ -478,6 +482,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNamHoc": _MSNAMHOC,
                     "tenNamHoc": $('.cs-ten-nam-hoc').val(),
                 },
@@ -500,6 +505,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNamHoc": _MSNAMHOC,
                 },
                 success: function (data) {

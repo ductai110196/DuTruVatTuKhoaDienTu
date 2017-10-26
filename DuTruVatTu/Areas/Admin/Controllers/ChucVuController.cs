@@ -17,7 +17,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string tenChucVu)
         {
             ChucVuModel cv = new ChucVuModel();
@@ -25,7 +25,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return cv.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string msChucVu, string tenChucVu)
         {
             ChucVuModel cv = new ChucVuModel();
@@ -34,7 +34,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return cv.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string msChucVu)
         {
             ChucVuModel cv = new ChucVuModel();

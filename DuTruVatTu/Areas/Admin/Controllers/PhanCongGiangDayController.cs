@@ -19,7 +19,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string DanhSachPhanCongGiangDay(string maHocKy, string maHocPhan)
         {
             return JsonConvert.SerializeObject(
@@ -27,7 +27,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                );
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CapNhat(ICollection<string> MSPHANCONGGIANGDAY, ICollection<string> MSLOPHOCPHAN,
             ICollection<string> MSGIANGVIEN)
         {

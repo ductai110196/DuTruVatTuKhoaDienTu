@@ -18,7 +18,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string DSNhomVatTuJSON(string msNhomLinhVuc)
         {
             NhomVatTuModel nvt = new NhomVatTuModel();

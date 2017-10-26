@@ -18,12 +18,14 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
         public string QuyenHanChiTiet(string maTaiKhoan)
         {
             return JsonConvert.SerializeObject(
                 new TaiKhoanDangNhapModel(int.Parse(maTaiKhoan)).TaiKhoanChiTiet()
                 );
         }
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(
                     string maTaiKhoan,
                     string tenDangNhap,

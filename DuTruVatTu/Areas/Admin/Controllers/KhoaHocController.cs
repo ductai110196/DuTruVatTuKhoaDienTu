@@ -17,7 +17,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string tenKhoaHoc)
         {
             KhoaHocModel tkh = new KhoaHocModel();
@@ -25,7 +25,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return tkh.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string tenKhoaHoc, string msKhoaHoc)
         {
             KhoaHocModel tkh = new KhoaHocModel();
@@ -34,7 +34,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return tkh.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string msKhoaHoc)
         {
             KhoaHocModel tkh = new KhoaHocModel();

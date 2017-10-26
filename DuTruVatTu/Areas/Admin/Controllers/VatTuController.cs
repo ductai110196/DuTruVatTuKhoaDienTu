@@ -20,7 +20,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string DSVatTuJSON (string msNhomVatTu)
         {
             VatTuModel vt = new VatTuModel();
@@ -28,7 +28,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(vt.DanhSach());
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string Upload()
         {
             if(Request.Files.Count > 0)
@@ -42,7 +42,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return null;
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string msNhomVatTu, string tenVatTu, string donViTinh, string urlHinhAnh)
         {
             VatTuModel vt = new VatTuModel();

@@ -149,6 +149,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "tenNhom": $('.them-ten-linh-vuc').val()
                 },
                 success: function (data) {
@@ -165,6 +166,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNhom": _MSNhomLinhVuc,
                     "tenNhom": $('.cs-ten-linh-vuc').val()
                 },
@@ -182,6 +184,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNhom": _MSNhomLinhVuc,
                 },
                 success: function (data) {
