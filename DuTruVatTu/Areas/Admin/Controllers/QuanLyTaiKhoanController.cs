@@ -32,9 +32,10 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                     string email,
                     string quyenHan)
         {
-            return new TaiKhoanDangNhapModel(
+            int rs =  new TaiKhoanDangNhapModel(
                 int.Parse(maTaiKhoan), tenDangNhap, "", quyenHan, "", email
                 ).CapNhat();
+            return rs;
         }
     }
 }

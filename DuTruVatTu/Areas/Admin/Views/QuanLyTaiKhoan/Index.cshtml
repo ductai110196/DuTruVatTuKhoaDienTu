@@ -21,9 +21,9 @@
                         <thead>
                             <tr>
                                 <th class="w-5 text-center">STT</th>
+                                <th class="w-20">HỌ TÊN</th>
                                 <th class="w-20">TÊN ĐĂNG NHẬP</th>
                                 <th class="w-20">EMAIL</th>
-                                <th>QUYỀN HẠN</th>
                                 <th class="w-7 text-center">THAO TÁC</th>
                             </tr>
                         </thead>
@@ -33,9 +33,9 @@
                             {
                                 <tr>
                                     <td class="text-center">@(i++)</td>
+                                    <td>@item.TENGIANGVIEN</td>
                                     <td id="tdn-@item.MATAIKHOAN">@item.TENDANGNHAP</td>
                                     <td id="email-@item.MATAIKHOAN">@item.EMAIL</td>
-                                    <td></td>
                                     <td class="text-center">
                                         <button class="btn btn-success edit open-modal-cap-nhat" value="@item.MATAIKHOAN"><span class="ti-pencil"></span></button>       
                                     </td>

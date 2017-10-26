@@ -98,7 +98,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Public\Css\bootstrap.min.css" />
-    <Content Include="Public\Css\custom.bootstrap.min.css" />
+    <Content Include="Public\Css\custom.css" />
     <Content Include="Public\Css\style-landing.css" />
     <Content Include="Public\Css\style.css" />
     <Content Include="Public\Css\themify-icons.css" />

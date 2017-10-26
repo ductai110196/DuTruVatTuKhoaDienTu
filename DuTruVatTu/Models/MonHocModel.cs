@@ -105,10 +105,10 @@ namespace DuTruVatTu.Models
         {
             List<MonHocModel> list = new List<MonHocModel>();
             Object[] par = {
-                new SqlParameter("@mSHOCPHAN", MSHOCPHAN),
-                new SqlParameter("@mAHOCPHAN", DBNull.Value),
-                new SqlParameter("@mSBACDAOTAO", DBNull.Value),
-                new SqlParameter("@tENHOCPHAN", DBNull.Value),
+                new SqlParameter("@mSHOCPHAN", DBNull.Value),
+                new SqlParameter("@mAHOCPHAN", MAHOCPHAN),
+                new SqlParameter("@mSBACDAOTAO", MSBACDAOTAO),
+                new SqlParameter("@tENHOCPHAN", TENHOCPHAN),
                 new SqlParameter("@lYTHUYET", DBNull.Value),
                 new SqlParameter("@tHUCHANH", DBNull.Value),
                 new SqlParameter("@kEY", DBKey.SELECT),
