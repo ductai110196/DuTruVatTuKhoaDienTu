@@ -133,6 +133,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "tenKhoaHoc": $('.them-ten-khoa-hoc').val()
                 },
                 success: function (data) {
@@ -155,6 +156,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msKhoaHoc": _MSKHOAHOC,
                     "tenKhoaHoc": $('.cs-ten-khoa-hoc').val()
                 },
@@ -177,6 +179,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msKhoaHoc": _MSKHOAHOC
                 },
                 success: function (data) {

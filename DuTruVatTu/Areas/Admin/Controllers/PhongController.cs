@@ -17,25 +17,25 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int KiemTra(string tenPhong)
         {
             return new DuTruVatTu.Models.PhongModel(tenPhong).KiemTra().Count;
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them( string tenPhong, string msGiangVien)
         {
             return new DuTruVatTu.Models.PhongModel(tenPhong, int.Parse(msGiangVien)).Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string maPhong, string tenPhong, string msGiangVien)
         {
             return new DuTruVatTu.Models.PhongModel(int.Parse(maPhong), tenPhong, int.Parse(msGiangVien)).CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string maPhong)
         {
             return new DuTruVatTu.Models.PhongModel(int.Parse(maPhong)).Xoa();

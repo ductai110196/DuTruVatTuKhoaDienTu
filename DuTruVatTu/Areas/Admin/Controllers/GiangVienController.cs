@@ -19,7 +19,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string maGiangVien, string tenGiangVien, string ngaySinh, string gioiTinh, string maChucVu)
         {
             GiangVienModel gv = new GiangVienModel();
@@ -31,8 +31,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return gv.Them();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string msGiangVien, string maGiangVien, string tenGiangVien, 
             string ngaySinh, string gioiTinh, string maChucVu)
         {
@@ -46,7 +45,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return gv.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string msGiangVien)
         {
             GiangVienModel gv = new GiangVienModel();
@@ -54,7 +53,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return gv.Xoa();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string DanhSachGiangVienJSON()
         {
             return JsonConvert.SerializeObject(

@@ -154,8 +154,8 @@
                 url: "/Phong/KiemTra",
                 type: "post",
                 async: false,
-                dataType: 'json',
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "tenPhong": tenphong
                 },
                 success: function (data) {
@@ -179,8 +179,8 @@
                     url: "/Phong/Them",
                     type: "post",
                     async: false,
-                    dataType: 'json',
                     data: {
+                        "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                         "tenPhong": $('.them-tp').val(),
                         "msGiangVien": $('.them-gv').val()
                     },
@@ -207,8 +207,8 @@
                     url: "/Phong/CapNhat",
                     type: "post",
                     async: false,
-                    dataType: 'json',
                     data: {
+                        "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                         "maPhong": $('.maphong').val(),
                         "tenPhong": $('.cn-tp').val(),
                         "msGiangVien": $('.cn-gv').val()
@@ -232,8 +232,8 @@
                 url: "/Phong/Xoa",
                 type: "post",
                 async: false,
-                dataType: 'json',
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maPhong": $('.maphong').val()
                 },
                 success: function (data) {

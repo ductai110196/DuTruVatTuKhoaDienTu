@@ -220,6 +220,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msGiangVien": _MSGiangVien
                 },
                 success: function (data) {
@@ -251,7 +252,7 @@
                 type: "POST",
                 async: false,
                 data: {
-                    "__RequestVerificationToken": @Html.AntiForgeryToken(),
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msGiangVien": _MSGiangVien,
                     "maGiangVien": $('.cs-ma-giang-vien').val(),
                     "tenGiangVien": $('.cs-ten-giang-vien').val(),
@@ -277,6 +278,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maGiangVien": $('.them-ma-giang-vien').val(),
                     "tenGiangVien": $('.them-ten-giang-vien').val(),
                     "ngaySinh": $('.them-ngay-sinh').val(),

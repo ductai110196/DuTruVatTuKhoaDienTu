@@ -133,6 +133,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "tenBacDaoTao": $('.them-ten-bac-dao-tao').val()
                 },
                 success: function (data) {
@@ -155,6 +156,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msBacDaoTao": _MSBACDAOTAO,
                     "tenBacDaoTao": $('.cs-ten-bac-dao-tao').val()
                 },
@@ -177,6 +179,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msBacDaoTao": _MSBACDAOTAO
                 },
                 success: function (data) {

@@ -20,7 +20,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string HocKyTheoKhoaHocJSON(string msNamHoc, string msKhoaHoc)
         {
             HocKyModel hk = new HocKyModel();
@@ -31,7 +31,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                 );
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string LayDanhSachHocKyHienTaiTheoKhoaJson(string maKhoa)
         {
             return JsonConvert.SerializeObject(
@@ -39,7 +39,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                 );
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int ThemHocKy(string mSNamHoc, string mSKhoaHoc, string tenHocKy, string ngayBatDau, string ngayKetThuc, 
             string ngayDuTru, string ngaytKetThucDuTru)
         {
@@ -54,7 +54,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return hk.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhatHocKy(string mSNamHoc, string mSKhoaHoc, string msHocKy, string tenHocKy, string ngayBatDau, string ngayKetThuc,
             string ngayDuTru, string ngaytKetThucDuTru)
         {
@@ -70,7 +70,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return hk.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int XoaHocKy(string msHocKy)
         {
             HocKyModel hk = new HocKyModel();
@@ -78,7 +78,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return hk.Xoa();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int ThemNamHoc(string tenNamHoc)
         {
             NamHocModel nh = new NamHocModel();
@@ -86,7 +86,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return nh.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhatNamHoc(string msNamHoc, string tenNamHoc)
         {
             NamHocModel nh = new NamHocModel();
@@ -95,7 +95,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return nh.CapNhatNamHoc();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int XoaNamHoc(string msNamHoc)
         {
             NamHocModel nh = new NamHocModel();

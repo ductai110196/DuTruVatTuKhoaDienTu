@@ -129,10 +129,9 @@
     <Compile Include="Areas\Admin\Controllers\ChucVuController.cs" />
     <Compile Include="Areas\Admin\Controllers\DuTruController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiangVienController.cs" />
-    <Compile Include="Areas\Admin\Controllers\GioGiangCaNhanController.cs" />
-    <Compile Include="Areas\Admin\Controllers\GioGiangKhoaController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocKyNamHocController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoaHocController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoadAnhController.cs" />
     <Compile Include="Areas\Admin\Controllers\LopHocPhanController.cs" />
     <Compile Include="Areas\Admin\Controllers\MonHocController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTaiKhoanController.cs" />
@@ -174,6 +173,7 @@
     <Compile Include="Interface\iTaiKhoanDangNhap.cs" />
     <Compile Include="Interface\iVatTu.cs" />
     <Compile Include="Interface\iVatTuPhong.cs" />
+    <Compile Include="Models\HinhAnhModel.cs" />
     <Compile Include="Models\BacDaoTaoModel.cs" />
     <Compile Include="Models\ChucVuModel.cs" />
     <Compile Include="Models\DuTruVatTuChiTietModel.cs" />
@@ -212,8 +212,6 @@
     <Content Include="Areas\Admin\Views\VatTu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Phong\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongGiangDay\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GioGiangCaNhan\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\GioGiangKhoa\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DuTru\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyThietBi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ThongTinCaNhan\Index.cshtml" />
@@ -236,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\LoadAnh\" />
     <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Uploads\" />

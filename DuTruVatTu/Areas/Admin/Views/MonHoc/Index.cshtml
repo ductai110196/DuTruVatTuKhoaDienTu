@@ -184,6 +184,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maBacDaoTao": maBac
                 },
                 success: function (data) {
@@ -223,6 +224,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maBacDaoTao": $('.sel-bac-dao-tao').val(),
                     "maHocPhan": $('.them-ma-mon-hoc').val(),
                     "tenMonHoc": $('.them-ten-mon-hoc').val(),
@@ -253,6 +255,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maBacDaoTao": $('.sel-bac-dao-tao').val(),
                     "mSMonHoc": _MSHOCPHAN,
                     "maMonHoc": $('.cs-ma-mon-hoc').val(),
@@ -280,6 +283,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "mSMonHoc": _MSHOCPHAN,
                 },
                 success: function (data) {

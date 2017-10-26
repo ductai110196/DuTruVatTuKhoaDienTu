@@ -20,7 +20,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string LopHocPhanJSON(string hocKy, string maHocPhan)
         {
             return JsonConvert.SerializeObject(
@@ -28,7 +28,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                 );
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int ThemJSON(string hocKy, string maHocPhan, string maLopHocphan, 
             string tenLopHocPhan, string siSo, string loaiLopHocPhan)
         {
@@ -39,7 +39,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return 0;
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhatJSON(string msLopHocPhan, string hocKy, string maHocPhan, string maLopHocPhan,
             string tenLopHocPhan, string siSo, string loaiLopHocPhan)
         {
@@ -47,7 +47,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                     int.Parse(loaiLopHocPhan), int.Parse(maHocPhan), int.Parse(hocKy)).CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int XoaJSON(string msLopHocPhan)
         {
             return new LopHocPhanModel(int.Parse(msLopHocPhan)).Xoa();

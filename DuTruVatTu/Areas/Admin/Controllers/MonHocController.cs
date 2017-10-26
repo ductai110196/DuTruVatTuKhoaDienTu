@@ -14,7 +14,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public string MonHocTheoBacDaoTaoJson(string maBacDaoTao)
         {
             MonHocModel mh = new MonHocModel();
@@ -24,7 +24,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
                 );
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string maBacDaoTao, string maHocPhan, string tenMonHoc, string lyThuyet, string thucHanh)
         {
             MonHocModel mh = new MonHocModel();
@@ -36,7 +36,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return mh.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string maBacDaoTao, string mSMonHoc,
             string maMonHoc, string tenMonHoc, string lyThuyet, string thucHanh)
         {
@@ -50,7 +50,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return mh.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string mSMonHoc)
         {
             MonHocModel mh = new MonHocModel();

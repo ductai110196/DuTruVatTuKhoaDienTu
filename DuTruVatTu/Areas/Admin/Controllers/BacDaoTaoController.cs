@@ -17,7 +17,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Them(string tenBacDaoTao)
         {
             BacDaoTaoModel bdt = new BacDaoTaoModel();
@@ -25,7 +25,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return bdt.Them();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int CapNhat(string msBacDaoTao, string tenBacDaoTao)
         {
             BacDaoTaoModel bdt = new BacDaoTaoModel();
@@ -34,7 +34,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return bdt.CapNhat();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public int Xoa(string msBacDaoTao)
         {
             BacDaoTaoModel bdt = new BacDaoTaoModel();

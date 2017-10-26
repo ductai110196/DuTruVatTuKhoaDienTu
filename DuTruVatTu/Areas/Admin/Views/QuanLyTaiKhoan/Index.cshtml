@@ -247,6 +247,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maTaiKhoan": _maTaiKhoan,
                 },
                 success: function (data) {
@@ -302,6 +303,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maTaiKhoan": _maTaiKhoan,
                     "tenDangNhap": $('.cs-ten-dang-nhap').val(),
                     "email": $('.cs-email').val(),

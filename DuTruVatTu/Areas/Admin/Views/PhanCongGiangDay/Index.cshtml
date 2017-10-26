@@ -94,6 +94,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maBacDaoTao": maBac
                 },
                 success: function (data) {
@@ -115,6 +116,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maKhoa": maKhoa
                 },
                 success: function (data) {
@@ -135,6 +137,9 @@
                 url: "/GiangVien/DanhSachGiangVienJSON",
                 type: "POST",
                 async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                },
                 success: function (data) {
                     var dl = $.parseJSON(data);
                     _DSGiangVienSelect = "<select class='form-control' name='MSGIANGVIEN'>";
@@ -154,6 +159,7 @@
                 type: "POST",
                 async: false,
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "maHocKy": maHocKy,
                     "maHocPhan": maHocPhan
                 },
