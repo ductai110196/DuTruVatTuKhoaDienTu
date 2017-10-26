@@ -88,18 +88,15 @@
                             <option value="Bộ">Cái</option>
                         </select>
                     </div>
+                    <div class="col-md-6">
+                        <label>Hình ảnh</label>
+                        <br />
+                        <button style="margin-top:-1px;" type="button" class="btn btn-success btn-mo-modal-img">Insert image</button>
+                    </div>
                 </div>
                 <div class="row"> 
-                    <div class="col-md-12">
-                        <label>Hình ảnh</label><br /><br />
-                        <div id="page">
-                            <div class="wrap-custom-file">
-                                <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
-                                <label for="image1">
-                                    <span>Chọn ảnh linh kiện</span>
-                                </label>
-                            </div>
-                        </div>
+                    <div class="col-md-12 text-center">
+                        <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu"/>
                     </div>
                 </div>
             </div>
@@ -180,6 +177,64 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-load-anh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="height: 500px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ẢNH VẬT TƯ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#thuvienanh" role="tab" data-toggle="tab">Thư viện ảnh</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#themanh" role="tab" data-toggle="tab">Thêm ảnh</a>
+                            </li>
+                        </ul>
+                        <hr />
+                    </div>
+                    <div class="col-md-12">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active show" id="thuvienanh">
+                                <div class="row list-thu-vien-anh" >
+                                    <div class="col-md-2">
+                                        <input type="checkbox" class="chk-img-vat-tu"/>
+                                        <img src="~/Uploads/21740498_878883312277596_1367665388262135781_n.jpg" alt="Alternate Text" style='width:100%' />
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="themanh">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="page">
+                                            <div class="wrap-custom-file">
+                                                <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
+                                                <label for="image1">
+                                                    <span>Chọn ảnh linh kiện</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+     
 <script>
     $(document).ready(function () {
         var _MSVATTU;
@@ -209,6 +264,7 @@
                 type: "post",
                 url: "/NhomVatTu/DSNhomVatTuJSON",
                 data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNhomLinhVuc": maLinhVuc
                 },
                 success: function (data) {
@@ -250,6 +306,25 @@
                     }
                 });
             }            
+        }
+
+        function LayDanhSachHinhAnh(control) {
+            $.ajax({
+                type: "post",
+                url: "/LoadAnh/LoadAnhAjax",
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var item = "";
+                    for (i = 0; i < dl.length; i++) {
+                        item += "<div class='col-2'>";
+                        item += "<input type='checkbox' class='chk-img-vat-tu' />";
+                        item += "<img src='" + dl[i].URL + "' alt='Alternate Text' class='img-vat-tu' />";
+                        item += "</div>"
+                    }
+                    $(control).empty();
+                    $(control).append(item);
+                }
+            });
         }
 
         $('.sel-nhom-linh-vuc, .sel-nhom-vat-tu').change(function () {
@@ -312,5 +387,13 @@
             $('#modal-cap-nhat').modal('show');
         });
 
+        $(document).on('click', '.btn-xoa', function () {
+            $('#modal-load-anh').modal('show');
+        });
+
+        $('.btn-mo-modal-img').click(function () {
+            LayDanhSachHinhAnh('.list-thu-vien-anh');
+            $('#modal-load-anh').modal('show');
+        });
     });
 </script>

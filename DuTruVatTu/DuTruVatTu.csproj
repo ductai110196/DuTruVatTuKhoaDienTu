@@ -118,6 +118,7 @@
     <Content Include="Public\Js\nprogress.js" />
     <Content Include="Public\Js\tether.min.js" />
     <Content Include="Public\Js\toastr.min.js" />
+    <Content Include="Uploads\21740498_878883312277596_1367665388262135781_n.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -237,7 +238,6 @@
     <Folder Include="Areas\Admin\Views\LoadAnh\" />
     <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\Shared\" />
-    <Folder Include="Uploads\" />
     <Folder Include="Views\DangXuat\" />
   </ItemGroup>
   <PropertyGroup>
