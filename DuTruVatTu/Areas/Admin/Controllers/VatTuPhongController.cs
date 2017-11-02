@@ -1,9 +1,5 @@
 ﻿using DuTruVatTu.Command;
 using DuTruVatTu.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace DuTruVatTu.Areas.Admin.Controllers
@@ -17,11 +13,6 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             phong.MSGIANGVIEN = ((TaiKhoanDangNhapModel)Session[Contains.SESSION_KEY_DANGNHAP]).MSGIANGVIEN;
             ViewData["DSPhong"] = new DuTruVatTu.Models.PhongModel().DanhSach();
             return View();
-        }
-
-        public string DanhSachVatTu(string maPhong)
-        {
-
         }
     }
 }
