@@ -18,10 +18,5 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             ViewData["DSPhong"] = new DuTruVatTu.Models.PhongModel().DanhSach();
             return View();
         }
-
-        public string DanhSachVatTu(string maPhong)
-        {
-
-        }
     }
 }
