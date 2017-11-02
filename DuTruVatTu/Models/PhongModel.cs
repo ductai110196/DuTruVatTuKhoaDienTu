@@ -79,6 +79,29 @@ namespace DuTruVatTu.Models
             return list;
         }
 
+        public List<PhongModel> DanhSachPhongTheoGiangVien()
+        {
+            List<PhongModel> list = new List<PhongModel>();
+            Object[] par = {
+                new SqlParameter("@mSPHONG", DBNull.Value),
+                new SqlParameter("@mSGIANGVIEN", MSGIANGVIEN),
+                new SqlParameter("@tENPHONG", DBNull.Value),
+                new SqlParameter("@kEY", DBKey.SELECT_GIANGVIEN)
+            };
+            DataTable dt = DBConnect.SqlStoredProcedure("sp_Phong", par);
+            foreach (DataRow item in dt.Rows)
+            {
+                PhongModel nlv = new PhongModel();
+                nlv.MSPHONG = int.Parse(item["MSPHONG"].ToString());
+                nlv.TENPHONG = item["TENPHONG"].ToString();
+                nlv.MSGIANGVIEN = int.Parse(item["MSGIANGVIEN"].ToString());
+                nlv.MAGIANGVIEN = item["MAGIANGVIEN"].ToString();
+                nlv.TENGIANGVIEN = item["TENGIANGVIEN"].ToString();
+                list.Add(nlv);
+            }
+            return list;
+        }
+
         public List<PhongModel> KiemTra()
         {
             List<PhongModel> list = new List<PhongModel>();

@@ -1,6 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Quản lý vật tư trong phòng";
+    ViewBag.Title = "Vật tư - Phòng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<PhongModel> lsPhong = ViewData["DSPhong"] as IEnumerable<PhongModel>;
 }
 <div class="col-md-12">
     <div class="card">
@@ -17,19 +21,13 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="from-group">
-                                    <label>Lĩnh vực</label>
-                                    <select class="form-control sel-nhom-linh-vuc">
-                                        @*@foreach (var item in lsNhomLinhVuc)
+                                    <label>Phòng</label>
+                                    <select class="form-control sel-phong">
+                                        @foreach (var item in lsPhong)
                                         {
-                                            <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
-                                        }*@
+                                            <option value="@item.MSPHONG">@item.TENPHONG</option>
+                                        }
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="from-group">
-                                    <label>Nhóm vật tư</label>
-                                    <select class="form-control sel-nhom-vat-tu"></select>
                                 </div>
                             </div>
                         </div>
@@ -66,3 +64,24 @@
 <a class="float">
     <span class="ti-plus icon-float" id="btnthem"></span>
 </a>
+
+<script>
+    $(document).ready(function () {
+        function LayDSach(maPhong, control) {
+            $.ajax({
+                url: "/Phong/Them",
+                type: "post",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "maPhong": $('.them-tp').val(),
+                    "msGiangVien": $('.them-gv').val()
+                },
+                success: function (data) {
+                    toastr.success('Thêm phòng thành công');
+                    location.reload();
+                }
+            });
+        }
+    })
+</script>
