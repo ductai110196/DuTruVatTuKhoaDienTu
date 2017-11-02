@@ -18,6 +18,9 @@ namespace DuTruVatTu.Command
                     case "BacDaoTao":
                         st = qh.BACDAOTAO;
                         break;
+                    case "LopHocPhan":
+                        st = qh.LOPHOCPHAN;
+                        break;
                     case "ChucVu":
                         st = qh.CHUCVU;
                         break;
