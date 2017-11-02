@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace DuTruVatTu.Areas.Admin.Controllers
 {
-    public class QuanLyThietBiController : BaseController
+    public class VatTuPhongController : BaseController
     {
-        // GET: Admin/QuanLyThietBi
+        // GET: Admin/VatTuPhong
         public ActionResult Index()
         {
             return View();

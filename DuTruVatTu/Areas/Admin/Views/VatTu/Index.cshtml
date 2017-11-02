@@ -96,7 +96,7 @@
                 </div>
                 <div class="row"> 
                     <div class="col-md-12 text-center">
-                        <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu"/>
+                        <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu-mau"/>
                     </div>
                 </div>
             </div>
@@ -179,9 +179,9 @@
 
 <div class="modal fade" id="modal-load-anh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content" style="height: 500px;">
+        <div class="modal-content" style="height: 550px;">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">ẢNH VẬT TƯ</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Chọn ảnh vật tư</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -194,7 +194,7 @@
                                 <a class="nav-link active" href="#thuvienanh" role="tab" data-toggle="tab">Thư viện ảnh</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#themanh" role="tab" data-toggle="tab">Thêm ảnh</a>
+                                <a class="nav-link" href="#themanh" role="tab" data-toggle="tab">Tải lên</a>
                             </li>
                         </ul>
                         <hr />
@@ -202,22 +202,31 @@
                     <div class="col-md-12">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active show" id="thuvienanh">
-                                <div class="row list-thu-vien-anh" >
+                                <div class="row list-thu-vien-anh" style="overflow-y: scroll; height: 400px;">
                                     <div class="col-md-2">
-                                        <input type="checkbox" class="chk-img-vat-tu"/>
+                                        <input type="checkbox" class="chk-img-vat-tu" />
                                         <img src="~/Uploads/21740498_878883312277596_1367665388262135781_n.jpg" alt="Alternate Text" style='width:100%' />
                                     </div>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="themanh">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div id="page">
-                                            <div class="wrap-custom-file">
-                                                <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
-                                                <label for="image1">
-                                                    <span>Chọn ảnh linh kiện</span>
-                                                </label>
+                                <div class="row" style="height: 400px;">
+                                    <div class="d-flex align-items-center bd-highlight justify-content-center" style="height: 100%; width: 100%;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="p-2 bd-highlight">
+                                                    <div id="page">
+                                                        <div class="wrap-custom-file">
+                                                            <input type="file" name="image1" id="image1" accept=".jpg, .png" />
+                                                            <label for="image1">
+                                                                <span>Chọn ảnh linh kiện</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-success btn-upload">Upload</button>
                                             </div>
                                         </div>
                                     </div>
@@ -227,10 +236,6 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
-            </div>
         </div>
     </div>
 </div>
@@ -238,7 +243,8 @@
 <script>
     $(document).ready(function () {
         var _MSVATTU;
-
+        var _MANHOMVATTU;
+        var urlImage;
         $('input[type="file"]').each(function () {
             var $file = $(this),
                 $label = $file.next('label'),
@@ -263,6 +269,7 @@
             $.ajax({
                 type: "post",
                 url: "/NhomVatTu/DSNhomVatTuJSON",
+                async: false,
                 data: {
                     "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
                     "msNhomLinhVuc": maLinhVuc
@@ -280,10 +287,12 @@
         }
 
         function LayDanhSachVatTuTheoNhomVatTu(maNhomVatTu, tenSel) {
+            $(tenSel).empty();
             if (maNhomVatTu >0) {
                 $.ajax({
                     type: "post",
                     url: "/VatTu/DSVatTuJSON",
+                    async: false,
                     data: {
                         "msNhomVatTu": maNhomVatTu
                     },
@@ -301,7 +310,6 @@
                                 + "'><span class='ti-close'></span></button></td>";
                             item += "</tr>";
                         }
-                        $(tenSel).empty();
                         $(tenSel).append(item);
                     }
                 });
@@ -317,7 +325,6 @@
                     var item = "";
                     for (i = 0; i < dl.length; i++) {
                         item += "<div class='col-2'>";
-                        item += "<input type='checkbox' class='chk-img-vat-tu' />";
                         item += "<img src='" + dl[i].URL + "' alt='Alternate Text' class='img-vat-tu' />";
                         item += "</div>"
                     }
@@ -327,13 +334,21 @@
             });
         }
 
-        $('.sel-nhom-linh-vuc, .sel-nhom-vat-tu').change(function () {
+        $('.sel-nhom-linh-vuc').change(function () {
             LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc').val(), ".sel-nhom-vat-tu");
             LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
         });
 
+        $('.sel-nhom-vat-tu').change(function () {
+            LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+        });
+
+        $('.sel-nhom-linh-vuc').trigger("change");
+
         $('#btnthem').click(function () {
-            $('#modal-them').modal('show');
+            if ($('.sel-nhom-linh-vuc').val() != null && $('.sel-nhom-vat-tu').val() != null)
+                $('#modal-them').modal('show');
+            else toastr.warning('Lĩnh vực hoặc nhóm vật tư không được bỏ trống');
         });
 
         function UploadImage(data) {
@@ -353,15 +368,23 @@
             return temp;
         }
 
-        $('.btn-them').click(function () {
+        $('.btn-upload').click(function () {
             var formData = new FormData();
             var totalFiles = document.getElementById("image1").files.length;
             for (var i = 0; i < totalFiles; i++) {
                 var file = document.getElementById("image1").files[i];
                 formData.append("image1", file);
             }
-            var urlImage = UploadImage(formData);
-            alert(urlImage);
+            if (totalFiles != 0)
+            {
+                urlImage = UploadImage(formData);
+                $('.img-vat-tu-mau').attr('src', urlImage);
+                $('#modal-load-anh').modal('hide');
+            }
+            else toastr.warning('Ảnh không được bỏ trống');
+        });
+
+        $('.btn-them').click(function () {
             $.ajax({
                 type: "post",
                 url: "/VatTu/Them",
@@ -369,10 +392,10 @@
                     "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
                     "tenVatTu": $('.them-ten-vat-tu').val(),
                     "donViTinh": $('.sel-them-don-vi-tinh').val(),
-                    "urlHinhAnh": urlImage,
+                    "urlHinhAnh": $('.img-vat-tu-mau').attr('src')
                 },
                 success: function (data) {
-                    LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc').val(), ".sel-nhom-vat-tu");
+                    LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
                 }
             });
         });
@@ -394,6 +417,11 @@
         $('.btn-mo-modal-img').click(function () {
             LayDanhSachHinhAnh('.list-thu-vien-anh');
             $('#modal-load-anh').modal('show');
+        });
+
+        $(document).on('click', '.list-thu-vien-anh div img', function () {
+            $('.img-vat-tu-mau').attr('src', $(this).attr('src'));
+            $('#modal-load-anh').modal('hide');
         });
     });
 </script>
