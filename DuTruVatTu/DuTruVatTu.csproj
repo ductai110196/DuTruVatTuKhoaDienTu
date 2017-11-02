@@ -138,10 +138,10 @@
     <Compile Include="Areas\Admin\Controllers\NhomVatTuController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhanCongGiangDayController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\QuanLyThietBiController.cs" />
     <Compile Include="Areas\Admin\Controllers\ThongTinCaNhanController.cs" />
     <Compile Include="Areas\Admin\Controllers\TuChoiController.cs" />
     <Compile Include="Areas\Admin\Controllers\VatTuController.cs" />
+    <Compile Include="Areas\Admin\Controllers\VatTuPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\XinChaoController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\UploadController.cs" />
@@ -212,13 +212,13 @@
     <Content Include="Areas\Admin\Views\Phong\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongGiangDay\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DuTru\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\QuanLyThietBi\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ThongTinCaNhan\Index.cshtml" />
     <Content Include="Areas\Api\Views\Upload\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ChucVu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MonHoc\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyTaiKhoan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TuChoi\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\VatTuPhong\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\DangNhap\Index.cshtml" />
     <Content Include="Public\Fonts\themify.eot" />
