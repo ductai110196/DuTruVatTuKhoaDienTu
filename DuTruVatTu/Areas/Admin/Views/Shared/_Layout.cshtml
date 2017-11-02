@@ -9,9 +9,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Public/Css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Public/Css/custom.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Public/Css/custom.css" rel="stylesheet" />
     <link href="~/Public/Css/toastr.min.css" rel="stylesheet" />
-    <link href="~/Public/Css/nprogress.css" rel="stylesheet" />
     <link href="~/Public/Css/themify-icons.css" rel="stylesheet" />
     <link href="~/Public/Css/style.css" rel="stylesheet" />
 
@@ -20,26 +19,14 @@
     <script src="~/Public/Js/tether.min.js"></script>
     <script src="~/Public/Js/bootstrap.min.js"></script>
     <script src="~/Public/Js/toastr.min.js"></script>
-    <script src="~/Public/Js/nprogress.js"></script>
     <script src="~/Public/Js/html-table-search.js"></script>
     <script src="~/Public/Js/function.js"></script>
     <script>
         $(document).ready(function () {
             $(document).ajaxStart(function () {
-                NProgress.start();
-                $('body').after('<div class="loading"></div>');
+               
             }).ajaxStop(function () {
-                NProgress.done();
-                NProgress.remove();
-                $('.loading').remove();
-            });
-
-            $(".modal").draggable({
-                handle: ".modal-header"
-            });
-
-            $(".float").draggable({
-                handle: ".float"
+               
             });
         });
     </script>
@@ -55,9 +42,9 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">
-            <img src="~/Public/Images/logo_vlute.png" width="30" height="30" class="d-inline-block rounded-circle" alt="">
-            <b style="padding: 0px 0px 0px 5px;"> VLUTE Electronic</b>
+        <a class="navbar-brand" href="#" style="padding: 0px;">
+            <img src="~/Public/Images/logo_vlute.png" width="50" height="50" class="d-inline-block rounded-circle" alt="">
+            <b style="padding: 0px 0px 0px 5px;">ELECTRICAL AND ELECTRONIC</b>
         </a>
         <div class="collapse navbar-collapse" id="navbarNavDropdown" style="margin-left: 50px">
             <ul class="navbar-nav mr-auto">
@@ -188,7 +175,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="~/Public/Images/girl.png" width="30" height="30" class="d-inline-block align-top img-circle" alt="">
-                        <b style="font-size: 12px; padding: 0px 0px 0px 10px;">@taiKhoan.TENGIANGVIEN</b>
+                        <b style="font-size: 12px; padding: 0px 0px 0px 10px; color: #fff;">@taiKhoan.TENGIANGVIEN</b>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="@Url.Action("Index", "QuanLyTaiKhoan")">Thông tin cá nhân</a>

@@ -57,5 +57,15 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             mh.MSHOCPHAN = int.Parse(mSMonHoc);
             return mh.Xoa();
         }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public int KiemTra(string maBacDaoTao, string maMonHoc, string tenMonHoc)
+        {
+            MonHocModel mh = new MonHocModel();
+            mh.MAHOCPHAN = maMonHoc;
+            mh.MSBACDAOTAO = int.Parse(maBacDaoTao);
+            mh.TENHOCPHAN = tenMonHoc;
+            return mh.KiemTraMonHoc().Count;
+        }
     }
 }

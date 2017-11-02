@@ -210,6 +210,26 @@
             });
         }
 
+        function KiemTra(msBacDaoTao, msHocPhan, tenHocPhan) {
+            var rs;
+            $.ajax({
+                url: "/MonHoc/KiemTra",
+                type: "POST",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "maBacDaoTao": msBacDaoTao,
+                    "maMonHoc": msHocPhan,
+                    "tenMonHoc": tenHocPhan
+                },
+                success: function (data) {
+                    rs = data;
+                },
+                error: function (er) { console.log(er); }
+            });
+            return rs;
+        }
+
         $('.sel-bac-dao-tao').change(function () {
             LayDanhSachMon($(this).val(), ".tbl");
         });
@@ -219,22 +239,34 @@
         });
 
         $('.btn-them').click(function () {
+            var maBacDaoTao = $('.sel-bac-dao-tao').val().trim();
+            var maHocPhan = $('.them-ma-mon-hoc').val().trim();
+            var tenHocPhan = $('.them-ten-mon-hoc').val().trim();
+            var lyThuyet = $('.them-ly-thuyet').val().trim();
+            var thucHanh = $('.them-thuc-hanh').val().trim();
+            if (maBacDaoTao.length == 0 || maHocPhan.length == 0 || tenHocPhan.length == 0 || lyThuyet.length == 0 || thucHanh.length == 0) {
+                toastr.warning('Đã có thông tin bi bỏ trống, vui lòng kiểm tra lại');
+                return;
+            }
+            if (KiemTra(maBacDaoTao, maHocPhan, tenHocPhan) > 0) {
+                toastr.warning('Mã học phần hoặc tên học phần đã tồn tại');
+                return;
+            }
             $.ajax({
                 url: "/MonHoc/Them",
                 type: "POST",
                 async: false,
                 data: {
                     "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
-                    "maBacDaoTao": $('.sel-bac-dao-tao').val(),
-                    "maHocPhan": $('.them-ma-mon-hoc').val(),
-                    "tenMonHoc": $('.them-ten-mon-hoc').val(),
-                    "lyThuyet": $('.them-ly-thuyet').val(),
-                    "thucHanh": $('.them-thuc-hanh').val()
+                    "maBacDaoTao": maBacDaoTao,
+                    "maHocPhan": maHocPhan,
+                    "tenMonHoc": tenHocPhan,
+                    "lyThuyet": lyThuyet,
+                    "thucHanh": thucHanh
                 },
                 success: function (data) {
                     if (data > 0)
-                        LayDanhSachMon($(this).val(), ".tbl");
-                    alert(data);
+                        LayDanhSachMon($('.sel-bac-dao-tao').val(), ".tbl");
                 },
                 error: function (er) { console.log(er); }
             });
@@ -250,18 +282,27 @@
         });
 
         $('.btn-cap-nhat').click(function () {
+            var maBacDaoTao = $('.sel-bac-dao-tao').val().trim();
+            var maHocPhan = $('.cs-ma-mon-hoc').val().trim();
+            var tenHocPhan = $('.cs-ten-mon-hoc').val().trim();
+            var lyThuyet = $('.cs-ly-thuyet').val().trim();
+            var thucHanh = $('.cs-thuc-hanh').val().trim();
+            if (maBacDaoTao.length == 0 || maHocPhan.length == 0 || tenHocPhan.length == 0 || lyThuyet.length == 0 || thucHanh.length == 0) {
+                toastr.warning('Đã có thông tin bi bỏ trống, vui lòng kiểm tra lại');
+                return;
+            }
             $.ajax({
                 url: "/MonHoc/CapNhat",
                 type: "POST",
                 async: false,
                 data: {
                     "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
-                    "maBacDaoTao": $('.sel-bac-dao-tao').val(),
+                    "maBacDaoTao": maBacDaoTao,
                     "mSMonHoc": _MSHOCPHAN,
-                    "maMonHoc": $('.cs-ma-mon-hoc').val(),
-                    "tenMonHoc": $('.cs-ten-mon-hoc').val(),
-                    "lyThuyet": $('.cs-ly-thuyet').val(),
-                    "thucHanh": $('.cs-thuc-hanh').val()
+                    "maMonHoc": maHocPhan,
+                    "tenMonHoc": tenHocPhan,
+                    "lyThuyet": lyThuyet,
+                    "thucHanh": thucHanh
                 },
                 success: function (data) {
                     if (data > 0)

@@ -98,8 +98,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Public\Css\bootstrap.min.css" />
-    <Content Include="Public\Css\custom.bootstrap.min.css" />
-    <Content Include="Public\Css\nprogress.css" />
+    <Content Include="Public\Css\custom.css" />
     <Content Include="Public\Css\style-landing.css" />
     <Content Include="Public\Css\style.css" />
     <Content Include="Public\Css\themify-icons.css" />
@@ -115,7 +114,6 @@
     <Content Include="Public\Js\html-table-search.js" />
     <Content Include="Public\Js\jquery-3.2.1.min.js" />
     <Content Include="Public\Js\jquery-ui.min.js" />
-    <Content Include="Public\Js\nprogress.js" />
     <Content Include="Public\Js\tether.min.js" />
     <Content Include="Public\Js\toastr.min.js" />
     <Content Include="Uploads\21740498_878883312277596_1367665388262135781_n.jpg" />
