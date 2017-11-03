@@ -10,7 +10,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         public ActionResult Index()
         {
             PhongModel phong = new PhongModel();
-            phong.MSGIANGVIEN = ((TaiKhoanDangNhapModel)Session[Contains.SESSION_KEY_DANGNHAP]).MSGIANGVIEN;
+            phong.MSGIANGVIEN = ((TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP]).MSGIANGVIEN;
             ViewData["DSPhong"] = new DuTruVatTu.Models.PhongModel().DanhSach();
             return View();
         }

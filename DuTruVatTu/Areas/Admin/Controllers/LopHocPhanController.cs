@@ -35,7 +35,12 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             int st =  new LopHocPhanModel(maLopHocphan, tenLopHocPhan, int.Parse(siSo),
                     int.Parse(loaiLopHocPhan), int.Parse(maHocPhan), int.Parse(hocKy)).Them();
             if (st > 0)
-                return new PhanCongGiangDayModel().Them();
+            {
+                PhanCongGiangDayModel pc = new PhanCongGiangDayModel();
+                pc.MSGIANGVIEN = Contains.TAIKHOANDANGNHAP.MSGIANGVIEN;
+                pc.MSLOPHOCPHAN = st;
+                return pc.Them();
+            }
             return 0;
         }
 
@@ -51,6 +56,17 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         public int XoaJSON(string msLopHocPhan)
         {
             return new LopHocPhanModel(int.Parse(msLopHocPhan)).Xoa();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public int KiemTra(string hocKy, string maLopHocphan, 
+            string tenLopHocPhan)
+        {
+            LopHocPhanModel lhp = new LopHocPhanModel();
+            lhp.MSHOCKY = int.Parse(hocKy);
+            lhp.MALOPHOCPHAN = maLopHocphan;
+            lhp.TENLOPHOCPHAN = maLopHocphan;
+            return lhp.KiemTra().Count;
         }
     }
 }

@@ -33,7 +33,7 @@
 </head>
 <body>
     @{ 
-        var taiKhoan = (TaiKhoanDangNhapModel)Session[Contains.SESSION_KEY_DANGNHAP];
+        var taiKhoan = (TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP];
         QuyenHanModel qh = new QuyenHanModel();
         qh.SetJSON(taiKhoan.PHANQUYEN);
     }
