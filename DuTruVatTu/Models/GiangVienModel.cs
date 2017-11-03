@@ -118,7 +118,7 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@tENGIANGVIEN", TENGIANGVIEN),
                 new SqlParameter("@nGAYSINH", NGAYSINH),
                 new SqlParameter("@gIOITINH", GIOITINH),
-                new SqlParameter("@kEY", DBKey.INSERT)
+                new SqlParameter("@kEY", DBKey.UPDATE)
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_GiangVien", par).Rows[0][0].ToString());
         }

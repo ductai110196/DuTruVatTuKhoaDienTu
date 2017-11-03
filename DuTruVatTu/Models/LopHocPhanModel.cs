@@ -130,10 +130,6 @@ namespace DuTruVatTu.Models
                 THUCHANH = int.Parse(item["MSLOPHOCPHAN"].ToString());
                 MSHOCKY = int.Parse(item["MSLOPHOCPHAN"].ToString());
                 TENHOCKY = item["MALOPHOCPHAN"].ToString();
-                NGAYBATDAU = DateTime.ParseExact(item["MALOPHOCPHAN"].ToString(), "dd/MM/yyyy", null);
-                NGAYKETTHUC = DateTime.ParseExact(item["MALOPHOCPHAN"].ToString(), "dd/MM/yyyy", null);
-                THOIGIANBATDAUDUTRU = DateTime.ParseExact(item["MALOPHOCPHAN"].ToString(), "dd/MM/yyyy", null);
-                THOIGIANKETTHUCDUTRU = DateTime.ParseExact(item["MALOPHOCPHAN"].ToString(), "dd/MM/yyyy", null);
                 list.Add(lhp);
             }
             return list;

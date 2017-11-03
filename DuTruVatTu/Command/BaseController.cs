@@ -1,4 +1,5 @@
 ﻿using DuTruVatTu.Models;
+using System;
 using System.Web.Mvc;
 
 namespace DuTruVatTu.Command
@@ -7,13 +8,15 @@ namespace DuTruVatTu.Command
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var sessionDangNhap = (TaiKhoanDangNhapModel)Session[Contains.SESSION_KEY_DANGNHAP];
+            var sessionDangNhap = (TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP];
             if (sessionDangNhap != null)
             {
                 QuyenHanModel qh = new QuyenHanModel();
                 qh.SetJSON(sessionDangNhap.PHANQUYEN);
                 bool st = false;
-                switch (this.ControllerContext.RouteData.Values["controller"].ToString())
+                string action = this.ControllerContext.RouteData.Values["action"].ToString();
+                string controller = this.ControllerContext.RouteData.Values["controller"].ToString();
+                switch (controller)
                 {
                     case "BacDaoTao":
                         st = qh.BACDAOTAO;
@@ -73,14 +76,18 @@ namespace DuTruVatTu.Command
                         st = false;
                         break;
                 }
+                if (Array.IndexOf(Contains.LISTACTIONQUYENHAN, action) != -1)
+                    st = true;
                 if (!st)
+                {
                     filterContext.Result = new RedirectToRouteResult(new
-                        System.Web.Routing.RouteValueDictionary(new
-                        {
-                            action = "Index",
-                            controller = "TuChoi",
-                            area = "Admin"
-                        }));
+                            System.Web.Routing.RouteValueDictionary(new
+                            {
+                                action = "Index",
+                                controller = "TuChoi",
+                                area = "Admin"
+                            }));
+                }
             }
             else
             {

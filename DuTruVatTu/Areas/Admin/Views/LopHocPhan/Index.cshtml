@@ -200,7 +200,25 @@
 <script>
     $(document).ready(function () {
         var _ma = "";
-
+        function KiemTra(hocKy, maLopHocphan, tenLopHocPhan) {
+            var st = 0;
+            $.ajax({
+                url: "/LopHocPhan/KiemTra",
+                type: "POST",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "hocKy": hocKy,
+                    "maLopHocphan": maLopHocphan,
+                    "tenLopHocPhan": tenLopHocPhan,
+                },
+                success: function (data) {
+                    st = data;
+                },
+                error: function (er) { console.log(er); }
+            });
+            return st;
+        }
         function LayMonHoc(maBac, control) {
             $.ajax({
                 url: "/MonHoc/MonHocTheoBacDaoTaoJSON",
@@ -284,6 +302,20 @@
         }
 
         function Them() {
+            var hocKy = $('.sel-hoc-ky').val();
+            var maHocPhan = $('.sel-mon-hoc').val();
+            var maLopHocphan = $('.them-ma-lop-hoc-phan').val();
+            var tenLopHocPhan = $('.them-ten-lop-hoc-phan').val();
+            var siSo = $('.them-si-so').val();
+            var loaiLopHocPhan = $('input[name=loai-lop-hoc-phan]:checked').val();
+            if (maLopHocphan.length == 0 || tenLopHocPhan.length == 0 || siSo.length == 0) {
+                toastr.warning('Đã có thông tin bi bỏ trống, vui lòng kiểm tra lại');
+                return;
+            }
+            if (KiemTra(hocKy, maLopHocphan, tenLopHocPhan) > 0) {
+                toastr.warning('Mã lớp học phần hoặc tên lớp học phần đã tồn tại. Vui lòng kiểm tra lại');
+                return;
+            }
             $.ajax({
                 url: "/LopHocPhan/ThemJSON",
                 type: "POST",
@@ -307,6 +339,20 @@
         }
 
         function CapNhat() {
+            var hocKy = $('.sel-hoc-ky').val();
+            var maHocPhan = $('.sel-mon-hoc').val();
+            var maLopHocphan = $('.cs-ma-lop-hoc-phan').val();
+            var tenLopHocPhan = $('.cs-ten-lop-hoc-phan').val();
+            var siSo = $('.cs-si-so').val();
+            var loaiLopHocPhan = $('input[name=cs-loai-lop-hoc-phan]:checked').val();
+            if (maLopHocphan.length == 0 || tenLopHocPhan.length == 0 || siSo.length == 0) {
+                toastr.warning('Đã có thông tin bi bỏ trống, vui lòng kiểm tra lại');
+                return;
+            }
+            if (KiemTra(hocKy, maLopHocphan, tenLopHocPhan) > 0) {
+                toastr.warning('Mã lớp học phần hoặc tên lớp học phần đã tồn tại. Vui lòng kiểm tra lại');
+                return;
+            }
             $.ajax({
                 url: "/LopHocPhan/CapNhatJSON",
                 type: "POST",

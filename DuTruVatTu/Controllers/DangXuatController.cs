@@ -12,7 +12,7 @@ namespace DuTruVatTu.Controllers
         // GET: DangXuat
         public ActionResult Index()
         {
-            Session.Remove(Contains.SESSION_KEY_DANGNHAP);
+            Session.Remove(Contains.SESSIONKEYDANGNHAP);
             return RedirectToAction("Index", "DangNhap");
         }
     }

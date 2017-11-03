@@ -24,7 +24,8 @@ namespace DuTruVatTu.Controllers
             var taiKhoan = new TaiKhoanDangNhapModel(tenDangNhap, new Command.Command().MaHoaChuoi(matKhau)).DangNhap();
             if (taiKhoan.Count > 0)
             {
-                Session[Contains.SESSION_KEY_DANGNHAP] = taiKhoan[0];
+                Contains.TAIKHOANDANGNHAP = taiKhoan[0];
+                Session[Contains.SESSIONKEYDANGNHAP] = taiKhoan[0];
                 return RedirectToAction("Index", "XinChao", new { area = "Admin" });
             }
             else
