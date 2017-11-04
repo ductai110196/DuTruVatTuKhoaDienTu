@@ -88,15 +88,23 @@
                             <option value="Bộ">Cái</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
+                    @*<div class="col-md-6">
                         <label>Hình ảnh</label>
                         <br />
                         <button style="margin-top:-1px;" type="button" class="btn btn-success btn-mo-modal-img">Insert image</button>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="row"> 
                     <div class="col-md-12 text-center">
-                        <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu-mau"/>
+                       @* <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu-mau"/>*@
+                        <label>Hình ảnh</label><br /><br />
+                        <div id="page">
+                            <div class="wrap-custom-file">
+                                <label for="image2" class="img-vat-tu-mau">
+                                    <span>Chọn ảnh linh kiện</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,8 +146,7 @@
                         <label>Hình ảnh</label><br /><br />
                         <div id="page">
                             <div class="wrap-custom-file">
-                                <input type="file" name="image2" id="image2" accept=".gif, .jpg, .png" />
-                                <label for="image2" id="cn-anh">
+                                <label for="image3" id="cn-anh">
                                     <span>Chọn ảnh linh kiện</span>
                                 </label>
                             </div>
@@ -171,7 +178,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger btn-xoa-vat-tu">Xóa</button>
             </div>
         </div>
     </div>
@@ -245,6 +252,7 @@
         var _MSVATTU;
         var _MANHOMVATTU;
         var urlImage;
+        var flag;
         $('input[type="file"]').each(function () {
             var $file = $(this),
                 $label = $file.next('label'),
@@ -347,7 +355,11 @@
 
         $('#btnthem').click(function () {
             if ($('.sel-nhom-linh-vuc').val() != null && $('.sel-nhom-vat-tu').val() != null)
-                $('#modal-them').modal('show');
+            {
+                $('.img-vat-tu-mau').css('background-image', 'url(/Public/Images/300.png)');
+                $('.img-vat-tu-mau').addClass('file-ok');
+                $('#modal-them').modal('show');                
+            }
             else toastr.warning('Lĩnh vực hoặc nhóm vật tư không được bỏ trống');
         });
 
@@ -369,6 +381,7 @@
         }
 
         $('.btn-upload').click(function () {
+            urlImage = "";
             var formData = new FormData();
             var totalFiles = document.getElementById("image1").files.length;
             for (var i = 0; i < totalFiles; i++) {
@@ -378,7 +391,16 @@
             if (totalFiles != 0)
             {
                 urlImage = UploadImage(formData);
-                $('.img-vat-tu-mau').attr('src', urlImage);
+                if (flag == 'insert')
+                {
+                    $('.img-vat-tu-mau').css('background-image', 'url(' + urlImage + ')');
+                    $('.img-vat-tu-mau').addClass('file-ok');
+                }
+                if (flag == 'update')
+                {
+                    $('#cn-anh').css('background-image', 'url(' + urlImage + ')');
+                    $('#cn-anh').addClass('file-ok');
+                }
                 $('#modal-load-anh').modal('hide');
             }
             else toastr.warning('Ảnh không được bỏ trống');
@@ -392,10 +414,11 @@
                     "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
                     "tenVatTu": $('.them-ten-vat-tu').val(),
                     "donViTinh": $('.sel-them-don-vi-tinh').val(),
-                    "urlHinhAnh": $('.img-vat-tu-mau').attr('src')
+                    "urlHinhAnh": urlImage //sai rồi
                 },
                 success: function (data) {
                     LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+                    toastr.success('Thêm vật tư thành công');
                 }
             });
         });
@@ -404,24 +427,74 @@
             _MSVATTU = $(this).val();
             $('.cn-ten-vat-tu').val($('#tvt-' + _MSVATTU).text());
             $('.sel-cn-don-vi-tinh').val($('#dvt-' + _MSVATTU).text());
-            alert($('#avt-' + _MSVATTU + " img").attr('src'));
             $('#cn-anh').css('background-image', 'url(' + $('#avt-' + _MSVATTU + " img").attr('src') + ')');
             $('#cn-anh').addClass('file-ok');
             $('#modal-cap-nhat').modal('show');
         });
 
-        $(document).on('click', '.btn-xoa', function () {
-            $('#modal-load-anh').modal('show');
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                type: "post",
+                url: "/VatTu/CapNhat",
+                data: {
+                    "msVatTu": _MSVATTU,
+                    "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
+                    "tenVatTu": $('.cn-ten-vat-tu').val(),
+                    "donViTinh": $('.sel-cn-don-vi-tinh').val(),
+                    "urlHinhAnh": urlImage //làm lại chứ sai rồi
+                },
+                success: function (data) {
+                    LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+                    toastr.success('Cập nhật vật tư thành công');
+                }
+            });
         });
 
-        $('.btn-mo-modal-img').click(function () {
+        $('.img-vat-tu-mau').click(function () {
             LayDanhSachHinhAnh('.list-thu-vien-anh');
             $('#modal-load-anh').modal('show');
+            flag = 'insert';
+        });
+
+        $('#cn-anh').click(function () {
+            LayDanhSachHinhAnh('.list-thu-vien-anh');
+            $('#modal-load-anh').modal('show');
+            flag = 'update';
         });
 
         $(document).on('click', '.list-thu-vien-anh div img', function () {
-            $('.img-vat-tu-mau').attr('src', $(this).attr('src'));
+            if (flag == 'insert')
+            {
+                $('.img-vat-tu-mau').css('background-image', 'url(' + $(this).attr('src') + ')');
+                $('.img-vat-tu-mau').addClass('file-ok');
+                urlImage = $(this).attr('src');
+            }
+            if (flag == 'update')
+            {
+                $('#cn-anh').css('background-image', 'url(' + $(this).attr('src') + ')');
+                $('#cn-anh').addClass('file-ok');
+                urlImage = $(this).attr('src');
+            }
             $('#modal-load-anh').modal('hide');
+        });
+
+        $(document).on('click', '.btn-xoa', function () {
+            _MSVATTU = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa-vat-tu').click(function () {
+            $.ajax({
+                type: "post",
+                url: "/VatTu/Xoa",
+                data: {
+                    "msVatTu": _MSVATTU
+                },
+                success: function (data) {
+                    location.reload();
+                    toastr.success('Xóa vật tư thành công');
+                }
+            });
         });
     });
 </script>
