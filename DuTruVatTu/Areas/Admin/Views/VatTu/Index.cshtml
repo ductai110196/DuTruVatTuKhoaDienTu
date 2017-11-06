@@ -381,7 +381,6 @@
         }
 
         $('.btn-upload').click(function () {
-            urlImage = "";
             var formData = new FormData();
             var totalFiles = document.getElementById("image1").files.length;
             for (var i = 0; i < totalFiles; i++) {
@@ -406,6 +405,22 @@
             else toastr.warning('Ảnh không được bỏ trống');
         });
 
+        function getURL(url) {
+            url = url.replace('url("', "");
+            url = url.substr(0, url.length - 2);
+            var st = 0;
+            var index = 0;
+            for (var i = 0; i < url.length; i++) {
+                index = i;
+                if (url.charAt(i) == '/')
+                    st++;
+                if (st == 3)
+                    break;
+            }
+            url = url.substr(index, url.length - 1);
+            return url;
+        }
+
         $('.btn-them').click(function () {
             $.ajax({
                 type: "post",
@@ -414,7 +429,7 @@
                     "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
                     "tenVatTu": $('.them-ten-vat-tu').val(),
                     "donViTinh": $('.sel-them-don-vi-tinh').val(),
-                    "urlHinhAnh": urlImage //sai rồi
+                    "urlHinhAnh": getURL($('.img-vat-tu-mau').css('background-image'))
                 },
                 success: function (data) {
                     LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
@@ -441,7 +456,7 @@
                     "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
                     "tenVatTu": $('.cn-ten-vat-tu').val(),
                     "donViTinh": $('.sel-cn-don-vi-tinh').val(),
-                    "urlHinhAnh": urlImage //làm lại chứ sai rồi
+                    "urlHinhAnh": getURL($('#cn-anh').css('background-image'))
                 },
                 success: function (data) {
                     LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
@@ -467,13 +482,11 @@
             {
                 $('.img-vat-tu-mau').css('background-image', 'url(' + $(this).attr('src') + ')');
                 $('.img-vat-tu-mau').addClass('file-ok');
-                urlImage = $(this).attr('src');
             }
             if (flag == 'update')
             {
                 $('#cn-anh').css('background-image', 'url(' + $(this).attr('src') + ')');
                 $('#cn-anh').addClass('file-ok');
-                urlImage = $(this).attr('src');
             }
             $('#modal-load-anh').modal('hide');
         });
