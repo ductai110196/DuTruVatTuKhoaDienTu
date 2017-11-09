@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace DuTruVatTu.Areas.Admin.Controllers
 {
-    public class DuTruController : BaseController
+    public class DuTruVatTuController : BaseController
     {
         // GET: Admin/DuTru
         public ActionResult Index()

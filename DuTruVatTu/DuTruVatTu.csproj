@@ -129,7 +129,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BacDaoTaoController.cs" />
     <Compile Include="Areas\Admin\Controllers\ChucVuController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DuTruController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DuTruVatTuController.cs" />
     <Compile Include="Areas\Admin\Controllers\GiangVienController.cs" />
     <Compile Include="Areas\Admin\Controllers\HocKyNamHocController.cs" />
     <Compile Include="Areas\Admin\Controllers\KhoaHocController.cs" />
@@ -199,6 +199,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptVatTuPhong.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -219,7 +220,7 @@
     <Content Include="Areas\Admin\Views\VatTu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Phong\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PhanCongGiangDay\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\DuTru\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\DuTruVatTu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ThongTinCaNhan\Index.cshtml" />
     <Content Include="Areas\Api\Views\Upload\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ChucVu\Index.cshtml" />
