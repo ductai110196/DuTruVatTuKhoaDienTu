@@ -75,32 +75,32 @@
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <label class="form-check-label chon-tat-ca-thong-tin" data-name="thong-tin">
-                                <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label label-check-thong-tin">
+                                <input class="form-check-input check-all-thong-tin" type="checkbox">
                                 Chọn tất cả
                             </label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label label-check-vat-tu">
+                                <input class="form-check-input check-all-vat-tu" type="checkbox">
                                 Chọn tất cả
                             </label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label label-check-mon-hoc">
+                                <input class="form-check-input check-all-mon-hoc" type="checkbox">
                                 Chọn tất cả
                             </label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox">
+                            <label class="form-check-label label-check-he-thong">
+                                <input class="form-check-input check-all-he-thong" type="checkbox">
                                 Chọn tất cả
                             </label>
                         </div>
@@ -149,43 +149,43 @@
                     <div class="col">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="nhom-linh-vuc">
+                                <input class="form-check-input" type="checkbox" id="nhom-linh-vuc" name="vat-tu">
                                 Nhóm lĩnh vực
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="nhom-vat-tu">
+                                <input class="form-check-input" type="checkbox" id="nhom-vat-tu" name="vat-tu">
                                 Nhóm vật tư
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="vat-tu">
+                                <input class="form-check-input" type="checkbox" id="vat-tu" name="vat-tu">
                                 Vật tư
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="du-tru-vat-tu">
+                                <input class="form-check-input" type="checkbox" id="du-tru-vat-tu" name="vat-tu">
                                 Dự trù vật tư
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="thong-ke-du-tru">
+                                <input class="form-check-input" type="checkbox" id="thong-ke-du-tru" name="vat-tu">
                                 Thống kê dự trù vật tư
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="vat-tu-phong">
+                                <input class="form-check-input" type="checkbox" id="vat-tu-phong" name="vat-tu">
                                 Vật tư - Phòng
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="thong-ke-vat-tu-phong">
+                                <input class="form-check-input" type="checkbox" id="thong-ke-vat-tu-phong" name="vat-tu">
                                 Thống kê vật tư trong phòng
                             </label>
                         </div>
@@ -193,19 +193,19 @@
                     <div class="col">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="mon-hoc">
+                                <input class="form-check-input" type="checkbox" id="mon-hoc" name="mon-hoc">
                                 Môn học
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="lop-hoc-phan">
+                                <input class="form-check-input" type="checkbox" id="lop-hoc-phan" name="mon-hoc">
                                 Lớp học phần
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="phan-cong-giang-day">
+                                <input class="form-check-input" type="checkbox" id="phan-cong-giang-day" name="mon-hoc">
                                Phân công giảng dạy
                             </label>
                         </div>
@@ -213,13 +213,13 @@
                     <div class="col">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="dang-nhap-he-thong">
+                                <input class="form-check-input" type="checkbox" id="dang-nhap-he-thong" name="he-thong">
                                 Đăng nhập hệ thống
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="quan-ly-tai-khoan">
+                                <input class="form-check-input" type="checkbox" id="quan-ly-tai-khoan" name="he-thong">
                                 Quản lý tài khoản
                             </label>
                         </div>
@@ -315,6 +315,22 @@
                 },
                 error: function (er) { console.log(er); }
             });
+        });
+
+        $('.label-check-thong-tin').click(function () {
+            $('input[name=thong-tin]').prop('checked', $('.check-all-thong-tin').prop('checked'));
+        });
+
+        $('.label-check-vat-tu').click(function () {
+            $('input[name=vat-tu]').prop('checked', $('.check-all-vat-tu').prop('checked'));
+        });
+
+        $('.label-check-mon-hoc').click(function () {
+            $('input[name=mon-hoc]').prop('checked', $('.check-all-mon-hoc').prop('checked'));
+        });
+
+        $('.label-check-he-thong').click(function () {
+            $('input[name=he-thong]').prop('checked', $('.check-all-he-thong').prop('checked'));
         });
     });
 </script>
