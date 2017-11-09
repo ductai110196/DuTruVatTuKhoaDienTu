@@ -5,6 +5,7 @@
 @using DuTruVatTu.Models;
 @{
     IEnumerable<PhongModel> lsPhong = ViewData["DSPhong"] as IEnumerable<PhongModel>;
+    IEnumerable<NhomLinhVucModel> lsNhomLinhVuc = ViewData["DSNhomLinhVuc"] as IEnumerable<NhomLinhVucModel>;
 }
 <div class="col-md-12">
     <div class="card">
@@ -36,23 +37,17 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table">
+                    <table class="table tbl">
                         <thead>
                             <tr>
                                 <th class="w-5 text-center">STT</th>
-                                <th class="w-80">NHÓM VẬT TƯ</th>
+                                <th class="w-10">HÌNH</th>
+                                <th>TÊN VẬT TƯ</th>
+                                <th class="w-10 text-center">SỐ LƯỢNG</th>
                                 <th class="w-7 text-center">THAO TÁC</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>Điện lạnh</td>
-                                <td class="text-center">
-                                    <button class="btn btn-success edit"><span class="ti-pencil"></span></button>
-                                    <button class="btn btn-danger edit"><span class="ti-close"></span></button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -65,23 +60,236 @@
     <span class="ti-plus icon-float" id="btnthem"></span>
 </a>
 
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm bậc đào tạo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Nhóm lĩnh vực</label>
+                            <select class="form-control sel-nhom-linh-vuc">
+                                @foreach (var item in lsNhomLinhVuc)
+                                {
+                                    <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Nhóm vật tư</label>
+                            <select class="form-control sel-nhom-vat-tu">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Vật tư</label>
+                            <table class="table tbl-them">
+                                <thead>
+                                    <tr>
+                                        <th>Vật tư</th>
+                                        <th class="w-7">Số lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
-        function LayDSach(maPhong, control) {
+        var _MSVATTUPHONG;
+        LayDanhSach($('.sel-phong').val(), ".tbl");
+        function LayDanhSach(maPhong, control) {
+            if (maPhong.length == 0)
+                return;
             $.ajax({
-                url: "/Phong/Them",
+                url: "/VatTuPhong/HocKyTheoKhoaHocJSON",
                 type: "post",
                 async: false,
                 data: {
                     "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
-                    "maPhong": $('.them-tp').val(),
-                    "msGiangVien": $('.them-gv').val()
+                    "maPhong": maPhong
                 },
                 success: function (data) {
-                    toastr.success('Thêm phòng thành công');
-                    location.reload();
+                    var dl = $.parseJSON(data);
+                    var ins = "";
+                    for (i = 0; i < dl.length; i++) {
+                        ins += "<tr>";
+                        ins += "<td class='text-center'>" + (i + 1) + "</td>";
+                        ins += "<td><img class='row-anh-vat-tu' src='" + dl[i].HINHANH + "' alt='" + dl[i].TENVATTU + "' /></td>";
+                        ins += "<td>" + dl[i].TENVATTU + "</td>";
+                        ins += "<td class='text-center'>" + dl[i].SOLUONG + "</td>";
+                        ins += "<td class='text-center'>";
+                        ins += "<button class='btn btn-success edit open-modal-chinh-sua'><span class='ti-pencil'></span></button>";
+                        ins += "<button class='btn btn-danger edit open-modal-xoa' value='" + dl[i].MSVATTUPHONG + "'><span class='ti-close'></span></button>";
+                        ins += "</td>";
+                        ins += "</tr>";
+                    }
+                    $(control + " tbody").empty();
+                    $(control + " tbody").append(ins);
                 }
             });
         }
+
+        $('.sel-phong').change(function () {
+            LayDanhSach($('.sel-phong').val(), ".table");
+        });
+
+        $('.float').click(function () {
+            $('#modal-them').modal('show');
+        });
+
+        function LayDanhSachNhomVatTuTheoLinhVuc(maLinhVuc, tenSel) {
+            if (maLinhVuc.length == 0)
+                return;
+            $.ajax({
+                type: "post",
+                url: "/NhomVatTu/DSNhomVatTuJSON",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "msNhomLinhVuc": maLinhVuc
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var item = "";
+                    for (i = 0; i < dl.length; i++) {
+                        item += "<option value=" + dl[i].MSNHOMVATTU + ">" + dl[i].TENNHOMVATTU + "</option>";
+                    }
+                    $(tenSel).empty();
+                    $(tenSel).append(item);
+                }
+            });
+        }
+
+        function DanhSachVatTu(maNhomVatTu, control) {
+            if (maNhomVatTu.length == 0)
+                return;
+            $.ajax({
+                type: "post",
+                url: "/VatTu/DSVatTuJSON",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "msNhomVatTu": maNhomVatTu
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var item = "";
+                    for (i = 0; i < dl.length; i++) {
+                        item += "<tr>";
+                        item += "<td>";
+                        item += "<div class='form-check'>";
+                        item += "<label class='form-check-label'>";
+                        item += "<input class='form-check-input chk-vt-phong' type='checkbox' name='them-chk-vat-tu' value='" + dl[i].MSVATTU + "'>";
+                        item += dl[i].TENVATTU;
+                        item += "</label>";
+                        item += "</div>";
+                        item += "</td>";
+                        item += "<td ><input type='number' class='form-control text-center sl-" + dl[i].MSVATTU + "' min='0' value='0' /></td>";
+                        item += "</tr>";
+                    }
+                    $(control + " tbody").empty();
+                    $(control + " tbody").append(item);
+                }
+            });
+        }
+
+        $('.sel-nhom-linh-vuc').change(function () {
+            LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc').val(), '.sel-nhom-vat-tu');
+        });
+
+        $('.sel-nhom-vat-tu').change(function () {
+            DanhSachVatTu($('.sel-nhom-vat-tu').val(), '.tbl-them');
+        });
+
+        $('.btn-them').click(function () {
+            var arrVatTu = [];
+            var arrSoLuong = [];
+            $("input:checkbox[name=them-chk-vat-tu]:checked").each(function () {
+                var _MSVATTU = $(this).val();
+                arrVatTu.push(_MSVATTU);
+                arrSoLuong.push($(".sl-" + _MSVATTU).val());
+            });
+            $.ajax({
+                type: "post",
+                url: "/VatTuPhong/Them",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "arrVatTu": JSON.stringify(arrVatTu),
+                    "arrSoLuong": JSON.stringify(arrSoLuong),
+                    "msPhong": $('.sel-phong').val()
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            });
+        });
+
+        $('.open-modal-xoa').click(function () {
+            _MSVATTUPHONG = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa').click(function () {
+            $.ajax({
+                type: "post",
+                url: "/VatTuPhong/Xoa",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "mSVATTUPHONG": _MSVATTUPHONG
+                },
+                success: function (data) {
+                    if (data > 0) {
+                        LayDanhSach($('.sel-phong').val(), ".tbl");
+                    } else {
+                        toastr.warning('Xóa vật tư trong phòng thất bại, vui lòng kiểm tra lại');
+                    }
+                }
+            });
+        });
     })
 </script>

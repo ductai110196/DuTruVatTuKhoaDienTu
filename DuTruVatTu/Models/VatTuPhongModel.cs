@@ -31,9 +31,9 @@ namespace DuTruVatTu.Models
             Object[] par = {
                 new SqlParameter("@mSVATTUPHONG", DBNull.Value),
                 new SqlParameter("@mSVATTU", DBNull.Value),
-                new SqlParameter("@mSPHONG", DBNull.Value),
+                new SqlParameter("@mSPHONG", MSPHONG),
                 new SqlParameter("@sOLUONG", DBNull.Value),
-                new SqlParameter("@mSGIANGVIEN", MSGIANGVIEN),
+                new SqlParameter("@mSGIANGVIEN", DBNull.Value),
                 new SqlParameter("@kEY", DBKey.SELECT)
             };
             DataTable dt = DBConnect.SqlStoredProcedure("sp_VatTuPhong", par);
@@ -41,6 +41,7 @@ namespace DuTruVatTu.Models
             {
                 VatTuPhongModel nlv = new VatTuPhongModel();
                 nlv.MSVATTUPHONG = int.Parse(item["MSVATTUPHONG"].ToString());
+                nlv.TENVATTU = item["TENVATTU"].ToString();
                 nlv.MSVATTU = int.Parse(item["MSVATTU"].ToString());
                 nlv.SOLUONG = int.Parse(item["SOLUONG"].ToString());
                 nlv.HINHANH = item["HINHANH"].ToString();
@@ -80,8 +81,8 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@mSVATTU", MSVATTU),
                 new SqlParameter("@mSPHONG", MSPHONG),
                 new SqlParameter("@sOLUONG", SOLUONG),
-                new SqlParameter("@mSGIANGVIEN", MSGIANGVIEN),
-                new SqlParameter("@kEY", DBKey.SELECT)
+                new SqlParameter("@mSGIANGVIEN", DBNull.Value),
+                new SqlParameter("@kEY", DBKey.INSERT)
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_VatTuPhong", par).Rows[0][0].ToString());
         }

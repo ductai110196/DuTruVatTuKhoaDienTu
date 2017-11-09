@@ -245,3 +245,11 @@ a.float:hover + div.label-container {
 .list-thu-vien-anh div:hover img {
     filter: blur(1px);
 }
+.row-anh-vat-tu{
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+}
+.chk-vt-phong{
+    margin-right: 10px;
+}

@@ -109,7 +109,7 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@tENVATTU", TENVATTU),
                 new SqlParameter("@dONVITINH", DONVITINH),
                 new SqlParameter("@hINHANH", HINHANH),
-                new SqlParameter("@kEY", DBKey.UPDATE)
+                new SqlParameter("@kEY", DBKey.INSERT)
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_VatTu", par).Rows[0][0].ToString());
         }
@@ -122,7 +122,7 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@tENVATTU", DBNull.Value),
                 new SqlParameter("@dONVITINH", DBNull.Value),
                 new SqlParameter("@hINHANH", DBNull.Value),
-                new SqlParameter("@kEY", DBKey.DELETE)
+                new SqlParameter("@kEY", DBKey.INSERT)
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_VatTu", par).Rows[0][0].ToString());
         }
