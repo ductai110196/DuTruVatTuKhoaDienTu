@@ -19,24 +19,26 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="from-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="from-group">
-                                    <label>Phòng</label>
-                                    <select class="form-control sel-phong">
-                                        @foreach (var item in lsPhong)
-                                        {
-                                            <option value="@item.MSPHONG">@item.TENPHONG</option>
-                                        }
-                                    </select>
+                        <form action="@Url.Action("Report","VatTuPhong")" method="get" target="_blank">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="from-group">
+                                        <label>Phòng</label>
+                                        <select class="form-control sel-phong" name="maPhong">
+                                            @foreach (var item in lsPhong)
+                                            {
+                                                <option value="@item.MSPHONG">@item.TENPHONG</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="from-group">
+                                        <button type="submit" class="btn btn-success" style="margin-top: 27px;">Xuất thống kê</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="from-group">
-                                    <button class="btn btn-success" style="margin-top: 27px;">Xuất thống kê</button>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

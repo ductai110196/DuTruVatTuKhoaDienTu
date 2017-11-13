@@ -20,5 +20,6 @@ namespace DuTruVatTu.Database
         public static string SELECT_PHANCONGGIANGDAY = "SELECT_PHANCONGGIANGDAY";
         public static string DANGNHAP = "DANGNHAP";
         public static string FIND = "FIND";
+        public static string REPORT = "REPORT";
     }
 }
