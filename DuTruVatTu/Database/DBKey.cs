@@ -12,6 +12,7 @@ namespace DuTruVatTu.Database
         public static string INSERT = "INSERT";
         public static string DELETE = "DELETE";
         public static string CHECK = "CHECK";
+        public static string SELECT_LOPHOCPHAN = "SELECT_LOPHOCPHAN";
         public static string SELECT_CURRENT = "SELECT_CURRENT";
         public static string SELECT_NAMHOC = "SELECT_NAMHOC";
         public static string SELECT_GIANGVIEN = "SELECT_GIANGVIEN";

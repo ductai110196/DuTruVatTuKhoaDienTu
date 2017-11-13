@@ -40,7 +40,28 @@ namespace DuTruVatTu.Models
         {
             MSDUTRUVATTU = mSDUTRUVATTU;
         }
-
+        public List<DuTruVatTuModel> DanhSachLopHocPhanTheoGiangVien( int msGiangVien)
+        {
+            List<DuTruVatTuModel> list = new List<DuTruVatTuModel>();
+            Object[] par =
+            {
+                new SqlParameter("@mSDUTRUVATTU", DBNull.Value),
+                new SqlParameter("@mSLOPHOCPHAN", DBNull.Value),
+                new SqlParameter("@mSGIANGVIEN", msGiangVien),
+                new SqlParameter("@nGAYDUTRU", DBNull.Value),
+                new SqlParameter("@kEY", DBKey.SELECT_LOPHOCPHAN)
+            };
+            DataTable dt = DBConnect.SqlStoredProcedure("sp_DuTruVatTu", par);
+            foreach (DataRow item in dt.Rows)
+            {
+                DuTruVatTuModel dtru = new DuTruVatTuModel();
+                dtru.MSLOPHOCPHAN = int.Parse(item["MSLOPHOCPHAN"].ToString());
+                dtru.MALOPHOCPHAN = item["MALOPHOCPHAN"].ToString();
+                dtru.TENLOPHOCPHAN = item["TENLOPHOCPHAN"].ToString();
+                list.Add(dtru);
+            }
+            return list;
+        }
         public List<DuTruVatTuModel> DanhSach()
         {
             List<DuTruVatTuModel> list = new List<DuTruVatTuModel>();

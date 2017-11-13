@@ -109,7 +109,7 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@mSLOPHOCPHAN", DBNull.Value),
                 new SqlParameter("@mSHOCKY", MSHOCKY),
                 new SqlParameter("@mSHOCPHAN", DBNull.Value),
-                new SqlParameter("@mALOPHOCPHAN", DBNull.Value),
+                new SqlParameter("@mALOPHOCPHAN", MALOPHOCPHAN),
                 new SqlParameter("@tENLOPHOCPHAN", TENLOPHOCPHAN),
                 new SqlParameter("@sISO", DBNull.Value),
                 new SqlParameter("@lOAILOPHOCPHAN", DBNull.Value),

@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using DuTruVatTu.Models;
+@{
+    IEnumerable<DuTruVatTuModel> lsLopHocPhan = ViewData["DSLopHocPhan"] as IEnumerable<DuTruVatTuModel>;
+}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                DỰ TRÙ VẬT TƯ
+            </div>
+            <p class="category">Quản lý dự trù vật tư bao gồm tra cứu, thêm và cập nhật.</p>
+        </div>
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="from-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="from-group">
+                                    <label>Lớp học phần</label>
+                                    <select class="form-control sel-nhom-linh-vuc">
+                                        @foreach (var item in lsLopHocPhan)
+                                        {
+                                            <option value="@item.MSLOPHOCPHAN">@item.TENLOPHOCPHAN</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="w-5 text-center">STT</th>
+                                <th class="w-15">LĨNH VỰC</th>
+                                <th class="w-15">NHÓM VẬT TƯ</th>
+                                <th>TÊN VẬT TƯ</th>
+                                <th class="w-10 text-center">SỐ LƯỢNG</th>
+                                <th class="w-15 text-center">NGÀY DỰ TRÙ</th>
+                                <th class="w-7 text-center">THAO TÁC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">dzvs</td>
+                                <td>dzvs</td>
+                                <td>dzvs</td>
+                                <td>dzvs</td>                               
+                                <td class="text-center">dzvs</td>
+                                <td class="text-center">dzvs</td>
+                                <td class='text-center'><button class='btn btn-success edit btn-cn' value=''><span class='ti-pencil'></span></button>
+                                                <button class='btn btn-danger edit btn-xoa' value=''><span class='ti-close'></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="float">
+    <span class="ti-plus icon-float" id="btnthem"></span>
+</a>
+
+<script>
+    $(document).ready(function () {
+        function LayDanhSach(maLopHocPhan, control) {
+            $.ajax({
+                url: "/DuTruVatTu/DanhSachDuTruJSON",
+                type: "POST",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "hocKy": hocKy,
+                    "maLopHocphan": maLopHocphan,
+                    "tenLopHocPhan": tenLopHocPhan,
+                },
+                success: function (data) {
+                    st = data;
+                },
+                error: function (er) { console.log(er); }
+            });
+        }
+    })
+</script>
