@@ -65,7 +65,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             LopHocPhanModel lhp = new LopHocPhanModel();
             lhp.MSHOCKY = int.Parse(hocKy);
             lhp.MALOPHOCPHAN = maLopHocphan;
-            lhp.TENLOPHOCPHAN = maLopHocphan;
+            lhp.TENLOPHOCPHAN = tenLopHocPhan;
             return lhp.KiemTra().Count;
         }
     }

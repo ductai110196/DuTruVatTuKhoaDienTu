@@ -370,6 +370,7 @@
                 success: function (data) {
                     if (data > 0) {
                         LayLopHocPhan($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-lop-hoc-phan');
+                        $('#modal-cap-nhat').modal('hide');
                     }
                 },
                 error: function (er) { console.log(er); }
@@ -388,6 +389,7 @@
                 success: function (data) {
                     if (data > 0) {
                         LayLopHocPhan($('.sel-hoc-ky').val(), $('.sel-mon-hoc').val(), '.tbl-lop-hoc-phan');
+                        $('#modal-xoa').modal('hide');
                     }
                 },
                 error: function (er) { console.log(er); }
@@ -428,7 +430,7 @@
             $('#modal-cap-nhat').modal('show');
         });
 
-        $('.btn-cap-nhat').click(function () {
+        $('.btn-cap-nhat').click(function () {            
             CapNhat();
         });
 
