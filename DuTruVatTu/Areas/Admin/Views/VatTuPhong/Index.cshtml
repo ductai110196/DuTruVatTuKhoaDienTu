@@ -24,6 +24,7 @@
                                 <div class="col-md-3">
                                     <div class="from-group">
                                         <label>Phòng</label>
+                                        <input type="hidden" class="hidden-ten-phong" name="tenPhong" value="" />
                                         <select class="form-control sel-phong" name="maPhong">
                                             @foreach (var item in lsPhong)
                                             {
@@ -180,6 +181,10 @@
         }
 
         $('.sel-phong').change(function () {
+            $('.sel-phong option:selected').each(function () {
+                $('.hidden-ten-phong').val($(this).val());
+            });
+
             LayDanhSach($('.sel-phong').val(), ".table");
         });
 

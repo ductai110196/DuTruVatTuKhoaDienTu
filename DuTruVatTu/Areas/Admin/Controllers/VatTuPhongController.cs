@@ -1,6 +1,7 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using DuTruVatTu.Command;
 using DuTruVatTu.Models;
+using DuTruVatTu.Report;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
@@ -55,7 +56,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Report(string maPhong)
+        public ActionResult Report(string maPhong, string tenPhong)
         {
             VatTuPhongModel vtp = new VatTuPhongModel(); 
             vtp.MSPHONG = int.Parse(maPhong);
@@ -65,6 +66,9 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
+            TextObject txtReportHeader;
+            txtReportHeader = rd.ReportDefinition.ReportObjects["lblTieuDe"] as TextObject;
+            txtReportHeader.Text = "THỐNG KÊ SỐ LƯỢNG VẬT TƯ HIỆN CÓ TẠI PHÒNG " + tenPhong;
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.Excel);
             stream.Seek(0, SeekOrigin.Begin);
             return File(stream, "application/xls", "CustomerList.xls");
