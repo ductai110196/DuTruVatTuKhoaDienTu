@@ -23,7 +23,7 @@
                             <div class="col-md-3">
                                 <div class="from-group">
                                     <label>Lớp học phần</label>
-                                    <select class="form-control sel-nhom-linh-vuc">
+                                    <select class="form-control sel-lop-hoc-phan">
                                         @foreach (var item in lsLopHocPhan)
                                         {
                                             <option value="@item.MSLOPHOCPHAN">@item.TENLOPHOCPHAN</option>
@@ -50,17 +50,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">dzvs</td>
-                                <td>dzvs</td>
-                                <td>dzvs</td>
-                                <td>dzvs</td>                               
-                                <td class="text-center">dzvs</td>
-                                <td class="text-center">dzvs</td>
-                                <td class='text-center'><button class='btn btn-success edit btn-cn' value=''><span class='ti-pencil'></span></button>
-                                                <button class='btn btn-danger edit btn-xoa' value=''><span class='ti-close'></span></button>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -75,22 +64,44 @@
 
 <script>
     $(document).ready(function () {
-        function LayDanhSach(maLopHocPhan, control) {
-            $.ajax({
-                url: "/DuTruVatTu/DanhSachDuTruJSON",
-                type: "POST",
-                async: false,
-                data: {
-                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
-                    "hocKy": hocKy,
-                    "maLopHocphan": maLopHocphan,
-                    "tenLopHocPhan": tenLopHocPhan,
-                },
-                success: function (data) {
-                    st = data;
-                },
-                error: function (er) { console.log(er); }
-            });
+        function LayDanhSach(maLHP, control) {
+            $(control).empty();
+            if (maLHP > 0) {
+                $.ajax({
+                    url: "/DuTruVatTu/DanhSachDuTruJSON",
+                    type: "POST",
+                    data: {
+                        "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                        "maLopHocphan": maLHP
+                    },
+                    success: function (data) {
+                        var dl = $.parseJSON(data);
+                        var item = "";
+                        for (i = 0; i < dl.length; i++) {
+                            item += "<tr>";
+                            item += "<td class='w-5 text-center'>" + (i + 1) + "</td>";
+                            item += "<td>" + dl[i].TENNHOMLINHVUC + "</td>";
+                            item += "<td>" + dl[i].TENNHOMVATTU + "</td>";
+                            item += "<td>" + dl[i].TENVATTU + "</td>";
+                            item += "<td class='text-center'>" + dl[i].SOLUONGVATTU + "</td>";
+                            item += "<td class='text-center'>" + dl[i].NGAYDUTRU + "</td>";
+                            item += "<td class='text-center'> <button class='btn btn-success edit btn-cn' value='" + dl[i].MSDUTRUVATTU
+                                + "'><span class='ti-pencil'></span></button> <button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSDUTRUVATTU
+                                + "'><span class='ti-close'></span></button></td>";
+                            item += "</tr>";
+                        }
+                        $(control).append(item);
+                    },
+                    error: function (er) { console.log(er); }
+                });
+            }
         }
+        $('.sel-lop-hoc-phan').click(function () {
+            
+            LayDanhSach($('.sel-lop-hoc-phan').val(), "tbody");
+        });
+        $('.sel-lop-hoc-phan').trigger("change");
+
+
     })
 </script>

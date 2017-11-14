@@ -1,5 +1,7 @@
 ﻿using DuTruVatTu.Command;
 using DuTruVatTu.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,13 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             return View();
         }
 
-        public string DanhSachDuTruJSON()
+        [HttpPost, ValidateAntiForgeryToken]
+        public string DanhSachDuTruJSON(string maLopHocphan)
         {
-            return "";
+            DuTruVatTuModel dt = new DuTruVatTuModel();
+            dt.MSGIANGVIEN = ((TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP]).MSGIANGVIEN;
+            dt.MSLOPHOCPHAN = int.Parse(maLopHocphan);
+            return JsonConvert.SerializeObject(dt.DanhSach(), new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
         }
     }
 }
