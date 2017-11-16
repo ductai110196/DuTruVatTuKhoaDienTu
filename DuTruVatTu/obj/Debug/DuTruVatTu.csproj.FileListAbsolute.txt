@@ -372,3 +372,16 @@ C:\Users\TrPha\OneDrive\Dự án\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDeci
 C:\Users\TrPha\OneDrive\Dự án\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\TrPha\OneDrive\Dự án\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\TrPha\OneDrive\Dự án\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\stdole.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.DataDefModel.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.ClientDoc.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.ReportDefModel.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.Controllers.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.CommLayer.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.Prompting.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.XmlSerialize.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.CubeDefModel.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.CommonObjectModel.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu\DuTruVatTu\bin\stdole.dll
