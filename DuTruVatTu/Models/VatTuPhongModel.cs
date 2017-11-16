@@ -9,7 +9,7 @@ using System.Web;
 
 namespace DuTruVatTu.Models
 {
-    public class VatTuPhongModel : iVatTu, iPhong, iVatTuPhong, iGiangVien
+    public class VatTuPhongModel : iVatTu, iPhong, iVatTuPhong, iGiangVien, iNhomLinhVuc, iNhomVatTu
     {
         public int MSVATTU { get; set; }
         public string TENVATTU { get; set; }
@@ -24,6 +24,10 @@ namespace DuTruVatTu.Models
         public string TENGIANGVIEN { get; set; }
         public DateTime NGAYSINH { get; set; }
         public string GIOITINH { get; set; }
+        public int MSNHOMVATTU { get; set; }
+        public string TENNHOMVATTU { get; set; }
+        public int MSNHOMLINHVUC { get; set; }
+        public string TENNHOMLINHVUC { get; set; }
 
         public List<VatTuPhongModel> DanhSach()
         {
@@ -111,6 +115,20 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@kEY", DBKey.DELETE)
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_VatTuPhong", par).Rows[0][0].ToString());
+        }
+
+        public DataTable Report()
+        {
+            Object[] par = {
+                new SqlParameter("@mSVATTUPHONG", DBNull.Value),
+                new SqlParameter("@mSVATTU", DBNull.Value),
+                new SqlParameter("@mSPHONG", MSPHONG),
+                new SqlParameter("@sOLUONG", DBNull.Value),
+                new SqlParameter("@mSGIANGVIEN", DBNull.Value),
+                new SqlParameter("@kEY", DBKey.REPORT)
+            };
+            DataTable dt = DBConnect.SqlStoredProcedure("sp_VatTuPhong", par);
+            return dt;
         }
     }
 }
