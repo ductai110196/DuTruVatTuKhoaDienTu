@@ -21,7 +21,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public string DSVatTuJSON (string msNhomVatTu)
+        public string DSVatTuJSON(string msNhomVatTu)
         {
             VatTuModel vt = new VatTuModel();
             vt.MSNHOMVATTU = int.Parse(msNhomVatTu);
@@ -31,7 +31,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         [HttpPost]
         public string Upload()
         {
-            if(Request.Files.Count > 0)
+            if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];
                 var fileRadom = Guid.NewGuid() + Path.GetFileName(file.FileName);
@@ -51,6 +51,26 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             vt.DONVITINH = donViTinh;
             vt.HINHANH = urlHinhAnh;
             return vt.Them();
+        }
+
+        [HttpPost]
+        public int CapNhat(string msVatTu, string msNhomVatTu, string tenVatTu, string donViTinh, string urlHinhAnh)
+        {
+            VatTuModel vt = new VatTuModel();
+            vt.MSVATTU = int.Parse(msVatTu);
+            vt.MSNHOMVATTU = int.Parse(msNhomVatTu);
+            vt.TENVATTU = tenVatTu;
+            vt.DONVITINH = donViTinh;
+            vt.HINHANH = urlHinhAnh;
+            return vt.CapNhat();
+        }
+
+        [HttpPost]
+        public int Xoa(string msVatTu)
+        {
+            VatTuModel vt = new VatTuModel();
+            vt.MSVATTU = int.Parse(msVatTu);
+            return vt.Xoa();
         }
     }
 }
