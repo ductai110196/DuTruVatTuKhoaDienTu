@@ -6,6 +6,7 @@
 @using DuTruVatTu.Models;
 @{
     IEnumerable<DuTruVatTuModel> lsLopHocPhan = ViewData["DSLopHocPhan"] as IEnumerable<DuTruVatTuModel>;
+    IEnumerable<NhomLinhVucModel> lsNhomLinhVuc = ViewData["DSNhomLinhVuc"] as IEnumerable<NhomLinhVucModel>;
 }
 <div class="col-md-12">
     <div class="card">
@@ -49,10 +50,75 @@
                                 <th class="w-7 text-center">THAO TÁC</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
+                        <tbody class="content"></tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-them" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm dự trù vật tư</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Lĩnh vực</label>
+                        <select class="form-control sel-nhom-linh-vuc-them">
+                            @foreach (var item in lsNhomLinhVuc)
+                            {
+                                <option value="@item.MSNHOMLINHVUC">@item.TENNHOMLINHVUC</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Nhóm vật tư</label>
+                        <select class="form-control sel-nhom-vat-tu-them">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Danh sách vật tư</label>
+                        <div style="height:200px;">
+                            <select multiple class="form-control" style="height:100%;">
+                                <option value="1">Vật tư 1</option>
+                                <option value="2">Vật tư 2</option>
+                                <option value="3">Vật tư 3</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Vật tư được chọn</label>
+                        <br />
+                        <div style="height:200px;">
+                            <select multiple class="form-control" style="height:100%;">
+                                <option value="1">Vật tư 1</option>
+                                <option value="2">Vật tư 2</option>
+                                <option value="3">Vật tư 3</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success btn-them">Thêm</button>
             </div>
         </div>
     </div>
@@ -96,12 +162,40 @@
                 });
             }
         }
-        $('.sel-lop-hoc-phan').click(function () {
-            
-            LayDanhSach($('.sel-lop-hoc-phan').val(), "tbody");
+        function LayDanhSachNhomVatTuTheoLinhVuc(maLinhVuc, tenSel) {
+            $.ajax({
+                type: "post",
+                url: "/NhomVatTu/DSNhomVatTuJSON",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "msNhomLinhVuc": maLinhVuc
+                },
+                success: function (data) {
+                    var dl = $.parseJSON(data);
+                    var item = "";
+                    for (i = 0; i < dl.length; i++) {
+                        item += "<option value=" + dl[i].MSNHOMVATTU + ">" + dl[i].TENNHOMVATTU + "</option>";
+                    }
+                    $(tenSel).empty();
+                    $(tenSel).append(item);
+                }
+            });
+        }
+
+        $('.sel-nhom-linh-vuc-them').change(function () {
+            LayDanhSachNhomVatTuTheoLinhVuc($('.sel-nhom-linh-vuc-them').val(), ".sel-nhom-vat-tu-them");
+        });
+        $('.sel-nhom-linh-vuc-them').trigger("change");
+
+        $('.sel-lop-hoc-phan').change(function () {
+            LayDanhSach($('.sel-lop-hoc-phan').val(), ".content");
         });
         $('.sel-lop-hoc-phan').trigger("change");
 
+        $('#btnthem').click(function () {
+            $('#modal-them').modal('show');
+        });
 
     })
 </script>

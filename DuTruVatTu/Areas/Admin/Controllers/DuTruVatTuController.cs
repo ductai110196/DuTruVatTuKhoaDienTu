@@ -17,6 +17,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
         {
             var magiangvien = ((TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP]).MSGIANGVIEN;
             ViewData["DSLopHocPhan"] = new DuTruVatTuModel().DanhSachLopHocPhanTheoGiangVien(magiangvien);
+            ViewData["DSNhomLinhVuc"] = new NhomLinhVucModel().DanhSach();
             return View();
         }
 
