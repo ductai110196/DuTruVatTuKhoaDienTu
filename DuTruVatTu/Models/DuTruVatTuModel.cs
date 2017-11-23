@@ -105,6 +105,27 @@ namespace DuTruVatTu.Models
             return list;
         }
 
+        public List<DuTruVatTuModel> DanhSachVatTu()
+        {
+            List<DuTruVatTuModel> list = new List<DuTruVatTuModel>();
+            Object[] par = {
+                new SqlParameter("@mSNHOMLINHVUC", MSNHOMLINHVUC),
+                new SqlParameter("@mSNHOMVATTU", MSNHOMVATTU),
+                new SqlParameter("@mSLOPHOCPHAN", MSLOPHOCPHAN),
+                new SqlParameter("@mSGIANGVIEN", MSGIANGVIEN)
+            };
+            DataTable dt = DBConnect.SqlStoredProcedure("sp_DanhSachVatTuTrongDuTru", par);
+            foreach (DataRow item in dt.Rows)
+            {
+                DuTruVatTuModel dtru = new DuTruVatTuModel();
+                dtru.MSVATTU = int.Parse(item["MSVATTU"].ToString());
+                dtru.TENVATTU = item["TENVATTU"].ToString();
+                dtru.HINHANH = item["HINHANH"].ToString();
+                list.Add(dtru);
+            }
+            return list;
+        }
+
         // Chưa làm
         public List<DuTruVatTuModel> KiemTra()
         {

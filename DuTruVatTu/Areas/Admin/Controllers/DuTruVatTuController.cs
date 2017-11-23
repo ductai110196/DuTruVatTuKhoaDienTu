@@ -29,5 +29,16 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             dt.MSLOPHOCPHAN = int.Parse(maLopHocphan);
             return JsonConvert.SerializeObject(dt.DanhSach(), new IsoDateTimeConverter() { DateTimeFormat = "dd/MM/yyyy" });
         }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public string DSVatTuJSON(string maLopHocphan, string maLinhVuc, string maNhomVatTu)
+        {
+            DuTruVatTuModel dt = new DuTruVatTuModel();
+            dt.MSGIANGVIEN = ((TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP]).MSGIANGVIEN;
+            dt.MSLOPHOCPHAN = int.Parse(maLopHocphan);
+            dt.MSNHOMLINHVUC = int.Parse(maLinhVuc);
+            dt.MSNHOMVATTU = int.Parse(maNhomVatTu);
+            return JsonConvert.SerializeObject(dt.DanhSachVatTu());
+        }
     }
 }

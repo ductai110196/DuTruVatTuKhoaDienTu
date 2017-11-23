@@ -145,7 +145,6 @@ a.float:hover + div.label-container {
     display: inline-block;
     width: 150px;
     height: 150px;
-    margin: 0 0.5rem 1rem;
     text-align: center;
 }
 
@@ -252,4 +251,9 @@ a.float:hover + div.label-container {
 }
 .chk-vt-phong{
     margin-right: 10px;
+}
+
+.danhsachvattu {
+    border-bottom: 1px solid darkgray;
+    padding: 5px 0px;
 }
