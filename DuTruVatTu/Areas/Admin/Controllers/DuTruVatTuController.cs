@@ -40,5 +40,34 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             dt.MSNHOMVATTU = int.Parse(maNhomVatTu);
             return JsonConvert.SerializeObject(dt.DanhSachVatTu());
         }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public void ThemDuTruVatTu(string mangVatTu, string mangSoLuong, 
+            string msLopHocPhan)
+        {
+            var magiangvien = ((TaiKhoanDangNhapModel)Session[Contains.SESSIONKEYDANGNHAP]).MSGIANGVIEN;
+            var vatTu = JsonConvert.DeserializeObject<String[]>(mangVatTu);
+            var soLuong = JsonConvert.DeserializeObject<String[]>(mangSoLuong);
+            DuTruVatTuModel dtvt = new DuTruVatTuModel();
+            dtvt.MSLOPHOCPHAN = int.Parse(msLopHocPhan);
+            dtvt.MSGIANGVIEN = magiangvien;
+            int msDuTruVatTu = dtvt.Them();
+            DuTruVatTuChiTietModel dtvtct = new DuTruVatTuChiTietModel();
+            for(int i = 0; i < vatTu.Length; i++)
+            {
+                dtvtct.MSVATTU = int.Parse(vatTu[i]);
+                dtvtct.SOLUONGVATTU = int.Parse(soLuong[i]);
+                dtvtct.MSDUTRUVATTU = msDuTruVatTu;
+                dtvtct.Them();
+            }
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public int Xoa(string maDuTruVatTuChiTiet)
+        {
+            DuTruVatTuModel dt = new DuTruVatTuModel();
+            dt.MSDUTRUVATTUCHITIET = int.Parse(maDuTruVatTuChiTiet);
+            return dt.Xoa();
+        }
     }
 }

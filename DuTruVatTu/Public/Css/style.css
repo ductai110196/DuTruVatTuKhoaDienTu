@@ -61,10 +61,6 @@ body {
     box-shadow: 2px 2px 3px #999;
 }
 
-.my-float {
-    font-size: 24px;
-    margin-top: 18px;
-}
 
 a.float + div.label-container {
     visibility: hidden;
@@ -256,4 +252,117 @@ a.float:hover + div.label-container {
 .danhsachvattu {
     border-bottom: 1px solid darkgray;
     padding: 5px 0px;
+}
+
+.my-float {
+    margin-top: 18px;
+    display:block;
+}
+.a {
+    position: fixed;
+    right: 40px;
+    padding-bottom: 20px;
+    bottom: 40px;
+    z-index: 100;
+}
+
+.a li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.a li a {
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+    text-decoration: none;
+    width: 60px;
+    height: 60px;
+    display: block;
+    background-color: #06C;
+    color: #FFF;
+}
+
+.a li a span {
+    display: block;
+    top: 20px;
+    position: relative;
+}
+
+.a:hover {
+visibility: visible !important;
+opacity: 1 !important;
+}
+
+#menu-share {
+    text-decoration: none;
+    position: fixed;
+    width: 55px;
+    height: 55px;
+    bottom: 20px;
+    right: 40px;
+    background-color: #06C;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+}
+
+a#menu-share + .a {
+    visibility: hidden;
+}
+
+a#menu-share:hover + .a {
+    visibility: visible;
+    animation: scale-in 0.5s;
+}
+
+a#menu-share span {
+    animation: rotate-in 0.5s;
+}
+
+a#menu-share:hover > span {
+    animation: rotate-out 0.5s;
+}
+
+@keyframes bot-to-top {
+    0% {
+        bottom: -40px
+    }
+
+    50% {
+        bottom: 40px
+    }
+}
+
+@keyframes scale-in {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rotate-in {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-out {
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
 }

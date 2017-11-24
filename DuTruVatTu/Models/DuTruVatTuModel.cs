@@ -99,6 +99,7 @@ namespace DuTruVatTu.Models
                 dtru.TENNHOMLINHVUC = item["TENNHOMLINHVUC"].ToString();
                 dtru.MSNHOMVATTU = int.Parse(item["MSNHOMVATTU"].ToString());
                 dtru.TENNHOMVATTU = item["TENNHOMVATTU"].ToString();
+                dtru.MSDUTRUVATTUCHITIET = int.Parse(item["MSDUTRUVATTUCHITIET"].ToString());
                 dtru.SOLUONGVATTU = int.Parse(item["SOLUONGVATTU"].ToString());
                 list.Add(dtru);
             }
@@ -126,7 +127,6 @@ namespace DuTruVatTu.Models
             return list;
         }
 
-        // Chưa làm
         public List<DuTruVatTuModel> KiemTra()
         {
             List<DuTruVatTuModel> list = new List<DuTruVatTuModel>();
@@ -165,7 +165,7 @@ namespace DuTruVatTu.Models
                 new SqlParameter("@mSDUTRUVATTU", DBNull.Value),
                 new SqlParameter("@mSLOPHOCPHAN", MSLOPHOCPHAN),
                 new SqlParameter("@mSGIANGVIEN", MSGIANGVIEN),
-                new SqlParameter("@nGAYDUTRU", NGAYDUTRU),
+                new SqlParameter("@nGAYDUTRU", DateTime.Now),
                 new SqlParameter("@kEY", DBKey.INSERT),
             };
             return int.Parse(DBConnect.SqlStoredProcedure("sp_DuTruVatTu", par).Rows[0][0].ToString());
@@ -189,13 +189,13 @@ namespace DuTruVatTu.Models
         {
             List<DuTruVatTuModel> list = new List<DuTruVatTuModel>();
             Object[] par = {
-                new SqlParameter("@mSDUTRUVATTU", MSDUTRUVATTU),
-                new SqlParameter("@mSLOPHOCPHAN", MSLOPHOCPHAN),
-                new SqlParameter("@mSGIANGVIEN", MSGIANGVIEN),
-                new SqlParameter("@nGAYDUTRU", NGAYDUTRU),
+                new SqlParameter("@mSDUTRUVATTUCHITIET", MSDUTRUVATTUCHITIET),
+                new SqlParameter("@mSDUTRUVATTU", DBNull.Value),
+                new SqlParameter("@mSVATTU", DBNull.Value),
+                new SqlParameter("@sOLUONGVATTU", DBNull.Value),
                 new SqlParameter("@kEY", DBKey.DELETE),
             };
-            return int.Parse(DBConnect.SqlStoredProcedure("sp_DuTruVatTu", par).Rows[0][0].ToString());
+            return int.Parse(DBConnect.SqlStoredProcedure("sp_DuTruVatTuChiTiet", par).Rows[0][0].ToString());
         }
     }
 }

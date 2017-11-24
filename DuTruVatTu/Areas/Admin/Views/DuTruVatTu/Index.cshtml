@@ -86,21 +86,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <label>Danh sách vật tư</label>
                         <div style="height:200px;">
-                            <select multiple class="form-control danh-sach-vat-tu" style="height:100%; background:#e5e5e5">
+                            <select multiple class="form-control danh-sach-vat-tu" style="height:100%; @*background:#f7f6f6*@">
                                 
-                            </select>
-                            @*<table class="table">
-                                <thead>
-                                    <tr>
-                                        <td class="w-30 text-center">Hình ảnh</td>
-                                        <td>Tên vật tư</td>
-                                    </tr>
-                                </thead>
-                                <tbody class="danh-sach-vat-tu"></tbody>
-                            </table>*@
+                            </select>                          
                         </div>
                     </div>
                    
@@ -109,10 +100,9 @@
                     <div class="col-md-12">
                         <label>Vật tư được chọn</label>
                         <div style="overflow-y: scroll;height:180px;">
-                            <table class="table vat-tu-duoc-chon table-striped" id="tblOne">
+                            <table class="table vat-tu-duoc-chon table-striped">
                                 <thead>
                                     <tr>
-                                        <td class="w-5 text-center">STT</td>
                                         <td>TÊN VẬT TƯ</td>
                                         <td class="w-20">LĨNH VỰC</td>
                                         <td class="w-20">NHÓM VẬT TƯ</td>
@@ -136,11 +126,46 @@
     </div>
 </div>
 
-<a class="float">
-    <span class="ti-plus icon-float" id="btnthem"></span>
+<a href="#" id="menu-share">
+    <span class="ti-angle-up my-float"></span>
 </a>
+<ul class="a">
+    <li style="margin-bottom:-10px;">
+        <a href="#">
+            <span class="ti-save my-float"></span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <span class="ti-plus my-float" id="btnthem"></span>
+        </a>
+    </li>
+</ul>
+
+<div class="modal fade" id="modal-xoa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row" style="margin-top: 35px;">
+                    <div class="col-md-3">
+                        <span class="ti-eraser icon-xoa-modal"></span>
+                    </div>
+                    <div class="col-md-9">
+                        <h5>Bạn chắc chứ ?</h5>
+                        <div class="body-title-xoa">Khi xóa, thông tin sẽ không thể phục hồi lại được.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger btn-xoa-du-tru">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
+    var msDuTruVatTuChiTiet;
     $(document).ready(function () {
         function LayDanhSach(maLHP, control) {
             $(control).empty();
@@ -163,7 +188,7 @@
                             item += "<td>" + dl[i].TENVATTU + "</td>";
                             item += "<td class='text-center'>" + dl[i].SOLUONGVATTU + "</td>";
                             item += "<td class='text-center'>" + dl[i].NGAYDUTRU + "</td>";
-                            item += "<td class='text-center'><button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSDUTRUVATTU
+                            item += "<td class='text-center'><button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSDUTRUVATTUCHITIET
                                 + "'><span class='ti-close'></span></button></td>";
                             item += "</tr>";
                         }
@@ -216,10 +241,6 @@
                     var item = "";
                     for (i = 0; i < dl.length; i++) {
                         item += "<option class='danhsachvattu' value=" + dl[i].MSVATTU + ">" + dl[i].TENVATTU + "</option>";
-                        //item += "<tr>";
-                        //item += "<td class='text-center'><img src='.." + dl[i].HINHANH + "' style='width: 40px;height: 40px;'/></td>";
-                        //item += "<td>" + dl[i].TENVATTU + "</td>";
-                        //item += "</tr>";
                     }
                     $(tenSel).empty();
                     $(tenSel).append(item);
@@ -244,39 +265,89 @@
         $('.sel-lop-hoc-phan').trigger("change");
 
         $('#btnthem').click(function () {
+            $('.sel-nhom-linh-vuc-them').trigger("change");
             $('#modal-them').modal('show');
         });
-                
+
         function KTDanhSachDuTru(vattu, linhvuc, nhom) {
             var row = $('.vat-tu-duoc-chon').find('tbody').find('tr');
             for (var i = 0; i < row.length; i++) {
-                var tenvattu = $(row[i]).find('td:eq(1)').html();
-                var tenlinhvuc = $(row[i]).find('td:eq(2)').html();
-                var tennhom = $(row[i]).find('td:eq(3)').html();
-                if (tenvattu == vattu && tenlinhvuc == linhvuc && tennhom == nhom)
-                {
-                    return false;
-                }
+                var tenvattu = $(row[i]).find('td:eq(0)').html();
+                var tenlinhvuc = $(row[i]).find('td:eq(1)').html();
+                var tennhom = $(row[i]).find('td:eq(2)').html();
+                if (tenvattu == vattu && tenlinhvuc == linhvuc && tennhom == nhom)  return false;
             }
             return true;
         }
 
         $('.danh-sach-vat-tu').on("dblclick click", function () {
             if (KTDanhSachDuTru($('.danh-sach-vat-tu option:selected').text(), $('.sel-nhom-linh-vuc-them option:selected').text(), $('.sel-nhom-vat-tu-them option:selected').text()))
-            {          
+            {
                 var item="";
                 item += "<tr>";
-                item += "<td class='text-center'>" + ($('.vat-tu-duoc-chon').find('tbody').find('tr').length + 1) +"</td>";
-                item += "<td>" + $('.danh-sach-vat-tu option:selected').text() + "</td>";
+                item += "<td data='" + $('.danh-sach-vat-tu option:selected').val() +"'>" + $('.danh-sach-vat-tu option:selected').text() + "</td>";
                 item += "<td>" + $('.sel-nhom-linh-vuc-them option:selected').text() + "</td>";
                 item += "<td>" + $('.sel-nhom-vat-tu-them option:selected').text() + "</td>";
-                item += "<td class='text-center'><input type='number' value='1' style='width: 50px;' /></td>";
+                item += "<td class='text-center'><input type='number' class='form-control' value='1' style='width: 50px;' /></td>";
                 item += "<td class='text-center'><button class='btn btn-danger edit btn-xoa-vat-tu-duoc-chon' value=''><span class='ti-close'></span></button></td>";
                 item += "</tr>";
                 $('.vat-tu-duoc-chon tbody').append(item);
                 toastr.success('thành công');
             }
             else toastr.error('lỗi');
+        });
+
+        $(document).on('click', '.btn-xoa-vat-tu-duoc-chon', function () {
+            $(this).parent().closest('tr').remove();
+        });
+
+        var mangVatTu = [];
+        var mangSoLuong = [];
+        $('.btn-them').click(function () {
+            var row = $('.vat-tu-duoc-chon').find('tbody').find('tr');
+            for (var i = 0; i < row.length; i++) {
+                var mvt = $(row[i]).find('td:eq(0)').attr('data');
+                var sl = $(row[i]).find('td:eq(3) input').val();
+                alert(mvt);
+                mangVatTu.push(mvt);
+                mangSoLuong.push(sl);
+            }
+            $.ajax({
+                type: "post",
+                url: "/DuTruVatTu/ThemDuTruVatTu",
+                async: false,
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "mangVatTu": JSON.stringify(mangVatTu),
+                    "mangSoLuong": JSON.stringify(mangSoLuong),
+                    "msLopHocPhan": $('.sel-lop-hoc-phan').val()
+                },
+                success: function (data) {
+                    $('#modal-them').modal('hide');
+                    location.reload();
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-xoa', function () {
+            msDuTruVatTuChiTiet = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa-du-tru').click(function () {
+            $.ajax({
+                type: "post",
+                url: "/DuTruVatTu/Xoa",
+                data: {
+                    "__RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val(),
+                    "maDuTruVatTuChiTiet": msDuTruVatTuChiTiet
+                },
+                success: function (data) {
+                    LayDanhSach($('.sel-lop-hoc-phan').val(), ".content");
+                    toastr.success('Xóa vật tư thành công');
+                    $('#modal-xoa').modal('hide');
+                }
+            });
         });
     })
 </script>
