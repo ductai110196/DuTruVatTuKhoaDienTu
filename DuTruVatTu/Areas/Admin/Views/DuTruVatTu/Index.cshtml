@@ -45,7 +45,7 @@
                                 <th class="w-15">LĨNH VỰC</th>
                                 <th class="w-15">NHÓM VẬT TƯ</th>
                                 <th>TÊN VẬT TƯ</th>
-                                <th class="w-10 text-center">SỐ LƯỢNG</th>
+                                <th class="w-7">SỐ LƯỢNG</th>
                                 <th class="w-15 text-center">NGÀY DỰ TRÙ</th>
                                 <th class="w-7 text-center">THAO TÁC</th>
                             </tr>
@@ -89,7 +89,7 @@
                     <div class="col-md-12">
                         <label>Danh sách vật tư</label>
                         <div style="height:200px;">
-                            <select multiple class="form-control danh-sach-vat-tu" style="height:100%; @*background:#f7f6f6*@">
+                            <select multiple class="form-control danh-sach-vat-tu" style="height:100%;">
                                 
                             </select>                          
                         </div>
@@ -136,8 +136,8 @@
         </a>
     </li>
     <li>
-        <a href="#">
-            <span class="ti-plus my-float" id="btnthem"></span>
+        <a href="#" id="btnthem">
+            <span class="ti-plus my-float" ></span>
         </a>
     </li>
 </ul>
@@ -159,7 +159,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
                 <button type="button" class="btn btn-danger btn-xoa-du-tru">Xóa</button>
-            </div>
+            </div>            
         </div>
     </div>
 </div>
@@ -186,7 +186,7 @@
                             item += "<td>" + dl[i].TENNHOMLINHVUC + "</td>";
                             item += "<td>" + dl[i].TENNHOMVATTU + "</td>";
                             item += "<td>" + dl[i].TENVATTU + "</td>";
-                            item += "<td class='text-center'>" + dl[i].SOLUONGVATTU + "</td>";
+                            item += "<td> <input type='number' name='soluong' style='width: 80px;' min=1 class='form-control' value=" + dl[i].SOLUONGVATTU +" /></td>";
                             item += "<td class='text-center'>" + dl[i].NGAYDUTRU + "</td>";
                             item += "<td class='text-center'><button class='btn btn-danger edit btn-xoa' value='" + dl[i].MSDUTRUVATTUCHITIET
                                 + "'><span class='ti-close'></span></button></td>";
@@ -308,7 +308,6 @@
             for (var i = 0; i < row.length; i++) {
                 var mvt = $(row[i]).find('td:eq(0)').attr('data');
                 var sl = $(row[i]).find('td:eq(3) input').val();
-                alert(mvt);
                 mangVatTu.push(mvt);
                 mangSoLuong.push(sl);
             }
