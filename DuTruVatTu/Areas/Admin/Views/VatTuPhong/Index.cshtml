@@ -303,5 +303,9 @@
                 }
             });
         });
+
+        if ($('.sel-phong').val() != null){
+            $('.hidden-ten-phong').val($('.sel-phong option:selected').text());
+        }
     })
 </script>

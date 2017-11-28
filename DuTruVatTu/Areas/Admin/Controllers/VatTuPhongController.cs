@@ -71,7 +71,7 @@ namespace DuTruVatTu.Areas.Admin.Controllers
             txtReportHeader.Text = "THỐNG KÊ SỐ LƯỢNG VẬT TƯ HIỆN CÓ TẠI PHÒNG " + tenPhong;
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.Excel);
             stream.Seek(0, SeekOrigin.Begin);
-            return File(stream, "application/xls", "CustomerList.xls");
+            return File(stream, "application/xls", new Command.Command().ConvertFileName(txtReportHeader.Text) + ".xls");
         }
     }
 }
