@@ -3,7 +3,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @using DuTruVatTu.Models;
-@{ 
+@{
     IEnumerable<NhomLinhVucModel> lsNhomLinhVuc = ViewData["DSNhomLinhVuc"] as IEnumerable<NhomLinhVucModel>;
 }
 <div class="col-md-12">
@@ -88,17 +88,27 @@
                             <option value="Bộ">Cái</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
-                        <label>Hình ảnh</label>
-                        <br />
-                        <button style="margin-top:-1px;" type="button" class="btn btn-success btn-mo-modal-img">Insert image</button>
-                    </div>
+                    @*<div class="col-md-6">
+                            <label>Hình ảnh</label>
+                            <br />
+                            <button style="margin-top:-1px;" type="button" class="btn btn-success btn-mo-modal-img">Insert image</button>
+                        </div>*@
                 </div>
-                <div class="row"> 
-                    <div class="col-md-12 text-center">
-                        <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu-mau"/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Hình ảnh</label><br />
                     </div>
-                </div>
+                        <div class="col-md-12 text-center">
+                            @* <img src="~/Public/Images/300.png" alt="Alternate Text" class="img-vat-tu-mau"/>*@
+                            <div id="page">
+                                <div class="wrap-custom-file">
+                                    <label for="image2" class="img-vat-tu-mau">
+                                        <span>Chọn ảnh linh kiện</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
@@ -129,7 +139,17 @@
                         <label>Đơn vị tính</label>
                         <select class="form-control sel-cn-don-vi-tinh">
                             <option value="Cái">Cái</option>
-                            <option value="Bộ">Cái</option>
+                            <option value="Bộ">Bộ</option>
+                            <option value="Mét">Mét</option>
+                            <option value="Bịt">Bịt</option>
+                            <option value="m">m</option>
+                            <option value="Cuồn">Cuồn</option>
+                            <option value="Cuộn">Cuộn</option>
+                            <option value="Tờ">Tờ</option>
+                            <option value="Kg">Kg</option>
+                            <option value="Thanh">Thanh</option>
+                            <option value="Ống">Ống</option>
+                            <option value="Cây">Cây</option>
                         </select>
                     </div>
                 </div>
@@ -138,8 +158,7 @@
                         <label>Hình ảnh</label><br /><br />
                         <div id="page">
                             <div class="wrap-custom-file">
-                                <input type="file" name="image2" id="image2" accept=".gif, .jpg, .png" />
-                                <label for="image2" id="cn-anh">
+                                <label for="image3" id="cn-anh">
                                     <span>Chọn ảnh linh kiện</span>
                                 </label>
                             </div>
@@ -171,7 +190,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
-                <button type="button" id="btn-xoa-chuc-vu" class="btn btn-danger">Xóa</button>
+                <button type="button" class="btn btn-danger btn-xoa-vat-tu">Xóa</button>
             </div>
         </div>
     </div>
@@ -225,7 +244,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 text-center">
                                                 <button type="button" class="btn btn-success btn-upload">Upload</button>
                                             </div>
                                         </div>
@@ -239,12 +258,13 @@
         </div>
     </div>
 </div>
-     
+
 <script>
     $(document).ready(function () {
         var _MSVATTU;
         var _MANHOMVATTU;
         var urlImage;
+        var flag;
         $('input[type="file"]').each(function () {
             var $file = $(this),
                 $label = $file.next('label'),
@@ -262,7 +282,7 @@
                     $label.removeClass('file-ok');
                     $labelText.text(labelDefault);
                 }
-            }); 
+            });
         });
 
         function LayDanhSachNhomVatTuTheoLinhVuc(maLinhVuc, tenSel) {
@@ -288,7 +308,7 @@
 
         function LayDanhSachVatTuTheoNhomVatTu(maNhomVatTu, tenSel) {
             $(tenSel).empty();
-            if (maNhomVatTu >0) {
+            if (maNhomVatTu > 0) {
                 $.ajax({
                     type: "post",
                     url: "/VatTu/DSVatTuJSON",
@@ -313,7 +333,7 @@
                         $(tenSel).append(item);
                     }
                 });
-            }            
+            }
         }
 
         function LayDanhSachHinhAnh(control) {
@@ -346,8 +366,11 @@
         $('.sel-nhom-linh-vuc').trigger("change");
 
         $('#btnthem').click(function () {
-            if ($('.sel-nhom-linh-vuc').val() != null && $('.sel-nhom-vat-tu').val() != null)
+            if ($('.sel-nhom-linh-vuc').val() != null && $('.sel-nhom-vat-tu').val() != null) {
+                $('.img-vat-tu-mau').css('background-image', 'url(/Public/Images/300.png)');
+                $('.img-vat-tu-mau').addClass('file-ok');
                 $('#modal-them').modal('show');
+            }
             else toastr.warning('Lĩnh vực hoặc nhóm vật tư không được bỏ trống');
         });
 
@@ -375,14 +398,36 @@
                 var file = document.getElementById("image1").files[i];
                 formData.append("image1", file);
             }
-            if (totalFiles != 0)
-            {
+            if (totalFiles != 0) {
                 urlImage = UploadImage(formData);
-                $('.img-vat-tu-mau').attr('src', urlImage);
+                if (flag == 'insert') {
+                    $('.img-vat-tu-mau').css('background-image', 'url(' + urlImage + ')');
+                    $('.img-vat-tu-mau').addClass('file-ok');
+                }
+                if (flag == 'update') {
+                    $('#cn-anh').css('background-image', 'url(' + urlImage + ')');
+                    $('#cn-anh').addClass('file-ok');
+                }
                 $('#modal-load-anh').modal('hide');
             }
             else toastr.warning('Ảnh không được bỏ trống');
         });
+
+        function getURL(url) {
+            url = url.replace('url("', "");
+            url = url.substr(0, url.length - 2);
+            var st = 0;
+            var index = 0;
+            for (var i = 0; i < url.length; i++) {
+                index = i;
+                if (url.charAt(i) == '/')
+                    st++;
+                if (st == 3)
+                    break;
+            }
+            url = url.substr(index, url.length - 1);
+            return url;
+        }
 
         $('.btn-them').click(function () {
             $.ajax({
@@ -392,10 +437,11 @@
                     "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
                     "tenVatTu": $('.them-ten-vat-tu').val(),
                     "donViTinh": $('.sel-them-don-vi-tinh').val(),
-                    "urlHinhAnh": $('.img-vat-tu-mau').attr('src')
+                    "urlHinhAnh": getURL($('.img-vat-tu-mau').css('background-image'))
                 },
                 success: function (data) {
                     LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+                    toastr.success('Thêm vật tư thành công');
                 }
             });
         });
@@ -404,24 +450,72 @@
             _MSVATTU = $(this).val();
             $('.cn-ten-vat-tu').val($('#tvt-' + _MSVATTU).text());
             $('.sel-cn-don-vi-tinh').val($('#dvt-' + _MSVATTU).text());
-            alert($('#avt-' + _MSVATTU + " img").attr('src'));
             $('#cn-anh').css('background-image', 'url(' + $('#avt-' + _MSVATTU + " img").attr('src') + ')');
             $('#cn-anh').addClass('file-ok');
             $('#modal-cap-nhat').modal('show');
         });
 
-        $(document).on('click', '.btn-xoa', function () {
-            $('#modal-load-anh').modal('show');
+        $('.btn-cap-nhat').click(function () {
+            $.ajax({
+                type: "post",
+                url: "/VatTu/CapNhat",
+                data: {
+                    "msVatTu": _MSVATTU,
+                    "msNhomVatTu": $('.sel-nhom-vat-tu').val(),
+                    "tenVatTu": $('.cn-ten-vat-tu').val(),
+                    "donViTinh": $('.sel-cn-don-vi-tinh').val(),
+                    "urlHinhAnh": getURL($('#cn-anh').css('background-image'))
+                },
+                success: function (data) {
+                    LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+                    toastr.success('Cập nhật vật tư thành công');
+                    $('#modal-cap-nhat').modal('hide');
+                }
+            });
         });
 
-        $('.btn-mo-modal-img').click(function () {
+        $('.img-vat-tu-mau').click(function () {
             LayDanhSachHinhAnh('.list-thu-vien-anh');
             $('#modal-load-anh').modal('show');
+            flag = 'insert';
+        });
+
+        $('#cn-anh').click(function () {
+            LayDanhSachHinhAnh('.list-thu-vien-anh');
+            $('#modal-load-anh').modal('show');
+            flag = 'update';
         });
 
         $(document).on('click', '.list-thu-vien-anh div img', function () {
-            $('.img-vat-tu-mau').attr('src', $(this).attr('src'));
+            if (flag == 'insert') {
+                $('.img-vat-tu-mau').css('background-image', 'url(' + $(this).attr('src') + ')');
+                $('.img-vat-tu-mau').addClass('file-ok');
+            }
+            if (flag == 'update') {
+                $('#cn-anh').css('background-image', 'url(' + $(this).attr('src') + ')');
+                $('#cn-anh').addClass('file-ok');
+            }
             $('#modal-load-anh').modal('hide');
+        });
+
+        $(document).on('click', '.btn-xoa', function () {
+            _MSVATTU = $(this).val();
+            $('#modal-xoa').modal('show');
+        });
+
+        $('.btn-xoa-vat-tu').click(function () {
+            $.ajax({
+                type: "post",
+                url: "/VatTu/Xoa",
+                data: {
+                    "msVatTu": _MSVATTU
+                },
+                success: function (data) {
+                    LayDanhSachVatTuTheoNhomVatTu($('.sel-nhom-vat-tu').val(), "tbody");
+                    toastr.success('Xóa vật tư thành công');
+                    $('#modal-xoa').modal('hide');
+                }
+            });
         });
     });
 </script>
