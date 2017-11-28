@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace DuTruVatTu.Command
@@ -22,6 +23,24 @@ namespace DuTruVatTu.Command
                 }
                 return sb.ToString();
             }
+        }
+        public string convertToUnSign3(string s)
+        {
+            Regex regex = new Regex("\\p{IsCombiningDiacriticalMarks}+");
+            string temp = s.Normalize(NormalizationForm.FormD);
+            return regex.Replace(temp, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
+        }
+
+        public string RemoveSpace(string str)
+        {
+            return Regex.Replace(str, @"\s+", "-");
+        }
+
+        public string ConvertFileName(string str)
+        {
+            str = RemoveSpace(str);
+            str = convertToUnSign3(str);
+            return str.ToLower();
         }
     }
 }
