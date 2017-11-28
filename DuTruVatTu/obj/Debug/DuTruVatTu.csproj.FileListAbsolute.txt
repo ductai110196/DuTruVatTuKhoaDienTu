@@ -470,3 +470,6 @@ C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDien
 C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu123\DuTruVatTu\obj\Debug\DuTruVatTu.csproj.CoreCompileInputs.cache
 C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu123\DuTruVatTu\obj\Debug\DuTruVatTu.dll
 C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu123\DuTruVatTu\obj\Debug\DuTruVatTu.pdb
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu123\DuTruVatTu\bin\CrystalDecisions.CrystalReports.Engine.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu123\DuTruVatTu\bin\CrystalDecisions.ReportSource.dll
+C:\Users\phuon\OneDrive\Đồ án\Chuyên ngành chuyên sâu\DuTruVatTuKhoaDienTu123\DuTruVatTu\bin\CrystalDecisions.Shared.dll
